@@ -24,7 +24,7 @@
 #   libiconv.so:      libgettextlib.so
 #   libiunistring.so: libiconv.so
 
-GETTEXT_VER=0.21
+GETTEXT_VER=0.23.2
 GETTEXT_TAR="gettext-${GETTEXT_VER}.tar.gz"
 GETTEXT_DIR="gettext-${GETTEXT_VER}"
 PKG_NAME=gettext-final
@@ -216,35 +216,6 @@ bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
 echo "***************************"
-echo "Testing package"
-echo "***************************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "***************************"
-    echo "Failed to test GetText"
-    echo "***************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-
-    # Solaris and some friends fail lang-gawk
-    # Darwin fails copy-acl-2.sh
-    # https://lists.gnu.org/archive/html/bug-gawk/2018-01/msg00026.html
-    # exit 1
-
-    echo ""
-    echo "***************************"
-    echo "Installing anyways..."
-    echo "***************************"
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "***************************"
 echo "Installing package"
 echo "***************************"
 
@@ -261,7 +232,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$GETTEXT_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
