@@ -5,7 +5,7 @@
 # This Wget is crippled, but allows bootstrapping a full Wget build.
 
 # Binaries
-WGET_TAR=wget-1.21.3.tar.gz
+WGET_TAR=wget-1.25.0.tar.gz
 UNISTR_TAR=libunistring-1.1.tar.gz
 SSL_TAR=openssl-1.0.2u.tar.gz
 
