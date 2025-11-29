@@ -89,7 +89,7 @@ echo "***************************"
 # Remove all the old shit from testing
 rm -rf ncurses-6.*
 
-if ! "${WGET}" -q -O "$NCURSES_TAR" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "wget" -q -O "$NCURSES_TAR" \
      "https://ftp.gnu.org/pub/gnu/ncurses/$NCURSES_TAR"
 then
     echo "Failed to download Ncurses"
