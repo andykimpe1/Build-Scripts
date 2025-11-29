@@ -4,7 +4,7 @@
 # This script builds GnuTLS and its dependencies from sources.
 
 PKG_NAME=nasm
-NASM_VER=3.0.1
+NASM_VER=3.01
 NASM_XZ=nasm-${NASM_VER}.tar.xz
 NASM_TAR=nasm-${NASM_VER}.tar.xz
 NASM_DIR=nasm-${NASM_VER}
@@ -151,15 +151,15 @@ echo "**********************"
 echo ""
 echo "${PKG_NAME} ${NASM_VER}..."
 
-if ! "${WGET}" -q -O "nasm-3.0.1.tar.xz" \
-     "https://www.nasm.us/pub/nasm/releasebuilds/3.0.1/nasm-3.0.1.tar.xz"
+if ! "${WGET}" -q -O "nasm-3.01.tar.xz" \
+     "https://www.nasm.us/pub/nasm/releasebuilds/3.01/nasm-3.01.tar.xz"
 then
     echo "Failed to download nasm"
     exit 1
 fi
 
-tar -xvf "nasm-3.0.1.tar.xz"
-cd "nasm-3.0.1"
+tar -xvf "nasm-3.01.tar.xz"
+cd "nasm-3.01"
 
 # Patches are created with 'diff -u' from the pkg root directory.
 if [[ -e ../patch/nasm.patch ]]; then
