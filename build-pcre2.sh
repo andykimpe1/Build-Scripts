@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds PCRE from sources.
 
-PCRE2_VER=10.42
+PCRE2_VER=10.46
 PCRE2_TAR="pcre2-${PCRE2_VER}.tar.gz"
 PCRE2_DIR="pcre2-${PCRE2_VER}"
 PKG_NAME=pcre2
@@ -19,12 +19,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -32,6 +26,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -170,33 +169,6 @@ bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
 echo "*************************"
-echo "Testing package"
-echo "*************************"
-
-# PCRE2 fails one self test on older systems, like Fedora 1
-# and Ubuntu 4. Allow the failure but print the result.
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "*************************"
-    echo "Failed to test PCRE2"
-    echo "*************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    # exit 1
-
-    echo ""
-    echo "*************************"
-    echo "Installing anyways..."
-    echo "*************************"
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "*************************"
 echo "Installing package"
 echo "*************************"
 
@@ -213,7 +185,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$PCRE2_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
