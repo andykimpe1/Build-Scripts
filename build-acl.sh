@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds libacl from sources.
 
-ACL_VER=2.2.53
+ACL_VER=2.3.2
 ACL_TAR=acl-${ACL_VER}.tar.gz
 ACL_DIR=acl-${ACL_VER}
 PKG_NAME=acl
