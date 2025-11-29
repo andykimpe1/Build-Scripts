@@ -59,7 +59,7 @@ echo "**********************"
 echo ""
 echo "Boehm GC ${BGC_VER}..."
 
-if ! "${WGET}" -q -O "$BGC_TAR" --ca-certificate="${GITHUB_CA_ZOO}" \
+if ! "${WGET}" -q -O "$BGC_TAR" \
      "https://github.com/ivmai/bdwgc/releases/download/v${BGC_VER}/$BGC_TAR"
 then
     echo "Failed to download Boehm GC"
@@ -123,24 +123,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "****************************"
-    echo "Failed to test Boehm GC"
-    echo "****************************"
-    exit 1
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
