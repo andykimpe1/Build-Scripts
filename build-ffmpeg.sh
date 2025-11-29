@@ -3,10 +3,9 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds GnuTLS and its dependencies from sources.
 
-GNUTLS_VER=3.7.10
-GNUTLS_XZ=gnutls-${GNUTLS_VER}.tar.xz
-GNUTLS_TAR=gnutls-${GNUTLS_VER}.tar
-GNUTLS_DIR=gnutls-${GNUTLS_VER}
+FFMPEG_VER=3.7.10
+FFMPEG_XZ=ffmpeg_${FFMPEG_VER}.orig.tar.xz
+FFMPEG_DIR=ffmpeg-${FFMPEG_VER}
 PKG_NAME=ffmpeg
 
 ###############################################################################
@@ -37,9 +36,9 @@ fi
 
 ###############################################################################
 
-if ! ./build-cacert.sh
+if ! ./build-gnutls.sh
 then
-    echo "Failed to install CA certs"
+    echo "Failed to build gnutls"
     exit 1
 fi
 
@@ -149,207 +148,76 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "GnuTLS ${GNUTLS_VER}..."
+echo "ffmpeg 4.4.6..."
 
-if ! "${WGET}" -q -O "$GNUTLS_XZ" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
-     "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/$GNUTLS_XZ"
+if ! "${WGET}" -q -O "$FFMPEG_XZ" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+     "https://launchpad.net/~savoury1/+archive/ubuntu/ffmpeg4/+sourcefiles/ffmpeg/7:4.4.6-0ubuntu1~22.04.sav2/$FFMPEG_XZ"
 then
-    echo "Failed to download GnuTLS"
+    echo "Failed to download ffmpeg"
     exit 1
 fi
 
-rm -rf "$GNUTLS_TAR" "$GNUTLS_DIR" &>/dev/null
-unxz "$GNUTLS_XZ" && tar -xf "$GNUTLS_TAR"
-cd "$GNUTLS_DIR"
+tar -xvf "$FFMPEG_XZ"
+cd "$FFMPEG_DIR"
 
 # Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ../patch/gnutls.patch ]]; then
+if [[ -e ../patch/ffmpeg.patch ]]; then
     echo ""
     echo "**********************"
     echo "Patching package"
     echo "**********************"
 
-    patch -u -p0 < ../patch/gnutls.patch
+    patch -u -p0 < ../patch/ffmpeg.patch
 fi
 
-# Fix sys_lib_dlsearch_path_spec
-bash "${INSTX_TOPDIR}/fix-configure.sh"
 
-IFS= find . -name 'Makefile.in' -print | while read -r file
-do
-    # Display filename, strip leading "./"
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    touch -a -m -r "$file" "$file.timestamp"
-    cp -p "$file" "$file.fixed"
-    sed -e 's/ -Wno-pedantic//g' "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-    touch -a -m -r "$file.timestamp" "$file"
-    rm -f "$file.timestamp"
-done
-
-IFS= find . -name 'Makefile.am' -print | while read -r file
-do
-    # Display filename, strip leading "./"
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    touch -a -m -r "$file" "$file.timestamp"
-    cp -p "$file" "$file.fixed"
-    sed -e 's/ -Wno-pedantic//g' "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-    touch -a -m -r "$file.timestamp" "$file"
-    rm -f "$file.timestamp"
-done
 
 echo ""
 echo "**********************"
 echo "Configuring package"
 echo "**********************"
 
-if [[ "${INSTX_DEBUG_MAP}" -eq 1 ]]; then
-    gnutls_cflags="${INSTX_CFLAGS} -fdebug-prefix-map=${PWD}=${INSTX_SRCDIR}/${GNUTLS_DIR}"
-    gnutls_cxxflags="${INSTX_CXXFLAGS} -fdebug-prefix-map=${PWD}=${INSTX_SRCDIR}/${GNUTLS_DIR}"
-    gnutls_ldflags="${INSTX_LDFLAGS}"
-else
-    gnutls_cflags="${INSTX_CFLAGS}"
-    gnutls_cxxflags="${INSTX_CXXFLAGS}"
-    gnutls_ldflags="${INSTX_LDFLAGS}"
-fi
-
-# Solaris is a tab bit stricter than libc
-if [[ "$IS_SOLARIS" -ne 0 ]]; then
-    # Don't use CPPFLAGS. Options will cross-pollinate into CXXFLAGS.
-    gnutls_cflags="${gnutls_cflags} -D_XOPEN_SOURCE=600 -std=gnu99"
-fi
-
-# Old VIA cpu's with Padlock Security Extensions.
-have_padlock=0
-if [[ -d /proc/cpuinfo ]]; then
-    have_padlock=$(grep -i -c -E 'rng_en|ace_en|ace2_en|phe_en|pmm_en' /proc/cpuinfo)
-fi
-
-CONFIG_OPTS=()
-if [[ "$have_padlock" -eq 0 ]]; then
-    CONFIG_OPTS+=("--disable-padlock")
-fi
-
-# gnutls.patch un-defines _Thread_local in random.c due to
-# PowerPC and old GCC. We need to disable threads here, too.
-if [[ "${OSX_10p5_OR_BELOW}" -eq 1 ]]; then
-    CONFIG_OPTS+=("--disable-threads")
-fi
-
 # We should probably include --disable-anon-authentication below
 
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
-    CFLAGS="${gnutls_cflags}" \
-    CXXFLAGS="${gnutls_cxxflags}" \
-    LDFLAGS="${gnutls_ldflags}" \
     LIBS="${INSTX_LDLIBS}" \
 ./configure \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
     --libdir="${INSTX_LIBDIR}" \
-    --enable-static \
-    --enable-shared \
-    --enable-seccomp-tests \
-    --enable-sha1-support \
-    --disable-guile \
-    --disable-ssl2-support \
-    --disable-ssl3-support \
-    --disable-doc \
-    --disable-full-test-suite \
-    --with-p11-kit \
-    --with-libregex \
-    --with-libiconv-prefix="${INSTX_PREFIX}" \
-    --with-libintl-prefix="${INSTX_PREFIX}" \
-    --with-libseccomp-prefix="${INSTX_PREFIX}" \
-    --with-libcrypto-prefix="${INSTX_PREFIX}" \
-    --with-unbound-root-key-file="$INSTX_ROOTKEY_FILE" \
-    --with-default-trust-store-file="$INSTX_CACERT_FILE" \
-    --with-default-trust-store-dir="$INSTX_CACERT_PATH" \
-    "${CONFIG_OPTS[@]}"
+    --pkg-config-flags="--static" \
+    --extra-cflags="-I/opt/ffmpeg4/include" \
+    --extra-ldflags="-L/opt/ffmpeg4/lib" \
+    --extra-libs="-lpthread -lm" \
+    --ld="g++" \
+    --bindir="/opt/ffmpeg4/bin" \
+    --libdir="/opt/ffmpeg4/lib" \
+    --enable-gpl \
+    --enable-gnutls \
+    --enable-libfdk-aac \
+    --enable-libfreetype \
+    --enable-libmp3lame \
+    --enable-libopus \
+    --enable-libx264 \
+    --enable-libx265 \
+    --enable-libvpx \
+    --enable-libvorbis \
+    --enable-libaom \
+    --enable-libass \
+    --enable-libdav1d \
+    --enable-libsvtav1 \
+    --enable-nonfree
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
     echo "**************************"
-    echo "Failed to configure GnuTLS"
+    echo "Failed to configure ffmpeg"
     echo "**************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     exit 1
 fi
 
-# Escape dollar sign for $ORIGIN in makefiles. Required so
-# $ORIGIN works in both configure tests and makefiles.
-bash "${INSTX_TOPDIR}/fix-makefiles.sh"
-
-IFS= find . -name 'Makefile' -print | while read -r file
-do
-    # Display filename, strip leading "./"
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    cp -p "$file" "$file.fixed"
-    sed -e 's/-Wtype-limits .*/-fno-common -Wall /g' \
-        -e 's/-fno-common .*/-fno-common -Wall /g' \
-        -e 's/ -Wno-pedantic//g' \
-        "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-done
-
-IFS= find ./tests -name 'Makefile' -print | while read -r file
-do
-    # Test suite does not compile with NDEBUG defined.
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    cp -p "$file" "$file.fixed"
-    sed -e 's/ -DNDEBUG//g' \
-        -e 's/ -Wno-pedantic//g' \
-        "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-done
-
-IFS= find . -name '*.la' -print | while read -r file
-do
-    # Display filename, strip leading "./"
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    cp -p "$file" "$file.fixed"
-    sed -e 's/-Wtype-limits .*/-fno-common -Wall /g' \
-        -e 's/-fno-common .*/-fno-common -Wall /g' \
-        -e 's/ -Wno-pedantic//g' \
-        "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-done
-
-IFS= find . -name '*.sh' -print | while read -r file
-do
-    # Display filename, strip leading "./"
-    this_file=$(echo "$file" | tr -s '/' | cut -c 3-)
-    echo "patching ${this_file}..."
-
-    cp -p "$file" "$file.fixed"
-    sed -e 's|#!/bin/sh|#!/usr/bin/env bash|g' "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-done
-
-if [[ "$IS_SOLARIS" -ne 0 ]]
-then
-    # Solaris netstat is different then GNU netstat
-    echo "patching common.sh..."
-    file=tests/scripts/common.sh
-
-    cp -p "$file" "$file.fixed"
-    sed -e 's/PFCMD -anl/PFCMD -an/g' "$file" > "$file.fixed"
-    mv "$file.fixed" "$file"
-fi
 
 echo ""
 echo "**********************"
@@ -361,7 +229,7 @@ if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
     echo "**********************"
-    echo "Failed to build GnuTLS"
+    echo "Failed to build ffmpeg"
     echo "**********************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
