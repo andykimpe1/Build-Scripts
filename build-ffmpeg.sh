@@ -53,7 +53,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-base.sh
+if ! ./build-x264.sh
 then
     echo "Failed to build GNU base packages"
     exit 1
@@ -188,7 +188,6 @@ echo "**********************"
 #    --enable-libopus \
 #    --enable-libvorbis \
 #    --enable-libvpx \
-#    --enable-libx264 \
 #    --enable-libx265 \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
@@ -204,6 +203,7 @@ echo "**********************"
     --ld="g++" \
     --bindir="/opt/ffmpeg4/bin" \
     --libdir="/opt/ffmpeg4/lib" \
+    --enable-libx264 \
     --enable-gpl \
     --enable-gnutls \
     --enable-libfreetype \
