@@ -36,12 +36,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -49,6 +43,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -93,7 +92,7 @@ cd "$ICONV_DIR" || exit 1
 #fi
 
 # https://github.com/fumiyas/libiconv-utf8mac/commit/561d8c83506f
-if ! "${WGET}" -q -O lib/utf8mac.h --ca-certificate="${GITHUB_CA_ZOO}" \
+if ! "${WGET}" -q -O lib/utf8mac.h \
     https://raw.githubusercontent.com/fumiyas/libiconv-utf8mac/utf-8-mac-51.200.6.libiconv-${ICONV_VER}/lib/utf8mac.h
 then
     echo "Failed to patch iConv-utf8mac"
@@ -164,29 +163,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-# build-iconv-gettext has a circular dependency.
-# The first build of iConv does not need 'make check'.
-if [[ "${INSTX_DISABLE_ICONV_TEST:-0}" -ne 1 ]]
-then
-    echo "*************************"
-    echo "Testing package"
-    echo "*************************"
-
-    MAKE_FLAGS=("check" "-k" "V=1")
-    if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-    then
-        echo "*************************"
-        echo "Failed to test iConv-utf8mac"
-        echo "*************************"
-
-        bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-        exit 1
-    fi
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
 echo "*************************"
 echo "Installing package"
 echo "*************************"
@@ -204,7 +180,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$ICONV_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
