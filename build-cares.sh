@@ -59,7 +59,7 @@ echo "**************************"
 echo ""
 echo "C-ares ${CARES_VER}..."
 
-if ! "${WGET}" -q -O "$CARES_TAR" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "$CARES_TAR" \
      "https://c-ares.haxx.se/download/$CARES_TAR"
 then
     echo "Failed to download c-ares"
@@ -191,7 +191,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$CARES_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
