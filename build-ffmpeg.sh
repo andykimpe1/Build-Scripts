@@ -36,6 +36,7 @@ fi
 
 ###############################################################################
 
+chmod +x ./*.sh
 if ! ./build-nasm.sh
 then
     echo "Failed to build nasm"
