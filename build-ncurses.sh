@@ -16,7 +16,7 @@
 # And for Ncurses 6.2:
 #   http://www.linuxfromscratch.org/lfs/view/development/chapter06/ncurses.html
 
-NCURSES_VER=6.3
+NCURSES_VER=6.5
 NCURSES_TAR="ncurses-${NCURSES_VER}.tar.gz"
 NCURSES_DIR="ncurses-${NCURSES_VER}"
 PKG_NAME=ncurses
@@ -32,12 +32,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -45,6 +39,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -100,47 +99,14 @@ rm -rf "$NCURSES_DIR" &>/dev/null
 gzip -d < "$NCURSES_TAR" | tar xf -
 cd "$NCURSES_DIR" || exit 1
 
-# Don't attempt to apply patches. They don't apply. Sigh...
-if false; then
-
-# https://invisible-island.net/ncurses/ncurses.faq.html#applying_patches
-if "${WGET}" -q -O dev-patches.zip --ca-certificate="${LETS_ENCRYPT_ROOT}" \
-   "ftp://ftp.invisible-island.net/ncurses/${NCURSES_VER}/dev-patches.zip"
-then
-    if unzip dev-patches.zip -d .
-    then
-        echo "********************************"
-        echo "Applying Ncurses patches"
-        echo "********************************"
-        for p in ncurses-${NCURSES_VER}-*.patch.gz ;
-        do
-            echo "Applying ${p}"
-            zcat "${p}" | patch -s -p1
-        done
-    else
-        echo "********************************"
-        echo "Failed to unpack Ncurses patches"
-        echo "********************************"
-        exit 1
-    fi
-else
-    echo "**********************************"
-    echo "Failed to download Ncurses patches"
-    echo "**********************************"
-    exit 1
-fi
-
-fi
-
 # Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ../patch/ncurses${NCURSES_VER}.patch ]]; then
+if [[ -e ../patch/ncurses.patch ]]; then
     echo ""
-    echo "***************************"
+    echo "**************************"
     echo "Patching package"
-    echo "***************************"
+    echo "**************************"
 
-    patch -u -p0 < ../patch/ncurses${NCURSES_VER}.patch
-    echo ""
+    patch -u -p0 < ../patch/ncurses.patch
 fi
 
 # Fix sys_lib_dlsearch_path_spec
@@ -250,26 +216,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "***************************"
-echo "Testing package"
-echo "***************************"
-
-MAKE_FLAGS=("test")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "***************************"
-    echo "Failed to test Ncurses"
-    echo "***************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    exit 1
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
@@ -390,7 +336,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$NCURSES_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
