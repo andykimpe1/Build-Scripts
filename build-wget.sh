@@ -31,6 +31,7 @@ fi
 
 if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$WGET_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
