@@ -5,9 +5,9 @@
 
 PKG_NAME=yasm
 YASM_VER=1.3.0
-YASM_XZ=${PKG_NAME}-${YASM_VER}.tar.xz
-YASM_TAR=${PKG_NAME}-${YASM_VER}.tar.xz
-YASM_DIR=${PKG_NAME}-${YASM_VER}
+YASM_XZ=yasm-${YASM_VER}.tar.xz
+YASM_TAR=yasm-${YASM_VER}.tar.xz
+YASM_DIR=yasm-${YASM_VER}
 
 ###############################################################################
 
