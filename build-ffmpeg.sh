@@ -185,7 +185,6 @@ echo "**********************"
     ASFLAGS="${INSTX_ASFLAGS}" \
     LIBS="${INSTX_LDLIBS}" \
 ./configure \
-    --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
     --libdir="${INSTX_LIBDIR}" \
     --pkg-config-flags="--static" \
