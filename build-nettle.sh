@@ -74,16 +74,16 @@ echo "**********************"
 echo ""
 echo "Nettle ${NETTLE_VER}..."
 
-if ! "${WGET}" -q -O "$NETTLE_TAR" \
+if ! "${WGET}" -q -O "nettle-3.8.1.tar.gz" \
      "https://ftp.gnu.org/gnu/nettle/nettle-3.8.1.tar.gz"
 then
     echo "Failed to download Nettle"
     exit 1
 fi
 
-rm -rf "$NETTLE_DIR" &>/dev/null
-gzip -d < "$NETTLE_TAR" | tar xf -
-cd "$NETTLE_DIR" || exit 1
+rm -rf "nettle-3.8.1" &>/dev/null
+tar -xf nettle-3.8.1.tar.gz
+cd "nettle-3.8.1" || exit 1
 
 if [[ -e ../patch/nettle.patch ]]; then
     echo ""
