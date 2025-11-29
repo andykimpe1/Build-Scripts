@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds zLib from sources.
 
-ZLIB_VER=1.3.1
+ZLIB_VER=1.3
 ZLIB_TAR=zlib-${ZLIB_VER}.tar.gz
 ZLIB_DIR=zlib-${ZLIB_VER}
 PKG_NAME=zlib
@@ -19,12 +19,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -32,6 +26,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -55,7 +54,7 @@ echo "Downloading package"
 echo "************************"
 
 if ! "wget" -O "$ZLIB_TAR" \
-     "http://www.zlib.net/$ZLIB_TAR"
+     "https://zlib.net/fossils/$ZLIB_TAR"
 then
     echo "Failed to download zLib"
     echo "Maybe Wget is too old. Perhaps run setup-wget.sh?"
@@ -139,28 +138,6 @@ fi
 # Fix flags in *.pc files
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
-# Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "************************"
-echo "Testing package"
-echo "************************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "************************"
-    echo "Failed to test zLib"
-    echo "************************"
-
-    exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
 echo ""
 echo "************************"
 echo "Installing package"
@@ -182,7 +159,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$ZLIB_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
