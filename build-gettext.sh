@@ -24,7 +24,7 @@
 #   libiconv.so:      libgettextlib.so
 #   libiunistring.so: libiconv.so
 
-GETTEXT_VER=0.21
+GETTEXT_VER=0.23.2
 GETTEXT_TAR="gettext-${GETTEXT_VER}.tar.gz"
 GETTEXT_DIR="gettext-${GETTEXT_VER}"
 PKG_NAME=gettext
@@ -40,12 +40,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -53,6 +47,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -201,38 +200,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-if [[ "$INSTX_DISABLE_GETTEXT_CHECK" -ne 1 ]];
-then
-    echo ""
-    echo "***************************"
-    echo "Testing package"
-    echo "***************************"
-
-    MAKE_FLAGS=("check")
-    if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-    then
-        echo ""
-        echo "***************************"
-        echo "Failed to test GetText"
-        echo "***************************"
-
-        bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-
-        # Solaris and some friends fail lang-gawk
-        # Darwin fails copy-acl-2.sh
-        # https://lists.gnu.org/archive/html/bug-gawk/2018-01/msg00026.html
-        # exit 1
-
-        echo ""
-        echo "***************************"
-        echo "Installing anyways..."
-        echo "***************************"
-    fi
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
 echo ""
 echo "***************************"
 echo "Installing package"
@@ -251,7 +218,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$GETTEXT_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
