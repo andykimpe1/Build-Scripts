@@ -245,7 +245,6 @@ bash "${INSTX_TOPDIR}/fix-runpath.sh"
     echo "**********************"
     echo "Installing anyways..."
     echo "**********************"
-fi
 
 # Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
