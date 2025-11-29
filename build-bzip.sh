@@ -34,8 +34,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
 fi
    
 if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
-   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
-   exit 0
+    ACTU_VER=$(cat "${INSTX_PKG_CACHE}/${PKG_NAME}")
+    if [ "$BZIP2_VER" == "$ACTU_VER" ]; then
+       echo "$PKG_NAME $ACTU_VER" is installed."
+       exit 0
+    fi
 fi
 
 ###############################################################################
