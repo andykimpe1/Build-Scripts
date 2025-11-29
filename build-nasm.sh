@@ -5,9 +5,9 @@
 
 PKG_NAME=nasm
 NASM_VER=3.0.1
-NASM_XZ=${PKG_NAME}-${NASM_VER}.tar.xz
-NASM_TAR=${NASM_XZ}
-NASM_DIR=${PKG_NAME}-${NASM_VER}
+NASM_XZ=nasm-${NASM_VER}.tar.xz
+NASM_TAR=nasm-${NASM_VER}.tar.xz
+NASM_DIR=nasm-${NASM_VER}
 
 ###############################################################################
 
