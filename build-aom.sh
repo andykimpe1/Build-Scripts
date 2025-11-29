@@ -189,9 +189,6 @@ echo "**********************"
     ASFLAGS="${INSTX_ASFLAGS}" \
     LIBS="${INSTX_LDLIBS}" \
     PATH="${INSTX_PREFIX}/bin:$PATH" \
-./configure \
-    --prefix="${INSTX_PREFIX}" \
-    --libdir="${INSTX_LIBDIR}" \
 cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTX_PREFIX}" -DENABLE_TESTS=OFF -DENABLE_NASM=on ../aom && \
 
 if [[ "$?" -ne 0 ]]; then
