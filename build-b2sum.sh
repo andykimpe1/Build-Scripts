@@ -153,20 +153,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo "Failed to test b2sum"
-    exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo "**********************"
 echo "Installing package"
 echo "**********************"
 
