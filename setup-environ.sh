@@ -213,6 +213,7 @@ fi
 
 # Strip duplicate, leading and trailing colons
 PATH=$(echo "$PATH" | tr -s ':' | ${SED} -e 's/^:\(.*\)/\1/' | ${SED} -e 's/:$//g')
+PATH=$PATH:$HOME/.build-scripts/wget/bin/
 export PATH
 
 # echo "New PATH: $PATH"
