@@ -27,13 +27,10 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         exit 1
     fi
 fi
-   
-if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
-    ACTU_VER=$(cat "${INSTX_PKG_CACHE}/${PKG_NAME}")
-    if [ "$WGET_VER" == "$ACTU_VER" ]; then
-       echo "$PKG_NAME $ACTU_VER" is installed."
-       exit 0
-    fi
+
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$WGET_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
 fi
 
 ###############################################################################
