@@ -24,13 +24,11 @@ $ ./setup-wget.sh
 ...
 $ INSTX_PREFIX="$HOME/.local"
 $ export INSTX_PREFIX="$HOME/.local"
-$ echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.profile
-$ echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.profile
+$ echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
+$ echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
 $ export PATH="$HOME/.local/bin:$HOME/.local/sbin:$PATH"
-$ echo 'if [ -d "$HOME/.local/sbin" ] ; then' >> $HOME/.profile
-$ echo '    PATH="$HOME/.local/sbin:$PATH"' >> $HOME/.profile
-$ echo '    export PATH="$HOME/.local/sbin:$PATH' >> $HOME/.profile
-$ echo 'fi' >> $HOME/.profile
+$ echo 'PATH="$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+$ echo 'export PATH="$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
 $ ./build-wget.sh
 ...
 ```
@@ -299,6 +297,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
