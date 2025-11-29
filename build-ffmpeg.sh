@@ -44,9 +44,9 @@ fi
 
 ###############################################################################
 
-if ! ./build-bzip.sh
+if ! ./build-yasm.sh
 then
-    echo "Failed to build Bzip2"
+    echo "Failed to build yasm"
     exit 1
 fi
 
