@@ -11,6 +11,9 @@ Some recipes only work on modern platforms. For example, GNU SIP Witch may not b
 Once you clone the repo you should perform a one-time setup. The setup installs updated CA certificates and builds a modern Wget. `setup-cacerts.sh` installs a local copy of 11 CA certificates in `$HOME/.build-scripts/cacerts`. They are used to download source code packages for programs and libraries. `setup-wget.sh` installs a local copy of `wget` in `$HOME/.build-scripts/wget`. It is a reduced-functionality version of Wget with only HTTPS, IPv4, IPv6 and large-file support. It is anemic but functional enough to download packages over HTTPS.
 
 ```
+#minimal dependency require
+$ sudo apt -y install build-essential texinfo
+# or sudo dnf -y install gcc gcc-c++ make texinfo
 $ ./setup-cacerts.sh
 ...
 
@@ -282,3 +285,4 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
