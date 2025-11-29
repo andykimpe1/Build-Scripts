@@ -204,7 +204,6 @@ echo "**********************"
     --enable-libx265 \
     --enable-libvpx \
     --enable-libvorbis \
-    --enable-libaom \
     --enable-libass \
     --enable-libdav1d \
     --enable-libsvtav1 \
