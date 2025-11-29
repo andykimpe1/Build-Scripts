@@ -12,11 +12,11 @@ Once you clone the repo you should perform a one-time setup. The setup installs 
 
 ```
 #minimal dependency require
-$ sudo apt -y install build-essential texinfo pkg-config
+$ sudo apt -y install build-essential texinfo pkg-config patch libtool
 # or
-$ sudo dnf -y install gcc gcc-c++ make texinfo pkg-config
+$ sudo dnf -y install gcc gcc-c++ make texinfo pkg-config patch libtool
 # or
-$ sudo zipper -y install gcc gcc-c++ make texinfo pkg-config
+$ sudo zipper -y install gcc gcc-c++ make texinfo pkg-config patch libtool
 $ ./setup-cacerts.sh
 ...
 
@@ -299,6 +299,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
