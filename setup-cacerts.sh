@@ -5,6 +5,7 @@
 # for other scripts and wget downloads over HTTPS.
 
 ###############################################################################
+chmod +x *.sh
 
 # setup-cacerts.sh does not source the environment, so we can't use the variables
 mkdir -p "$HOME/.build-scripts/cacert"
