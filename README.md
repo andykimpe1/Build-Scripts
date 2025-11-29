@@ -31,7 +31,7 @@ $ echo 'if [ -d "$HOME/.local/sbin" ] ; then' >> $HOME/.profile
 $ echo '    PATH="$HOME/.local/sbin:$PATH"' >> $HOME/.profile
 $ echo '    export PATH="$HOME/.local/sbin:$PATH' >> $HOME/.profile
 $ echo 'fi' >> $HOME/.profile
-$ PATH=$PATH:$HOME/.build-scripts/wget/bin/ ./build-wget.sh
+$ ./build-wget.sh
 ...
 ```
 
@@ -299,6 +299,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
