@@ -36,9 +36,9 @@ fi
 
 ###############################################################################
 
-if ! ./build-gnutls.sh
+if ! ./build-nasm.sh
 then
-    echo "Failed to build gnutls"
+    echo "Failed to build nasm"
     exit 1
 fi
 
