@@ -195,7 +195,7 @@ echo "**********************"
     --bindir="/opt/ffmpeg4/bin" \
     --libdir="/opt/ffmpeg4/lib" \
     --enable-gpl \
-    --enable-FFMPEG \
+    --enable-gnutls \
     --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
