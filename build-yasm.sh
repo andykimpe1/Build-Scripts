@@ -5,8 +5,8 @@
 
 PKG_NAME=yasm
 YASM_VER=1.3.0
-YASM_XZ=yasm-1.3.0.tar.xz
-YASM_TAR=yasm-1.3.0.tar.xz
+YASM_XZ=yasm-1.3.0.tar.gz
+YASM_TAR=yasm-1.3.0.tar.gz
 YASM_DIR=yasm-1.3.0
 
 ###############################################################################
@@ -151,15 +151,15 @@ echo "**********************"
 echo ""
 echo "${PKG_NAME} ${YASM_VER}..."
 
-if ! "${WGET}" -q -O "yasm-1.3.0.tar.xz" \
-     "https://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.xz"
+if ! "${WGET}" -q -O "$YASM_XZ" \
+     "https://www.tortall.net/projects/yasm/releases/$YASM_XZ"
 then
     echo "Failed to download YASM"
     exit 1
 fi
 
-tar -xvf "yasm-1.3.0.tar.xz"
-cd "yasm-1.3.0"
+tar -xvf "$YASM_XZ"
+cd "$YASM_DIR"
 
 # Patches are created with 'diff -u' from the pkg root directory.
 if [[ -e ../patch/YASM.patch ]]; then
