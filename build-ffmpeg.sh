@@ -179,7 +179,7 @@ echo "Configuring package"
 echo "**********************"
 
 # We should probably include --disable-anon-authentication below
-
+#    --enable-libass \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -204,7 +204,6 @@ echo "**********************"
     --enable-libx265 \
     --enable-libvpx \
     --enable-libvorbis \
-    --enable-libass \
     --enable-libdav1d \
     --enable-libsvtav1 \
     --enable-nonfree
