@@ -188,7 +188,7 @@ echo "**********************"
     ASFLAGS="${INSTX_ASFLAGS}" \
     LIBS="${INSTX_LDLIBS}" \
     PATH="${INSTX_PREFIX}/bin:$PATH" \
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTX_PREFIX}" -DENABLE_TESTS=OFF -DENABLE_NASM=on ../aom && \
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTX_PREFIX}" -DENABLE_TESTS=OFF -DENABLE_NASM=on $HOME/aom && \
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
@@ -273,7 +273,7 @@ echo "**************************************************************************
 ###############################################################################
 
 touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
-
+rm -rf $HOME/aom
 cd "${CURR_DIR}" || exit 1
 
 ###############################################################################
