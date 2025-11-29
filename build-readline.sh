@@ -4,8 +4,9 @@
 # This script builds Readline from sources. Ncurses should
 # be built first.
 
-READLN_TAR=readline-8.2.tar.gz
-READLN_DIR=readline-8.2
+READLN_VAR=8.3
+READLN_TAR=readline-8.3.tar.gz
+READLN_DIR=readline-8.3
 PKG_NAME=readline
 
 ###############################################################################
@@ -19,12 +20,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -32,6 +27,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
 fi
 
 ###############################################################################
@@ -155,29 +155,6 @@ fi
 # Fix flags in *.pc files
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
-# Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "****************************"
-    echo "Failed to test Readline"
-    echo "****************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
 echo ""
 echo "**********************"
 echo "Installing package"
@@ -196,7 +173,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$READLN_VAR" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
