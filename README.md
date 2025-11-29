@@ -22,6 +22,17 @@ $ ./setup-cacerts.sh
 
 $ ./setup-wget.sh
 ...
+$ INSTX_PREFIX="$HOME/.local"
+$ export INSTX_PREFIX="$HOME/.local"
+$ echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.profile
+$ echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.profile
+$ export PATH="$HOME/.local/bin:$HOME/.local/sbin:$PATH"
+$ echo 'if [ -d "$HOME/.local/sbin" ] ; then' >> $HOME/.profile
+$ echo '    PATH="$HOME/.local/sbin:$PATH"' >> $HOME/.profile
+$ echo '    export PATH="$HOME/.local/sbin:$PATH' >> $HOME/.profile
+$ echo 'fi' >> $HOME/.profile
+$ PATH=$PATH:$HOME/.build-scripts/wget/bin/ ./build-wget.sh
+...
 ```
 
 You can verify Wget bootstrap with the following commands.
@@ -288,6 +299,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
