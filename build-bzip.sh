@@ -36,6 +36,7 @@ fi
 
 if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$BZIP2_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -72,7 +73,7 @@ echo "****************************"
 echo ""
 echo "Bzip2 ${BZIP2_VER}..."
 
-if ! "wget" -q -O "$BZIP2_TAR" \
+if ! "${WGET}" -q -O "$BZIP2_TAR" \
      "ftp://sourceware.org/pub/bzip2/$BZIP2_TAR"
 then
     echo "Failed to download Bzip"
