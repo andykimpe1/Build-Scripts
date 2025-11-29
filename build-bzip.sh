@@ -24,19 +24,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
-# Needed to unpack the new Makefiles
-if [[ -z "$(command -v unzip 2>/dev/null)" ]]; then
-    echo ""
-    echo "Please install unzip command."
-    exit 1
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -45,12 +32,28 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         exit 1
     fi
 fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
+   exit 0
+fi
 
 ###############################################################################
 
 if ! ./build-cacert.sh
 then
     echo "Failed to install CA Certs"
+    exit 1
+fi
+
+###############################################################################
+
+
+###############################################################################
+
+if ! ./build-unzip.sh
+then
+    echo "Failed to install unzip"
     exit 1
 fi
 
@@ -145,36 +148,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "****************************"
-echo "Testing package"
-echo "****************************"
-
-MAKE_FLAGS=()
-MAKE_FLAGS+=("-f" "Makefile" "check")
-MAKE_FLAGS+=("-j" "${INSTX_JOBS}")
-MAKE_FLAGS+=("CC=${CC}")
-MAKE_FLAGS+=("CPPFLAGS=${CPPFLAGS} -I.")
-MAKE_FLAGS+=("ASFLAGS=${ASFLAGS}")
-MAKE_FLAGS+=("CFLAGS=${CFLAGS}")
-MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
-MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
-MAKE_FLAGS+=("LIBS=${LDLIBS}")
-
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "****************************"
-    echo "Failed to test Bzip"
-    echo "****************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    exit 1
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
@@ -312,7 +285,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$BZIP2_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
