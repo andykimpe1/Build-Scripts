@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds zLib from sources.
 
-ZLIB_VER=1.3
+ZLIB_VER=1.3.1
 ZLIB_TAR=zlib-${ZLIB_VER}.tar.gz
 ZLIB_DIR=zlib-${ZLIB_VER}
 PKG_NAME=zlib
@@ -54,7 +54,7 @@ echo "************************"
 echo "Downloading package"
 echo "************************"
 
-if ! "${WGET}" -O "$ZLIB_TAR" \
+if ! "wget" -O "$ZLIB_TAR" \
      "http://www.zlib.net/$ZLIB_TAR"
 then
     echo "Failed to download zLib"
