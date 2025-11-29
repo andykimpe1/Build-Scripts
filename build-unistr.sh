@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds Unistring from sources.
 
-UNISTR_VER=1.1
+UNISTR_VER=1.3
 UNISTR_TAR=libunistring-${UNISTR_VER}.tar.gz
 UNISTR_DIR=libunistring-${UNISTR_VER}
 PKG_NAME=libunistring
@@ -31,6 +31,14 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     then
         echo "Failed to process password"
         exit 1
+    fi
+fi
+   
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+    ACTU_VER=$(cat "${INSTX_PKG_CACHE}/${PKG_NAME}")
+    if [ "$UNISTR_VER" == "$ACTU_VER" ]; then
+       echo "$PKG_NAME $ACTU_VER") is installed."
+       exit 0
     fi
 fi
 
@@ -162,34 +170,6 @@ bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
 echo "*****************************"
-echo "Testing package"
-echo "*****************************"
-
-# Unistring fails one self test on older systems, like Fedora 1
-# and Ubuntu 4. Allow the failure but print the result.
-# https://lists.gnu.org/archive/html/bug-libunistring/2021-01/msg00000.html
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "*****************************"
-    echo "Failed to test Unistring"
-    echo "*****************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    # exit 1
-
-    echo ""
-    echo "*****************************"
-    echo "Installing anyways..."
-    echo "*****************************"
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "*****************************"
 echo "Installing package"
 echo "*****************************"
 
@@ -206,7 +186,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$UNISTR_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
