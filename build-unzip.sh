@@ -31,6 +31,7 @@ fi
 
 if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$UNZIP_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -80,8 +81,8 @@ if ! "$HOME/.build-scripts/wget/bin/wget" -q -O "$UNZIP_TAR" \
      "https://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/$UNZIP_TAR"
 then
     echo "Failed to download Unzip"
-fi
     exit 1
+fi
 
 rm -rf "$UNZIP_DIR" &>/dev/null
 gzip -d < "$UNZIP_TAR" | tar xf -
