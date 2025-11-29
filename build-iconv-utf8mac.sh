@@ -74,7 +74,7 @@ echo "*************************"
 echo ""
 echo "iConv-utf8mac ${ICONV_VER}..."
 
-if ! "${WGET}" -q -O "$ICONV_TAR" --ca-certificate="${GITHUB_CA_ZOO}" \
+if ! "wget" -q -O "$ICONV_TAR" \
      "https://github.com/noloader/libiconv-utf8mac/releases/download/v1_16/$ICONV_TAR"
 then
     echo "Failed to download iConv-utf8mac"
