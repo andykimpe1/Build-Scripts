@@ -183,6 +183,7 @@ echo "**********************"
 #    --enable-libdav1d \
 #    --enable-libsvtav1 \
 #    --enable-libfdk-aac \
+#    --enable-libmp3lame \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -200,7 +201,6 @@ echo "**********************"
     --enable-gpl \
     --enable-gnutls \
     --enable-libfreetype \
-    --enable-libmp3lame \
     --enable-libopus \
     --enable-libx264 \
     --enable-libx265 \
