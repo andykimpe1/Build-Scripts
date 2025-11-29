@@ -180,6 +180,8 @@ echo "**********************"
 
 # We should probably include --disable-anon-authentication below
 #    --enable-libass \
+#    --enable-libdav1d \
+#    --enable-libsvtav1 \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -204,8 +206,6 @@ echo "**********************"
     --enable-libx265 \
     --enable-libvpx \
     --enable-libvorbis \
-    --enable-libdav1d \
-    --enable-libsvtav1 \
     --enable-nonfree
 
 if [[ "$?" -ne 0 ]]; then
