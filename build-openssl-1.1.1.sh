@@ -92,7 +92,7 @@ echo "***************************"
 echo ""
 echo "OpenSSL ${OPENSSL_VER}..."
 
-if ! "${WGET}" -q -O "$OPENSSL_TAR" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "$OPENSSL_TAR" \
      "https://www.openssl.org/source/$OPENSSL_TAR"
 then
     echo "Failed to download OpenSSL"
