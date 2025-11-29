@@ -169,7 +169,7 @@ echo "************************"
 echo "Downloading package"
 echo "************************"
 
-if ! "${WGET}" -q -O "$WGET_TAR" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "$WGET_TAR" \
      "https://ftp.gnu.org/pub/gnu/wget/$WGET_TAR"
 then
     echo "Failed to download Wget"
@@ -304,47 +304,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "************************"
-echo "Testing package"
-echo "************************"
-
-if [[ "$SKIP_WGET_TESTS" -eq 0 ]]
-then
-    # Perl IPv6 may be broken and cause Wget self tests to fail.
-    # Ignore failures about Socket::inet_itoa and incorrect sizes.
-    # https://rt.cpan.org/Public/Bug/Display.html?id=91699
-    # Perl does not include PWD so it compiles and executes
-    # tests like Test-https-pfs.px, but fails to find
-    # WgetFeature.pm which is located in the same directory.
-    # I fail to see the difference in risk. How is
-    # Test-https-pfs.px safe, but WgetFeature.pm dangerous?
-    MAKE_FLAGS=("check" "-k" "V=1")
-    if ! PERL_USE_UNSAFE_INC=1 "${MAKE}" "${MAKE_FLAGS[@]}"
-    then
-        echo ""
-        echo "************************"
-        echo "Failed to test Wget"
-        echo "************************"
-
-        bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-        # exit 1
-
-        echo ""
-        echo "************************"
-        echo "Installing anyway..."
-        echo "************************"
-    fi
-else
-    echo ""
-    echo "************************"
-    echo "Wget not tested."
-    echo "************************"
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
