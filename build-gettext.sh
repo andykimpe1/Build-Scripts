@@ -48,10 +48,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         exit 1
     fi
 fi
-   
-if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
-   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
-   exit 0
+
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$GETTEXT_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
