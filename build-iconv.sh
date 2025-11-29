@@ -50,18 +50,20 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
     then
         echo "Failed to process password"
         exit 1
+    fi
+fi
+
+if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+    ACTU_VER=$(cat "${INSTX_PKG_CACHE}/${PKG_NAME}")
+    if [ "$ICONV_VER" == "$ACTU_VER" ]; then
+       echo "$PKG_NAME $ACTU_VER" is installed."
+       exit 0
     fi
 fi
 
