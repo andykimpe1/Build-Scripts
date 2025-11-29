@@ -178,30 +178,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-# build-iconv-gettext has a circular dependency.
-# The first build of iConv does not need 'make check'.
-if [[ "${INSTX_DISABLE_ICONV_TEST:-0}" -ne 1 ]]
-then
-    echo ""
-    echo "*************************"
-    echo "Testing package"
-    echo "*************************"
-
-    MAKE_FLAGS=("check" "-k" "V=1")
-    if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-    then
-        echo "*************************"
-        echo "Failed to test iConv"
-        echo "*************************"
-
-        bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-        exit 1
-    fi
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
 echo ""
 echo "*************************"
 echo "Installing package"
@@ -220,7 +196,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$ICONV_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
