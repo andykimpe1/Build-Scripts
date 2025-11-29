@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Written and placed in public domain by Jeffrey Walton
-# This script builds GnuTLS and its dependencies from sources.
+# This script builds FFMPEG and its dependencies from sources.
 
-FFMPEG_VER=3.7.10
+FFMPEG_VER=4.4.6
 FFMPEG_XZ=ffmpeg_${FFMPEG_VER}.orig.tar.xz
 FFMPEG_DIR=ffmpeg-${FFMPEG_VER}
 PKG_NAME=ffmpeg
@@ -133,7 +133,7 @@ fi
 
 echo ""
 echo "========================================"
-echo "================ GnuTLS ================"
+echo "================ FFMPEG ================"
 echo "========================================"
 
 if [[ -z "$(command -v datefudge 2>/dev/null)" ]]
@@ -151,7 +151,7 @@ echo "**********************"
 echo ""
 echo "ffmpeg 4.4.6..."
 
-if ! "${WGET}" -q -O "$FFMPEG_XZ" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "$FFMPEG_XZ" \
      "https://launchpad.net/~savoury1/+archive/ubuntu/ffmpeg4/+sourcefiles/ffmpeg/7:4.4.6-0ubuntu1~22.04.sav2/$FFMPEG_XZ"
 then
     echo "Failed to download ffmpeg"
@@ -196,7 +196,7 @@ echo "**********************"
     --bindir="/opt/ffmpeg4/bin" \
     --libdir="/opt/ffmpeg4/lib" \
     --enable-gpl \
-    --enable-gnutls \
+    --enable-FFMPEG \
     --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
@@ -253,7 +253,7 @@ if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
     echo "**********************"
-    echo "Failed to test GnuTLS"
+    echo "Failed to test FFMPEG"
     echo "**********************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
@@ -277,11 +277,11 @@ MAKE_FLAGS=("install")
 if [[ -n "${SUDO_PASSWORD}" ]]; then
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S bash "${INSTX_TOPDIR}/fix-permissions.sh" "${INSTX_PREFIX}"
-    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S bash "${INSTX_TOPDIR}/copy-sources.sh" "${PWD}" "${INSTX_SRCDIR}/${GNUTLS_DIR}"
+    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S bash "${INSTX_TOPDIR}/copy-sources.sh" "${PWD}" "${INSTX_SRCDIR}/${FFMPEG_DIR}"
 else
     "${MAKE}" "${MAKE_FLAGS[@]}"
     bash "${INSTX_TOPDIR}/fix-permissions.sh" "${INSTX_PREFIX}"
-    bash "${INSTX_TOPDIR}/copy-sources.sh" "${PWD}" "${INSTX_SRCDIR}/${GNUTLS_DIR}"
+    bash "${INSTX_TOPDIR}/copy-sources.sh" "${PWD}" "${INSTX_SRCDIR}/${FFMPEG_DIR}"
 fi
 
 ###############################################################################
@@ -302,7 +302,7 @@ cd "${CURR_DIR}" || exit 1
 # Set to false to retain artifacts
 if true;
 then
-    ARTIFACTS=("$GNUTLS_XZ" "$GNUTLS_TAR" "$GNUTLS_DIR")
+    ARTIFACTS=("$FFMPEG_XZ" "$FFMPEG_TAR" "$FFMPEG_DIR")
     for artifact in "${ARTIFACTS[@]}"; do
         rm -rf "$artifact"
     done
