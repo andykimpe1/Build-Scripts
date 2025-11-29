@@ -53,17 +53,17 @@ fi
 
 ###############################################################################
 
-if ! ./build-base.sh
+if ! ./build-nasm.sh
 then
-    echo "Failed to build GNU base packages"
+    echo "Failed to build nasm"
     exit 1
 fi
 
 ###############################################################################
 
-if ! ./build-libtasn1.sh
+if ! ./build-cmake.sh
 then
-    echo "Failed to build libtasn1"
+    echo "Failed to build cmake"
     exit 1
 fi
 
