@@ -185,8 +185,8 @@
  AC_TRY_LINK([extern char tgetent(void);],tgetent();,,
  LIBS="-ltermlib $olibs"
  AC_MSG_CHECKING(libtermlib)
---- a/examples/rlfe/configure
-+++ b/examples/rlfe/configure
+--- examples/rlfe/configure
++++ examples/rlfe/configure
 @@ -4448,9 +4448,9 @@ if ac_fn_c_try_link "$LINENO"
  then :
  
