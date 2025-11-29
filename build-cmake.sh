@@ -51,7 +51,7 @@ echo "*************************"
 echo ""
 echo "CMake ${CMAKE_VER}..."
 
-if ! "${WGET}" -q -O "$CMAKE_TAR" --ca-certificate="${GITHUB_CA_ZOO}" \
+if ! "${WGET}" -q -O "$CMAKE_TAR" \
      "https://github.com/Kitware/CMake/releases/download/v$CMAKE_VER/$CMAKE_TAR"
 then
     echo "Failed to download CMake"
@@ -62,6 +62,16 @@ rm -rf "$CMAKE_DIR" &>/dev/null
 gzip -d < "$CMAKE_TAR" | tar xf -
 
 cd "$CMAKE_DIR" || exit 1
+
+# Patches are created with 'diff -u' from the pkg root directory.
+if [[ -e ../patch/cmake.patch ]]; then
+    echo ""
+    echo "**************************"
+    echo "Patching package"
+    echo "**************************"
+
+    patch -u -p0 < ../patch/cmake.patch
+fi
 
 echo ""
 echo "*************************"
