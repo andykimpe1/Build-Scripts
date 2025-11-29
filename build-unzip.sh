@@ -27,10 +27,10 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         exit 1
     fi
 fi
-   
-if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
-   echo "$PKG_NAME $(cat "${INSTX_PKG_CACHE}/${PKG_NAME}") is installed."
-   exit 0
+
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$UNZIP_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
 fi
 
 ###############################################################################
@@ -95,7 +95,7 @@ echo "************************"
 if ! "${WGET}" -q -O "$UNZIP_TAR" \
      "https://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/$UNZIP_TAR"
 then
-    echo "Failed to download Wget"
+    echo "Failed to download Unzip"
     exit 1
 fi
 
@@ -129,24 +129,20 @@ else
     unzip_cxxflags="${INSTX_CXXFLAGS}"
 fi
 
-    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
-    CPPFLAGS="${INSTX_CPPFLAGS}" \
-    ASFLAGS="${INSTX_ASFLAGS}" \
-    CFLAGS="${unzip_cflags}" \
-    CXXFLAGS="${unzip_cxxflags}" \
-    LDFLAGS="${INSTX_LDFLAGS}" \
-    LIBS="${INSTX_LDLIBS}" \
-./configure \
-    --build="${AUTOCONF_BUILD}" \
-    --prefix="${INSTX_PREFIX}" \
-    --libdir="${INSTX_LIBDIR}" \
-    --sysconfdir="${INSTX_PREFIX}/etc"
+    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}"
+    CPPFLAGS="${INSTX_CPPFLAGS}"
+    ASFLAGS="${INSTX_ASFLAGS}"
+    CFLAGS="${unzip_cflags}"
+    CXXFLAGS="${unzip_cxxflags}"
+    LDFLAGS="${INSTX_LDFLAGS}"
+    LIBS="${INSTX_LDLIBS}"
+echo no configure
 
 if [[ "$?" -ne 0 ]]
 then
     echo ""
     echo "************************"
-    echo "Failed to configure Wget"
+    echo "Failed to configure Unzip"
     echo "************************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
@@ -162,12 +158,13 @@ echo "************************"
 echo "Building package"
 echo "************************"
 
-MAKE_FLAGS=("-j" "${INSTX_JOBS}" "V=1")
+
+MAKE_FLAGS=("-f" "unix/Makefile" "-j" "${INSTX_JOBS}" "V=1")
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
     echo "************************"
-    echo "Failed to build Wget"
+    echo "Failed to build Unzip"
     echo "************************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
@@ -185,7 +182,7 @@ echo "************************"
 echo "Installing package"
 echo "************************"
 
-MAKE_FLAGS=("install")
+MAKE_FLAGS=( "-f" "unix/Makefile" "prefix=${INSTX_PREFIX}" "install")
 if [[ -n "${SUDO_PASSWORD}" ]]; then
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S bash "${INSTX_TOPDIR}/copy-sources.sh" "${PWD}" "${INSTX_SRCDIR}/${UNZIP_DIR}"
