@@ -31,7 +31,7 @@ fi
 if [ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
     ACTU_VER=$(cat "${INSTX_PKG_CACHE}/${PKG_NAME}")
     if [ "$UNISTR_VER" == "$ACTU_VER" ]; then
-       echo "$PKG_NAME $ACTU_VER") is installed."
+       echo "$PKG_NAME $ACTU_VER" is installed."
        exit 0
     fi
 fi
