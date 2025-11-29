@@ -160,10 +160,9 @@ then
 fi
 
 mkdir -p "$AOM_DIR"
-mkdir -p- aom
-cd aom
-tar -xvf "../$AOM_XZ"
-cd "../$AOM_DIR"
+mkdir -p- $HOME/aom
+tar -xvf "../$AOM_XZ" -C $HOME/aom
+cd "$AOM_DIR"
 
 # Patches are created with 'diff -u' from the pkg root directory.
 if [[ -e ../patch/ffmpeg.patch ]]; then
