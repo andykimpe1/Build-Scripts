@@ -6,6 +6,7 @@
 # Daniel turned over reigns to other developers.
 
 CARES_VER=1.18.1
+CARES_VER2=$(echo ${CARES_VER} | sed "s|\.|_|g")
 CARES_TAR=c-ares-${CARES_VER}.tar.gz
 CARES_DIR=c-ares-${CARES_VER}
 PKG_NAME=c-ares
@@ -21,12 +22,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -34,6 +29,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$CARES_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -60,7 +60,7 @@ echo ""
 echo "C-ares ${CARES_VER}..."
 
 if ! "${WGET}" -q -O "$CARES_TAR" \
-     "https://c-ares.haxx.se/download/$CARES_TAR"
+     "https://github.com/c-ares/c-ares/releases/download/cares-$CARES_VER2/$CARES_TAR"
 then
     echo "Failed to download c-ares"
     exit 1
