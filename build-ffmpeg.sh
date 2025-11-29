@@ -182,6 +182,7 @@ echo "**********************"
 #    --enable-libass \
 #    --enable-libdav1d \
 #    --enable-libsvtav1 \
+#    --enable-libfdk-aac \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -198,7 +199,6 @@ echo "**********************"
     --libdir="/opt/ffmpeg4/lib" \
     --enable-gpl \
     --enable-gnutls \
-    --enable-libfdk-aac \
     --enable-libfreetype \
     --enable-libmp3lame \
     --enable-libopus \
