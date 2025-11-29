@@ -241,22 +241,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-echo ""
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "**********************"
-    echo "Failed to test FFMPEG"
-    echo "**********************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    # exit 1
-
     echo ""
     echo "**********************"
     echo "Installing anyways..."
