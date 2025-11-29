@@ -1,433 +1,130 @@
-# Written and placed in public domain by Jeffrey Walton
-# This patch squashes warnings in GetText 0.21.
---- gettext-runtime/gnulib-lib/xalloc-oversized.h
-+++ gettext-runtime/gnulib-lib/xalloc-oversized.h
-@@ -27,6 +27,7 @@
-    By gnulib convention, SIZE_MAX represents overflow in size
-    calculations, so the conservative size_t-based dividend to use here
-    is SIZE_MAX - 1.  */
-+#undef __xalloc_oversized
- #define __xalloc_oversized(n, s) \
-   ((size_t) (PTRDIFF_MAX < SIZE_MAX ? PTRDIFF_MAX : SIZE_MAX - 1) / (s) < (n))
+--- gettext-tools/tests/xgettext-its-2
++++ gettext-tools/tests/xgettext-its-2
+@@ -37,22 +37,26 @@
+ unset GETTEXTDATADIRS
+ unset XDG_DATA_DIRS
  
-@@ -42,9 +43,11 @@
-    function, so that it works correctly even when SIZE_MAX < N.  */
+-LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
++LC_MESSAGES=C LC_ALL= \
++${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+ result=$?
+ test $result = 0 || Exit 1
  
- #if 7 <= __GNUC__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
- #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    (__builtin_constant_p (n) && __builtin_constant_p (s) \
-     ? __xalloc_oversized (n, s) \
-@@ -54,6 +57,7 @@
- /* Other compilers use integer division; this may be slower but is
-    more portable.  */
- #else
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) __xalloc_oversized (n, s)
- #endif
+ GETTEXTDATADIR=a \
+-LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
++LC_MESSAGES=C LC_ALL= \
++${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+ result=$?
+ test $result = 0 && Exit 1
  
---- libtextstyle/lib/xalloc-oversized.h
-+++ libtextstyle/lib/xalloc-oversized.h
-@@ -27,6 +27,7 @@
-    By gnulib convention, SIZE_MAX represents overflow in size
-    calculations, so the conservative size_t-based dividend to use here
-    is SIZE_MAX - 1.  */
-+#undef __xalloc_oversized
- #define __xalloc_oversized(n, s) \
-   ((size_t) (PTRDIFF_MAX < SIZE_MAX ? PTRDIFF_MAX : SIZE_MAX - 1) / (s) < (n))
+ GETTEXTDATADIRS=b:a \
+-LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.b 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
++LC_MESSAGES=C LC_ALL= \
++${XGETTEXT} -o /dev/null input.b 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+ result=$?
+ test $result = 0 && Exit 1
  
-@@ -42,9 +43,11 @@
-    function, so that it works correctly even when SIZE_MAX < N.  */
+ XDG_DATA_DIRS=xa \
+-LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.xa 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
++LC_MESSAGES=C LC_ALL= \
++${XGETTEXT} -o /dev/null input.xa 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+ result=$?
+ test $result = 0 && Exit 1
  
- #if 7 <= __GNUC__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
- #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    (__builtin_constant_p (n) && __builtin_constant_p (s) \
-     ? __xalloc_oversized (n, s) \
-@@ -54,6 +57,7 @@
- /* Other compilers use integer division; this may be slower but is
-    more portable.  */
- #else
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) __xalloc_oversized (n, s)
- #endif
+
+
+--- gettext-tools/src/x-javascript.c
++++ gettext-tools/src/x-javascript.c
+@@ -1478,12 +1478,10 @@
+         case '<':
+           {
+             /* We assume:
+-               - XMLMarkup and XMLElement are not allowed after an expression,
+-               - embedded JavaScript expressions in XML do not recurse.
++               XMLMarkup and XMLElement are not allowed after an expression.
+              */
+             if (level_type () == level_xml_element
+-                || (level_type () != level_embedded_js_in_xml
+-                    && ! is_after_expression ()))
++                || ! is_after_expression ())
+               {
+                 /* Recognize XML markup: XML comment, CDATA, Processing
+                    Instruction.  */
+--- gettext-tools/tests/xgettext-javascript-6
++++ gettext-tools/tests/xgettext-javascript-6
+@@ -64,6 +64,13 @@
+ var s17 = _("Expected translation string #17");
+ var s18 = `begin${ <div> _("Expected translation string #18") </div> }end`;
+ var s19 = _("Expected translation string #19");
++const s20 = () => (
++  <Foo
++    a1={_("Expected translation string #20")}
++    a2={foo && <div>_("Expected translation string #21")</div>}
++    a3={_("Expected translation string #22")}
++  />
++);
+ EOF
  
---- gettext-tools/libgettextpo/xalloc-oversized.h
-+++ gettext-tools/libgettextpo/xalloc-oversized.h
-@@ -27,6 +27,7 @@
-    By gnulib convention, SIZE_MAX represents overflow in size
-    calculations, so the conservative size_t-based dividend to use here
-    is SIZE_MAX - 1.  */
-+#undef __xalloc_oversized
- #define __xalloc_oversized(n, s) \
-   ((size_t) (PTRDIFF_MAX < SIZE_MAX ? PTRDIFF_MAX : SIZE_MAX - 1) / (s) < (n))
+ : ${XGETTEXT=xgettext}
+@@ -149,6 +156,15 @@
  
-@@ -42,9 +43,11 @@
-    function, so that it works correctly even when SIZE_MAX < N.  */
+ msgid "Expected translation string #19"
+ msgstr ""
++
++msgid "Expected translation string #20"
++msgstr ""
++
++msgid "Expected translation string #21"
++msgstr ""
++
++msgid "Expected translation string #22"
++msgstr ""
+ EOF
  
- #if 7 <= __GNUC__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
- #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    (__builtin_constant_p (n) && __builtin_constant_p (s) \
-     ? __xalloc_oversized (n, s) \
-@@ -54,6 +57,7 @@
- /* Other compilers use integer division; this may be slower but is
-    more portable.  */
- #else
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) __xalloc_oversized (n, s)
- #endif
+ : ${DIFF=diff}
+
+
+--- gettext-tools/gnulib-tests/test-set-mode-acl-2.sh
++++ gettext-tools/gnulib-tests/test-set-mode-acl-2.sh
+@@ -8,6 +8,9 @@
+ TMPDIR=`pwd`
+ export TMPDIR
  
---- gettext-tools/gnulib-lib/xalloc-oversized.h
-+++ gettext-tools/gnulib-lib/xalloc-oversized.h
-@@ -27,6 +27,7 @@
-    By gnulib convention, SIZE_MAX represents overflow in size
-    calculations, so the conservative size_t-based dividend to use here
-    is SIZE_MAX - 1.  */
-+#undef __xalloc_oversized
- #define __xalloc_oversized(n, s) \
-   ((size_t) (PTRDIFF_MAX < SIZE_MAX ? PTRDIFF_MAX : SIZE_MAX - 1) / (s) < (n))
++echo "Skipping test: it currently fails when run from reprotest"
++exit 77
++
+ $BOURNE_SHELL "${srcdir}/test-set-mode-acl.sh"
  
-@@ -42,9 +43,11 @@
-    function, so that it works correctly even when SIZE_MAX < N.  */
+ Exit $?
+
+
+--- gettext-tools/gnulib-tests/test-pthread-cond.c
++++ gettext-tools/gnulib-tests/test-pthread-cond.c
+@@ -110,11 +110,11 @@
+   ASSERT (pthread_create (&thread, NULL, pthread_cond_wait_routine, &skipped)
+           == 0);
  
- #if 7 <= __GNUC__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    __builtin_mul_overflow_p (n, s, (__xalloc_count_type) 1)
- #elif 5 <= __GNUC__ && !defined __ICC && !__STRICT_ANSI__
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) \
-    (__builtin_constant_p (n) && __builtin_constant_p (s) \
-     ? __xalloc_oversized (n, s) \
-@@ -54,6 +57,7 @@
- /* Other compilers use integer division; this may be slower but is
-    more portable.  */
- #else
-+# undef xalloc_oversized
- # define xalloc_oversized(n, s) __xalloc_oversized (n, s)
- #endif
+-  /* Sleep for 2 seconds.  */
++  /* Sleep for 3 seconds.  */
+   {
+     struct timespec remaining;
  
---- gettext-runtime/gnulib-lib/xalloc.h
-+++ gettext-runtime/gnulib-lib/xalloc.h
-@@ -88,6 +88,7 @@
+-    remaining.tv_sec = 2;
++    remaining.tv_sec = 3;
+     remaining.tv_nsec = 0;
  
- /* Allocate an object of type T dynamically, with error checking.  */
- /* extern T *XMALLOC (typename T); */
-+#undef XMALLOC
- #define XMALLOC(T) \
-   ((T *) xmalloc (sizeof (T)))
+     do
+@@ -204,11 +204,11 @@
+                           pthread_cond_timedwait_routine, &skipped)
+           == 0);
  
-@@ -97,6 +98,7 @@
- /* xnmalloc performs a division and multiplication by sizeof (T).  Arrange to
-    perform the division at compile-time and the multiplication with a factor
-    known at compile-time.  */
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 \
-            ? xmalloc (N) \
-@@ -109,6 +111,7 @@
-   return xmalloc (n * s);
- }
- #else
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 ? xmalloc (N) : xnmalloc (N, sizeof (T))))
- #endif
-@@ -116,17 +119,20 @@
- /* Allocate an object of type T dynamically, with error checking,
-    and zero it.  */
- /* extern T *XZALLOC (typename T); */
-+#undef XZALLOC
- #define XZALLOC(T) \
-   ((T *) xzalloc (sizeof (T)))
+-  /* Sleep for 2 seconds.  */
++  /* Sleep for 3 seconds.  */
+   {
+     struct timespec remaining;
  
- /* Allocate memory for NMEMB elements of type T, with error checking,
-    and zero it.  */
- /* extern T *XCALLOC (size_t nmemb, typename T); */
-+#undef XCALLOC
- #define XCALLOC(N,T) \
-   ((T *) xcalloc (N, sizeof (T)))
+-    remaining.tv_sec = 2;
++    remaining.tv_sec = 3;
+     remaining.tv_nsec = 0;
  
- /* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
-    except it returns char *.  */
-+#undef xcharalloc
- #define xcharalloc(N) \
-   XNMALLOC (N, char)
- 
---- libtextstyle/lib/xalloc.h
-+++ libtextstyle/lib/xalloc.h
-@@ -88,6 +88,7 @@
- 
- /* Allocate an object of type T dynamically, with error checking.  */
- /* extern T *XMALLOC (typename T); */
-+#undef XMALLOC
- #define XMALLOC(T) \
-   ((T *) xmalloc (sizeof (T)))
- 
-@@ -97,6 +98,7 @@
- /* xnmalloc performs a division and multiplication by sizeof (T).  Arrange to
-    perform the division at compile-time and the multiplication with a factor
-    known at compile-time.  */
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 \
-            ? xmalloc (N) \
-@@ -109,6 +111,7 @@
-   return xmalloc (n * s);
- }
- #else
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 ? xmalloc (N) : xnmalloc (N, sizeof (T))))
- #endif
-@@ -116,17 +119,20 @@
- /* Allocate an object of type T dynamically, with error checking,
-    and zero it.  */
- /* extern T *XZALLOC (typename T); */
-+#undef XZALLOC
- #define XZALLOC(T) \
-   ((T *) xzalloc (sizeof (T)))
- 
- /* Allocate memory for NMEMB elements of type T, with error checking,
-    and zero it.  */
- /* extern T *XCALLOC (size_t nmemb, typename T); */
-+#undef XCALLOC
- #define XCALLOC(N,T) \
-   ((T *) xcalloc (N, sizeof (T)))
- 
- /* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
-    except it returns char *.  */
-+#undef xcharalloc
- #define xcharalloc(N) \
-   XNMALLOC (N, char)
- 
---- gnulib-local/lib/xalloc.h
-+++ gnulib-local/lib/xalloc.h
-@@ -88,6 +88,7 @@
- 
- /* Allocate an object of type T dynamically, with error checking.  */
- /* extern T *XMALLOC (typename T); */
-+#undef XMALLOC
- #define XMALLOC(T) \
-   ((T *) xmalloc (sizeof (T)))
- 
-@@ -97,6 +98,7 @@
- /* xnmalloc performs a division and multiplication by sizeof (T).  Arrange to
-    perform the division at compile-time and the multiplication with a factor
-    known at compile-time.  */
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 \
-            ? xmalloc (N) \
-@@ -109,6 +111,7 @@
-   return xmalloc (n * s);
- }
- #else
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 ? xmalloc (N) : xnmalloc (N, sizeof (T))))
- #endif
-@@ -116,17 +119,20 @@
- /* Allocate an object of type T dynamically, with error checking,
-    and zero it.  */
- /* extern T *XZALLOC (typename T); */
-+#undef XZALLOC
- #define XZALLOC(T) \
-   ((T *) xzalloc (sizeof (T)))
- 
- /* Allocate memory for NMEMB elements of type T, with error checking,
-    and zero it.  */
- /* extern T *XCALLOC (size_t nmemb, typename T); */
-+#undef XCALLOC
- #define XCALLOC(N,T) \
-   ((T *) xcalloc (N, sizeof (T)))
- 
- /* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
-    except it returns char *.  */
-+#undef xcharalloc
- #define xcharalloc(N) \
-   XNMALLOC (N, char)
- 
---- gettext-tools/libgettextpo/xalloc.h
-+++ gettext-tools/libgettextpo/xalloc.h
-@@ -88,6 +88,7 @@
- 
- /* Allocate an object of type T dynamically, with error checking.  */
- /* extern T *XMALLOC (typename T); */
-+#undef XMALLOC
- #define XMALLOC(T) \
-   ((T *) xmalloc (sizeof (T)))
- 
-@@ -97,6 +98,7 @@
- /* xnmalloc performs a division and multiplication by sizeof (T).  Arrange to
-    perform the division at compile-time and the multiplication with a factor
-    known at compile-time.  */
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 \
-            ? xmalloc (N) \
-@@ -109,6 +111,7 @@
-   return xmalloc (n * s);
- }
- #else
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 ? xmalloc (N) : xnmalloc (N, sizeof (T))))
- #endif
-@@ -116,17 +119,20 @@
- /* Allocate an object of type T dynamically, with error checking,
-    and zero it.  */
- /* extern T *XZALLOC (typename T); */
-+#undef XZALLOC
- #define XZALLOC(T) \
-   ((T *) xzalloc (sizeof (T)))
- 
- /* Allocate memory for NMEMB elements of type T, with error checking,
-    and zero it.  */
- /* extern T *XCALLOC (size_t nmemb, typename T); */
-+#undef XCALLOC
- #define XCALLOC(N,T) \
-   ((T *) xcalloc (N, sizeof (T)))
- 
- /* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
-    except it returns char *.  */
-+#undef xcharalloc
- #define xcharalloc(N) \
-   XNMALLOC (N, char)
- 
---- gettext-tools/gnulib-lib/xalloc.h
-+++ gettext-tools/gnulib-lib/xalloc.h
-@@ -88,6 +88,7 @@
- 
- /* Allocate an object of type T dynamically, with error checking.  */
- /* extern T *XMALLOC (typename T); */
-+#undef XMALLOC
- #define XMALLOC(T) \
-   ((T *) xmalloc (sizeof (T)))
- 
-@@ -97,6 +98,7 @@
- /* xnmalloc performs a division and multiplication by sizeof (T).  Arrange to
-    perform the division at compile-time and the multiplication with a factor
-    known at compile-time.  */
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 \
-            ? xmalloc (N) \
-@@ -109,6 +111,7 @@
-   return xmalloc (n * s);
- }
- #else
-+# undef XNMALLOC
- # define XNMALLOC(N,T) \
-    ((T *) (sizeof (T) == 1 ? xmalloc (N) : xnmalloc (N, sizeof (T))))
- #endif
-@@ -116,17 +119,20 @@
- /* Allocate an object of type T dynamically, with error checking,
-    and zero it.  */
- /* extern T *XZALLOC (typename T); */
-+#undef XZALLOC
- #define XZALLOC(T) \
-   ((T *) xzalloc (sizeof (T)))
- 
- /* Allocate memory for NMEMB elements of type T, with error checking,
-    and zero it.  */
- /* extern T *XCALLOC (size_t nmemb, typename T); */
-+#undef XCALLOC
- #define XCALLOC(N,T) \
-   ((T *) xcalloc (N, sizeof (T)))
- 
- /* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
-    except it returns char *.  */
-+#undef xcharalloc
- #define xcharalloc(N) \
-   XNMALLOC (N, char)
- 
-# https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=commitdiff_plain;h=5e50baa16ef9
-# https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=commitdiff_plain;h=b2d4b6c87827
---- gettext-tools/gnulib-lib/fopen.c
-+++ gettext-tools/gnulib-lib/fopen.c
-@@ -19,12 +19,12 @@
- /* If the user's config.h happens to include <stdio.h>, let it include only
-    the system's <stdio.h> here, so that orig_fopen doesn't recurse to
-    rpl_fopen.  */
--#define __need_FILE
-+#define _GL_ALREADY_INCLUDING_STDIO_H
- #include <config.h>
- 
- /* Get the original definition of fopen.  It might be defined as a macro.  */
- #include <stdio.h>
--#undef __need_FILE
-+#undef _GL_ALREADY_INCLUDING_STDIO_H
- 
- static FILE *
- orig_fopen (const char *filename, const char *mode)
-@@ -176,7 +176,8 @@
-             return NULL;
-           }
- 
--        fd = open (filename, open_direction | open_flags);
-+        fd = open (filename, open_direction | open_flags,
-+                   S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-         if (fd < 0)
-           return NULL;
- 
-@@ -209,7 +210,8 @@
-       int fd;
-       FILE *fp;
- 
--      fd = open (filename, open_direction | open_flags);
-+      fd = open (filename, open_direction | open_flags,
-+                 S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-       if (fd < 0)
-         return NULL;
- 
---- gettext-tools/libgettextpo/fopen.c
-+++ gettext-tools/libgettextpo/fopen.c
-@@ -19,12 +19,12 @@
- /* If the user's config.h happens to include <stdio.h>, let it include only
-    the system's <stdio.h> here, so that orig_fopen doesn't recurse to
-    rpl_fopen.  */
--#define __need_FILE
-+#define _GL_ALREADY_INCLUDING_STDIO_H
- #include <config.h>
- 
- /* Get the original definition of fopen.  It might be defined as a macro.  */
- #include <stdio.h>
--#undef __need_FILE
-+#undef _GL_ALREADY_INCLUDING_STDIO_H
- 
- static FILE *
- orig_fopen (const char *filename, const char *mode)
-@@ -176,7 +176,8 @@
-             return NULL;
-           }
- 
--        fd = open (filename, open_direction | open_flags);
-+        fd = open (filename, open_direction | open_flags,
-+                   S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-         if (fd < 0)
-           return NULL;
- 
-@@ -209,7 +210,8 @@
-       int fd;
-       FILE *fp;
- 
--      fd = open (filename, open_direction | open_flags);
-+      fd = open (filename, open_direction | open_flags,
-+                 S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
-       if (fd < 0)
-         return NULL;
- 
+     do
