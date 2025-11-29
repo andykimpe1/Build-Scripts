@@ -55,15 +55,15 @@ fi
 
 if ! ./build-x264.sh
 then
-    echo "Failed to build GNU base packages"
+    echo "Failed to build x264"
     exit 1
 fi
 
 ###############################################################################
 
-if ! ./build-libtasn1.sh
+if ! ./build-x265.sh
 then
-    echo "Failed to build libtasn1"
+    echo "Failed to build x265"
     exit 1
 fi
 
@@ -188,7 +188,6 @@ echo "**********************"
 #    --enable-libopus \
 #    --enable-libvorbis \
 #    --enable-libvpx \
-#    --enable-libx265 \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -204,6 +203,7 @@ echo "**********************"
     --bindir="/opt/ffmpeg4/bin" \
     --libdir="/opt/ffmpeg4/lib" \
     --enable-libx264 \
+    --enable-libx265 \
     --enable-gpl \
     --enable-gnutls \
     --enable-libfreetype \
