@@ -180,6 +180,7 @@ echo "**********************"
 
 # We should probably include --disable-anon-authentication below
 
+./autogen.sh
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
