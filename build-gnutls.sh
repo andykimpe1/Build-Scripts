@@ -152,7 +152,7 @@ echo ""
 echo "GnuTLS ${GNUTLS_VER}..."
 
 if ! "wget" -q -O "$GNUTLS_XZ" \
-     "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.6/$GNUTLS_XZ"
+     "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.7/$GNUTLS_XZ"
 then
     echo "Failed to download GnuTLS"
     exit 1
