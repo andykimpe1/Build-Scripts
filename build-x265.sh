@@ -3,10 +3,10 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds FFMPEG and its dependencies from sources.
 
-X264_VER=stable
-X264_XZ=x264_${X264_VER}.orig.tar.xz
-X264_DIR=x264-${X264_VER}
-PKG_NAME=x264
+X265_VER=stable
+X265_XZ=x265_${X265_VER}.orig.tar.xz
+X265_DIR=x264-${X265_VER}
+PKG_NAME=x265
 
 ###############################################################################
 
