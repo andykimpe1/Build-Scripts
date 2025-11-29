@@ -75,7 +75,7 @@ echo ""
 echo "Nettle ${NETTLE_VER}..."
 
 if ! "${WGET}" -q -O "$NETTLE_TAR" \
-     "https://ftp.gnu.org/gnu/nettle/$NETTLE_TAR"
+     "https://ftp.gnu.org/gnu/nettle/nettle-3.8.1.tar.gz"
 then
     echo "Failed to download Nettle"
     exit 1
