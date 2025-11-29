@@ -160,7 +160,7 @@ then
 fi
 
 mkdir -p "$AOM_DIR"
-mkdir -p- $HOME/aom
+mkdir -p $HOME/aom
 tar -xvf "$AOM_XZ" -C $HOME/aom
 cd "$AOM_DIR"
 
