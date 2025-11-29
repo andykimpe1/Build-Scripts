@@ -185,6 +185,7 @@ echo "**********************"
 #    --enable-libfdk-aac \
 #    --enable-libmp3lame \
 #    --enable-libopus \
+#    --enable-libvorbis \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -205,7 +206,6 @@ echo "**********************"
     --enable-libx264 \
     --enable-libx265 \
     --enable-libvpx \
-    --enable-libvorbis \
     --enable-nonfree
 
 if [[ "$?" -ne 0 ]]; then
