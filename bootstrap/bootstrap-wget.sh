@@ -13,7 +13,7 @@ SSL_TAR=openssl-1.0.2u.tar.gz
 BOOTSTRAP_DIR=$(pwd)
 PATCH_DIR="$(pwd)/../patch"
 
-WGET_DIR=wget-1.21.3
+WGET_DIR=wget-1.25.0
 UNISTR_DIR=libunistring-1.1
 SSL_DIR=openssl-1.0.2u
 
@@ -122,7 +122,7 @@ if [[ "$IS_AMD64" -ne 0 && "$HAVE_INT128" -ne 0 ]]; then
     OPT_INT128="enable-ec_nistp_64_gcc_128"
 fi
 
-# OpenSSL does not honor no-dso. Needed by Unistring and Wget.
+# OpenSSL does not honor no-dso. Needed by Unistring and .
 OPENSSL_LIBS="$LIBDIR/libssl.a $LIBDIR/libcrypto.a"
 UNISTRING_LIBS="$LIBDIR/libunistring.a"
 
