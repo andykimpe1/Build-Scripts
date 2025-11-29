@@ -179,6 +179,7 @@ echo "Configuring package"
 echo "**********************"
 
 # We should probably include --disable-anon-authentication below
+#    --enable-aom \
 #    --enable-libass \
 #    --enable-libdav1d \
 #    --enable-libsvtav1 \
@@ -187,6 +188,8 @@ echo "**********************"
 #    --enable-libopus \
 #    --enable-libvorbis \
 #    --enable-libvpx \
+#    --enable-libx264 \
+#    --enable-libx265 \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
@@ -204,8 +207,6 @@ echo "**********************"
     --enable-gpl \
     --enable-gnutls \
     --enable-libfreetype \
-    --enable-libx264 \
-    --enable-libx265 \
     --enable-nonfree
 
 if [[ "$?" -ne 0 ]]; then
