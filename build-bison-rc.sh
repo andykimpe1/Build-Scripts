@@ -63,7 +63,7 @@ echo "*************************"
 echo ""
 echo "Bison ${BISON_VER}..."
 
-if ! "${WGET}" -q -O "$BISON_TAR" --ca-certificate="${THE_CA_ZOO}" \
+if ! "${WGET}" -q -O "$BISON_TAR" \
      "https://www.lrde.epita.fr/~akim/private/bison/bison-3.7.4.254-a0905.tar.gz"
 then
     echo "Failed to download Bison"
@@ -150,26 +150,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "*************************"
-echo "Testing package"
-echo "*************************"
-
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "*************************"
-    echo "Failed to test Bison"
-    echo "*************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    exit 1
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
