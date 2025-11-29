@@ -65,28 +65,6 @@ echo "========================================"
 echo "================= Unzip ================="
 echo "========================================"
 
-# Optional. For Solaris see https://community.oracle.com/thread/1915569.
-SKIP_WGET_TESTS=0
-if [[ -z "$(command -v perl 2>/dev/null)" ]]; then
-    SKIP_WGET_TESTS=1
-else
-    if ! perl -MHTTP::Daemon -e1 2>/dev/null
-    then
-         echo ""
-         echo "Wget requires Perl's HTTP::Daemon. Skipping Wget self tests."
-         echo "To fix this issue, please install HTTP-Daemon."
-         SKIP_WGET_TESTS=1
-    fi
-
-    if ! perl -MHTTP::Request -e1 2>/dev/null
-    then
-         echo ""
-         echo "Wget requires Perl's HTTP::Request. Skipping Wget self tests."
-         echo "To fix this issue, please install HTTP-Request or HTTP-Message."
-         SKIP_WGET_TESTS=1
-    fi
-fi
-
 echo ""
 echo "************************"
 echo "Downloading package"
@@ -96,8 +74,14 @@ if ! "${WGET}" -q -O "$UNZIP_TAR" \
      "https://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/$UNZIP_TAR"
 then
     echo "Failed to download Unzip"
-    exit 1
 fi
+
+if ! "$HOME/.build-scripts/wget/bin/wget" -q -O "$UNZIP_TAR" \
+     "https://sourceforge.net/projects/infozip/files/UnZip%206.x%20%28latest%29/UnZip%206.0/$UNZIP_TAR"
+then
+    echo "Failed to download Unzip"
+fi
+    exit 1
 
 rm -rf "$UNZIP_DIR" &>/dev/null
 gzip -d < "$UNZIP_TAR" | tar xf -
@@ -159,7 +143,7 @@ echo "Building package"
 echo "************************"
 
 
-MAKE_FLAGS=("-f" "unix/Makefile" "-j" "${INSTX_JOBS}" "V=1")
+MAKE_FLAGS=("-f" "unix/Makefile" "-j" "${INSTX_JOBS}" "generic")
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
