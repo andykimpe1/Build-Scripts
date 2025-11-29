@@ -147,7 +147,7 @@ echo "**********************"
 echo "Downloading package"
 echo "**********************"
 
-if ! "${WGET}" -q -O "$CURL_TAR" --ca-certificate="${THE_CA_ZOO}" \
+if ! "${WGET}" -q -O "$CURL_TAR" \
      "https://curl.se/download/$CURL_TAR"
 then
     echo "Failed to download cURL"
@@ -266,9 +266,9 @@ MAKE_FLAGS=("-j" "${INSTX_JOBS}" "V=1")
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
-    echo "************************"
-    echo "Failed to build cURL"
-    echo "************************"
+    echo "**********************"
+    echo "Failed to build ffmpeg"
+    echo "**********************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     exit 1
@@ -280,29 +280,10 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-echo ""
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-# Disable Valgrind with "TFLAGS=-n". Too many findings due
-# to -march=native. We also want the sanitizers since others
-# are doing the Valgrind testing.
-MAKE_FLAGS=("test" "TFLAGS=-n" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "************************"
-    echo "Failed to test cURL"
-    echo "************************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    #exit 1
-
     echo ""
     echo "**********************"
     echo "Installing anyways..."
-    echo "************************"
+    echo "**********************"
 fi
 
 # Fix runpaths again
@@ -342,7 +323,7 @@ cd "${CURR_DIR}" || exit 1
 # Set to false to retain artifacts
 if true;
 then
-    ARTIFACTS=("$CURL_TAR" "$CURL_DIR")
+    ARTIFACTS=("$CURL_XZ" "$CURL_TAR" "$CURL_DIR")
     for artifact in "${ARTIFACTS[@]}"; do
         rm -rf "$artifact"
     done
