@@ -188,7 +188,8 @@ echo "**********************"
 ./configure \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
-    --libdir="${INSTX_LIBDIR}"
+    --libdir="${INSTX_LIBDIR}" \
+    --enable-lto
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
