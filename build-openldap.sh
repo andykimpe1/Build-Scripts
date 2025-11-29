@@ -68,14 +68,14 @@ fi
 
 ###############################################################################
 
-if [[ "$IS_ALPINE" -ne 0 ]] && [[ -z "$(command -v soelim 2>/dev/null)" ]]
-then
-    if ! ./build-mandoc.sh
-    then
-        echo "Failed to build Mandoc"
-        exit 1
-    fi
-fi
+#if [[ "$IS_ALPINE" -ne 0 ]] && [[ -z "$(command -v soelim 2>/dev/null)" ]]
+#then
+#    if ! ./build-mandoc.sh
+#    then
+#        echo "Failed to build Mandoc"
+#        exit 1
+#    fi
+#fi
 
 ###############################################################################
 
