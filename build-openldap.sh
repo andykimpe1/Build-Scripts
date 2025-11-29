@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds OpenLDAP from sources.
 
-LDAP_VER=2.6.2
+LDAP_VER=2.6.10
 LDAP_TAR="openldap-${LDAP_VER}.tgz"
 LDAP_DIR="openldap-${LDAP_VER}"
 PKG_NAME=openldap
@@ -106,7 +106,7 @@ if [[ -e ../patch/openldap.patch ]]; then
     echo "Patching package"
     echo "****************************"
 
-    patch -u -p0 < ../patch/openldap.patch
+    #patch -u -p0 < ../patch/openldap.patch
 fi
 
 # Fix sys_lib_dlsearch_path_spec
