@@ -93,7 +93,7 @@ echo "libxml2 ${XML2_VER}..."
 # To view the FTP listing, curl ftp://xmlsoft.org/libxml2/
 # Also see https://mail.gnome.org/archives/xml/2022-January/msg00011.html.
 
-if ! "${WGET}" -q -O "${XML2_XZ}" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "${XML2_XZ}" \
      "https://download.gnome.org/sources/libxml2/${XML2_URL}/${XML2_XZ}"
 then
     echo "Failed to download Grep"
