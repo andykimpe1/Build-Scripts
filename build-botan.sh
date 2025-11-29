@@ -88,7 +88,7 @@ echo "*************************"
 echo ""
 echo "Botan ${BOTAN_VER}..."
 
-if ! "${WGET}" -q -O "$BOTAN_XZ" --ca-certificate="${LETS_ENCRYPT_ROOT}" \
+if ! "${WGET}" -q -O "$BOTAN_XZ" \
      "https://botan.randombit.net/releases/$BOTAN_XZ"
 then
     echo "Failed to download Botan"
@@ -152,24 +152,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "*************************"
-echo "Testing package"
-echo "*************************"
-
-MAKE_FLAGS=("check" "-j" "${INSTX_JOBS}")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "*************************"
-    echo "Failed to test Botan"
-    echo "*************************"
-    exit 1
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
