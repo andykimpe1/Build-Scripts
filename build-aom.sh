@@ -5,8 +5,6 @@
 
 PKG_NAME=aom
 AOM_VER=3.13.1
-AOM_XZ=d772e334cc724105040382a977ebb10dfd393293.tar.gz
-AOM_TAR=d772e334cc724105040382a977ebb10dfd393293.tar.gz
 AOM_DIR=${PKG_NAME}-${AOM_VER}
 
 ###############################################################################
@@ -20,12 +18,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -33,6 +25,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$WGET_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -54,7 +51,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-base.sh
+if ! ./build-git.sh
 then
     echo "Failed to build GNU base packages"
     exit 1
@@ -134,7 +131,7 @@ fi
 
 echo ""
 echo "========================================"
-echo "================ FFMPEG ================"
+echo "================ AOM ================"
 echo "========================================"
 
 if [[ -z "$(command -v datefudge 2>/dev/null)" ]]
@@ -150,32 +147,19 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "ffmpeg 4.4.6..."
+echo "aom..."
 
-if ! "${WGET}" -q -O "$AOM_XZ" \
-     "https://aomedia.googlesource.com/aom/+archive/$AOM_XZ"
-then
-    echo "Failed to download ffmpeg"
-    exit 1
-fi
-
+#if ! "${WGET}" -q -O "$AOM_XZ" \
+#     "https://aomedia.googlesource.com/aom/+archive/$AOM_XZ"
+#then
+#    echo "Failed to download ffmpeg"
+#    exit 1
+#fi
+git -C aom pull 2> /dev/null || git clone --depth 1 https://aomedia.googlesource.com/aom $HOME/aom
 mkdir -p "$AOM_DIR"
-mkdir -p $HOME/aom
-tar -xvf "$AOM_XZ" -C $HOME/aom
+#mkdir -p $HOME/aom
+#tar -xvf "$AOM_XZ" -C $HOME/aom
 cd "$AOM_DIR"
-
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ../patch/ffmpeg.patch ]]; then
-    echo ""
-    echo "**********************"
-    echo "Patching package"
-    echo "**********************"
-
-    patch -u -p0 < ../patch/ffmpeg.patch
-fi
-
-
-
 echo ""
 echo "**********************"
 echo "Configuring package"
@@ -183,12 +167,12 @@ echo "**********************"
 
 # We should probably include --disable-anon-authentication below
 
-    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
-    CPPFLAGS="${INSTX_CPPFLAGS}" \
-    ASFLAGS="${INSTX_ASFLAGS}" \
-    LIBS="${INSTX_LDLIBS}" \
+    #CPPFLAGS="${INSTX_CPPFLAGS}" \
+    #LIBS="${INSTX_LDLIBS}" \
+    #ASFLAGS="${INSTX_ASFLAGS}" \
+    #PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     PATH="${INSTX_PREFIX}/bin:$PATH" \
-cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTX_PREFIX}" -DENABLE_TESTS=OFF -DENABLE_NASM=on $HOME/aom && \
+cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="${INSTX_PREFIX}" -DENABLE_TESTS=OFF -DENABLE_NASM=on $HOME/aom
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
@@ -247,7 +231,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$AOM_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 rm -rf $HOME/aom
 cd "${CURR_DIR}" || exit 1
 
