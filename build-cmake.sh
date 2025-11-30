@@ -3,7 +3,7 @@
 # Written and placed in public domain by Jeffrey Walton
 # This script builds CMake and its dependencies from sources.
 
-CMAKE_VER=3.31.6
+CMAKE_VER=4.2.0
 CMAKE_TAR=cmake-${CMAKE_VER}.tar.gz
 CMAKE_DIR=cmake-${CMAKE_VER}
 PKG_NAME=cmake
@@ -26,6 +26,11 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$CMAKE_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -180,7 +185,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$CMAKE_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
