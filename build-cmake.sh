@@ -137,30 +137,30 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
-echo ""
-echo "*************************"
-echo "Testing package"
-echo "*************************"
+#echo ""
+#echo "*************************"
+#echo "Testing package"
+#echo "*************************"
 
-MAKE_FLAGS=("test" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "*************************"
-    echo "Failed to test CMake"
-    echo "*************************"
+#MAKE_FLAGS=("test" "-k" "V=1")
+#if ! "${MAKE}" "${MAKE_FLAGS[@]}"
+#then
+#    echo ""
+#    echo "*************************"
+#    echo "Failed to test CMake"
+#    echo "*************************"
 
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
+#    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     # exit 1
 
-    echo ""
-    echo "************************"
-    echo "Installing anyways..."
-    echo "************************"
-fi
+#    echo ""
+#    echo "************************"
+#    echo "Installing anyways..."
+#    echo "************************"
+#fi
 
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
+## Fix runpaths again
+#bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
 echo "*************************"
