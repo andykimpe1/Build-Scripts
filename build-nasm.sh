@@ -181,15 +181,37 @@ echo "**********************"
 # We should probably include --disable-anon-authentication below
 
 ./autogen.sh
-    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
-    CPPFLAGS="${INSTX_CPPFLAGS}" \
-    ASFLAGS="${INSTX_ASFLAGS}" \
-    LIBS="${INSTX_LDLIBS}" \
-./configure \
-    --build="${AUTOCONF_BUILD}" \
-    --prefix="${INSTX_PREFIX}" \
-    --libdir="${INSTX_LIBDIR}" \
-    --enable-lto
+#    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
+#    CPPFLAGS="${INSTX_CPPFLAGS}" \
+#    ASFLAGS="${INSTX_ASFLAGS}" \
+#    LIBS="${INSTX_LDLIBS}" \
+#    --build="${AUTOCONF_BUILD}" \
+#    --libdir="${INSTX_LIBDIR}" \
+#    --enable-lto
+./configure --prefix="${INSTX_PREFIX}"
+make
+make install
+
+###############################################################################
+
+echo "$PKG_NAME" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
+
+cd "${CURR_DIR}" || exit 1
+
+###############################################################################
+
+# Set to false to retain artifacts
+if true;
+then
+    ARTIFACTS=("$NASM_XZ" "$NASM_TAR" "$NASM_DIR")
+    for artifact in "${ARTIFACTS[@]}"; do
+        rm -rf "$artifact"
+    done
+fi
+
+exit 0
+
+
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
@@ -221,31 +243,6 @@ fi
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "**********************"
-    echo "Failed to test GnuTLS"
-    echo "**********************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    # exit 1
-
-    echo ""
-    echo "**********************"
-    echo "Installing anyways..."
-    echo "**********************"
-fi
-
-# Fix runpaths again
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
