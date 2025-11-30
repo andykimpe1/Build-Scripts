@@ -19,12 +19,6 @@ if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
     fi
 fi
 
-if [[ -e "${INSTX_PKG_CACHE}/${PKG_NAME}" ]]; then
-    echo ""
-    echo "$PKG_NAME is already installed."
-    exit 0
-fi
-
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     if ! source ./setup-password.sh
@@ -32,6 +26,12 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$PSL_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
 fi
 
 ###############################################################################
@@ -78,7 +78,7 @@ echo "**********************"
 echo "Downloading package"
 echo "**********************"
 
-if ! "${WGET}" -q -O "$PSL_TAR" --ca-certificate="${GITHUB_CA_ZOO}" \
+if ! "${WGET}" -q -O "$PSL_TAR" \
      "https://github.com/rockdaboot/libpsl/releases/download/$PSL_VER/$PSL_TAR"
 then
     echo "Failed to download libpsl"
@@ -147,7 +147,7 @@ mkdir -p list
 #   https://publicsuffix.org/list/public_suffix_list.dat,
 #   rather than any other VCS sites. Pulling from any other
 #   URL is not guaranteed to be supported.
-if ! "${WGET}" -q -O "list/public_suffix_list.dat" --ca-certificate="${THE_CA_ZOO}" \
+if ! "${WGET}" -q -O "list/public_suffix_list.dat"O}" \
      "https://publicsuffix.org/list/public_suffix_list.dat"
 then
     echo "Failed to update Public Suffix List (PSL)"
@@ -217,7 +217,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$PSL_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
