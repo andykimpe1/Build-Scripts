@@ -147,7 +147,7 @@ mkdir -p list
 #   https://publicsuffix.org/list/public_suffix_list.dat,
 #   rather than any other VCS sites. Pulling from any other
 #   URL is not guaranteed to be supported.
-if ! "${WGET}" -q -O "list/public_suffix_list.dat"O}" \
+if ! "${WGET}" -q -O "list/public_suffix_list.dat" \
      "https://publicsuffix.org/list/public_suffix_list.dat"
 then
     echo "Failed to update Public Suffix List (PSL)"
