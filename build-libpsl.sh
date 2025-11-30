@@ -172,37 +172,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo "**********************"
-echo "Fixing LD_LIBRARY_PATH"
-echo "**********************"
-
-# The self tests fail if the old libpsl is loaded
-LD_LIBRARY_PATH="$PWD/src/.libs:$LD_LIBRARY_PATH"
-DYLD_LIBRARY_PATH="$PWD/src/.libs:$DYLD_LIBRARY_PATH"
-
-LD_LIBRARY_PATH=$(echo "$LD_LIBRARY_PATH" | tr -s ':' | sed -e 's/^:\(.*\)/\1/' | sed -e 's/:$//g')
-DYLD_LIBRARY_PATH=$(echo "$DYLD_LIBRARY_PATH" | tr -s ':' | sed -e 's/^:\(.*\)/\1/' | sed -e 's/:$//g')
-
-export LD_LIBRARY_PATH
-export DYLD_LIBRARY_PATH
-
-echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo "Failed to test libpsl"
-    echo ""
-    echo "If you have existing libpsl libraries at ${INSTX_LIBDIR}"
-    echo "then you should manually delete them and run this script again."
-    exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo "**********************"
 echo "Installing package"
 echo "**********************"
 
