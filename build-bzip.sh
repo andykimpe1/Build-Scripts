@@ -84,16 +84,16 @@ rm -rf "$BZIP2_DIR" &>/dev/null
 gzip -d < "$BZIP2_TAR" | tar xf -
 cd "$BZIP2_DIR" || exit 1
 
- The Makefiles needed so much work it was easier to rewrite them.
-if [[ -e ../patch/bzip-makefiles.zip ]]; then
-    echo ""
-    echo "****************************"
-    echo "Updating makefiles"
-    echo "****************************"
-
-    cp ../patch/bzip-makefiles.zip .
-    unzip -oq bzip-makefiles.zip
-fi
+# The Makefiles needed so much work it was easier to rewrite them.
+#if [[ -e ../patch/bzip-makefiles.zip ]]; then
+#    echo ""
+#    echo "****************************"
+#    echo "Updating makefiles"
+#    echo "****************************"
+#
+#    cp ../patch/bzip-makefiles.zip .
+#    unzip -oq bzip-makefiles.zip
+#fi
 
 # Now, patch them for this script.
 if [[ -e ../patch/bzip.patch ]]; then
@@ -121,7 +121,7 @@ ASFLAGS=$(echo "${INSTX_ASFLAGS}" | sed 's/\$/\$\$/g')
 CFLAGS=$(echo "${INSTX_CFLAGS}" | sed 's/\$/\$\$/g')
 CXXFLAGS=$(echo "${INSTX_CXXFLAGS}" | sed 's/\$/\$\$/g')
 LDFLAGS=$(echo "${INSTX_LDFLAGS}" | sed 's/\$/\$\$/g')
-LDLIBS="${INSTX_LDLIBS}"
+LDLIBS="${INSTX_PREFIX}/lib"
 
 MAKE_FLAGS=()
 MAKE_FLAGS+=("-f" "Makefile")
@@ -132,7 +132,7 @@ MAKE_FLAGS+=("ASFLAGS=${ASFLAGS}")
 MAKE_FLAGS+=("CFLAGS=${CFLAGS}")
 MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
 MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
-MAKE_FLAGS+=("LIBS=${LDLIBS}")
+MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
@@ -160,20 +160,20 @@ if [[ -n "${SUDO_PASSWORD}" ]]
 then
     echo "Installing static archive..."
     MAKE_FLAGS=("-f" "Makefile" installdirs
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
 
     MAKE_FLAGS=("-f" "Makefile" install
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
 else
     echo "Installing static archive..."
     MAKE_FLAGS=("-f" "Makefile" installdirs
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     "${MAKE}" "${MAKE_FLAGS[@]}"
 
     MAKE_FLAGS=("-f" "Makefile" install
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     "${MAKE}" "${MAKE_FLAGS[@]}"
 fi
 
@@ -202,7 +202,7 @@ MAKE_FLAGS+=("ASFLAGS=${ASFLAGS}")
 MAKE_FLAGS+=("CFLAGS=${CFLAGS}")
 MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
 MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
-MAKE_FLAGS+=("LIBS=${LDLIBS}")
+MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
@@ -224,20 +224,20 @@ if [[ -n "${SUDO_PASSWORD}" ]]
 then
     echo "Installing shared object..."
     MAKE_FLAGS=("-f" "$MAKEFILE" install
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
 
     MAKE_FLAGS=("-f" "$MAKEFILE" installdirs
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S "${MAKE}" "${MAKE_FLAGS[@]}"
 else
     echo "Installing shared object..."
     MAKE_FLAGS=("-f" "$MAKEFILE" installdirs
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     "${MAKE}" "${MAKE_FLAGS[@]}"
 
     MAKE_FLAGS=("-f" "$MAKEFILE" install
-                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_LIBDIR}")
+                PREFIX="${INSTX_PREFIX}" LIBDIR="${INSTX_PREFIX}/lib")
     "${MAKE}" "${MAKE_FLAGS[@]}"
 fi
 
@@ -248,7 +248,7 @@ fi
     echo ""
     echo "prefix=${INSTX_PREFIX}"
     echo "exec_prefix=\${prefix}"
-    echo "libdir=${INSTX_LIBDIR}"
+    echo "libdir=${INSTX_PREFIX}/lib"
     echo "sharedlibdir=\${libdir}"
     echo "includedir=\${prefix}/include"
     echo ""
@@ -263,11 +263,11 @@ fi
 
 if [[ -n "${SUDO_PASSWORD}" ]]
 then
-    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S cp ./libbz2.pc "${INSTX_PKGCONFIG}"
-    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S chmod u=rw,go=r "${INSTX_PKGCONFIG}/libbz2.pc"
+    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S cp ./libbz2.pc "${INSTX_PREFIX}/lib/pkgconfig"
+    printf "%s\n" "${SUDO_PASSWORD}" | sudo ${SUDO_ENV_OPT} -S chmod u=rw,go=r "${INSTX_PREFIX}/lib/pkgconfig/libbz2.pc"
 else
-    cp ./libbz2.pc "${INSTX_PKGCONFIG}"
-    chmod u=rw,go=r "${INSTX_PKGCONFIG}/libbz2.pc"
+    cp ./libbz2.pc "${INSTX_PREFIX}/lib/pkgconfig"
+    chmod u=rw,go=r "${INSTX_PREFIX}/lib/pkgconfig/libbz2.pc"
 fi
 
 # Fix permissions once
