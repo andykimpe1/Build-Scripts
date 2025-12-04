@@ -77,4 +77,4 @@ cp -R $HOME/.local/usr/* $HOME/.local/
 rm -rf $HOME/.local/usr/
 EOF
 chmod +x $HOME/.local/bin/dpkg-local
-/usr/bin/apt -c=$HOME/.local/etc/apt/apt.conf $@
+/usr/bin/apt-get -c=$HOME/.local/etc/apt/apt.conf $@
