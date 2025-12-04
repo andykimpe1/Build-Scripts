@@ -65,6 +65,11 @@ if [ -f /usr/bin/apt-get ]; then
       echo "install libtool please wait"
       apt-local -y install libtool >/dev/null 2>&1
    fi
+   checkinstall=$(dpkg --get-selections | grep perl| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install perl please wait"
+      apt-local -y install perl >/dev/null 2>&1
+   fi
 elif [ -f /usr/bin/dnf ]; then
    mkdir -p $HOME/.local/bin/
    cp ./dnf-local $HOME/.local/bin/
@@ -106,6 +111,11 @@ elif [ -f /usr/bin/dnf ]; then
       echo "install libtool please wait"
       dnf-local -y install libtool >/dev/null 2>&1
    fi
+   checkinstall=$(rpm -qa | grep perl| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install perl please wait"
+      dnf-local -y install perl >/dev/null 2>&1
+   fi
 elif [ -f /usr/bin/yum ]; then
    mkdir -p $HOME/.local/bin/
    cp ./yum-local $HOME/.local/bin/
@@ -146,6 +156,11 @@ elif [ -f /usr/bin/yum ]; then
    if [ -z $checkinstall ]; then
       echo "install patch please wait"
       yum-local -y install libtool >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep perl| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install perl please wait"
+      yum-local -y install perl >/dev/null 2>&1
    fi
 fi
 
