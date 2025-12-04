@@ -30,13 +30,11 @@ source $HOME/.bashrc
 ./setup-cacerts.sh
 ./setup-wget.sh
 ...
+```
 
 You can verify Wget bootstrap with the following commands.
 
 ```
-$ $HOME/.build-scripts/wget/bin/openssl version
-OpenSSL 1.0.2u  20 Dec 2019
-
 $ $HOME/.build-scripts/wget/bin/wget --version
 GNU Wget 1.20.3 built on solaris2.11.
 ```
@@ -295,11 +293,3 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
-
-
-
-
-
-
-
-
