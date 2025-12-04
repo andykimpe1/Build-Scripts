@@ -12,16 +12,24 @@ Once you clone the repo you should perform a one-time setup. The setup installs 
 
 ```
 cd
-python3 <<EOF
+downloader() {
+if [ -f /usr/bin/wget ]; then
+   wget -O $1 $2
+elif [ -f /usr/bin/curl ]; then
+   curl -o $1 $2
+elif [ -f /usr/bin/python3 ]; then
+   python3 <<EOF
 import urllib.request
-import os
-opener=urllib.request.build_opener()
-opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-urllib.request.install_opener(opener)
-filename = "Build-Scripts-master.tar.gz"
-url = "https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master"
-urllib.request.urlretrieve(url, filename)
+urllib.request.urlretrieve("$2", "$1")
 EOF
+elif [ -f /usr/bin/python2 ]; then
+   python2 <<EOF
+import urllib
+urllib.urlretrieve("https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master", "Build-Scripts-master.tar.gz")
+EOF
+fi
+}
+downloader Build-Scripts-master.tar.gz https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master
 tar -xvf Build-Scripts-master.tar.gz
 cd Build-Scripts-master
 find . -name '*.sh' -exec chmod +x {} \;
@@ -293,3 +301,4 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
