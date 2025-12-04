@@ -57,23 +57,11 @@ chmod 777 $HOME/.local/var/lib/dpkg/updates
 mkdir -p $HOME/.local/bin/
 cat > $HOME/.local/bin/dpkg-local <<EOF
 #!/bin/bash
-if [ -z $LD_LIBRARY_PATH ]; then
-LD_LIBRARY_PATH=$HOME/.local/lib
-export LD_LIBRARY_PATH=$HOME/.local/lib
-echo 'LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
-echo 'export LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
-fi
-if [ -z $PKG_CONFIG_PATH ]; then
-PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
-export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
-echo 'PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
-echo 'export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
-fi
 /usr/bin/dpkg --admindir=$HOME/.local/var/lib/dpkg --force-not-root --root=$HOME/.local/ $@
 mkdir -p $HOME/.local/usr/lib/
-cp -R $HOME/.local/usr/lib/x86_64-linux-gnu/* $HOME/.local/usr/lib/
+cp -R $HOME/.local/usr/lib/x86_64-linux-gnu/* $HOME/.local/usr/lib/ >/dev/null 2>&1
 rm -rf $HOME/.local/usr/lib/x86_64-linux-gnu/
-cp -R $HOME/.local/usr/* $HOME/.local/
+cp -R $HOME/.local/usr/* $HOME/.local/ >/dev/null 2>&1
 rm -rf $HOME/.local/usr/
 EOF
 chmod +x $HOME/.local/bin/dpkg-local
