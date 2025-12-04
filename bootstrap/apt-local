@@ -11,6 +11,13 @@ export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
 echo 'PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
 echo 'export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
 fi
+patchcheck="$(echo $PATH|grep $HOME/.local/bin)"
+if [ -z $patchcheck ]; then
+PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/
+echo 'PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+echo 'export PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+fi
 rm -rf $HOME/.local/etc/apt/
 mkdir -p $HOME/.local/var/lib/apt/lists/partial/
 mkdir -p $HOME/.local/etc/apt/preferences.d/
