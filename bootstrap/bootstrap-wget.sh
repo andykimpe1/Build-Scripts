@@ -4,6 +4,151 @@
 # This script builds Wget, Unistring and OpenSSL from sources.
 # This Wget is crippled, but allows bootstrapping a full Wget build.
 
+if [ -z $LD_LIBRARY_PATH ]; then
+LD_LIBRARY_PATH=$HOME/.local/lib
+export LD_LIBRARY_PATH=$HOME/.local/lib
+echo 'LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
+echo 'export LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
+fi
+if [ -z $PKG_CONFIG_PATH ]; then
+PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
+export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
+echo 'PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
+echo 'export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
+fi
+patchcheck="$(echo $PATH|grep $HOME/.local/bin)"
+if [ -z $patchcheck ]; then
+PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/
+echo 'PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+echo 'export PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+fi
+patchcheck="$(echo $PATH|grep $HOME/.build-scripts/wget/bin)"
+if [ -z $patchcheck ]; then
+PATH=$PATH:$HOME/.build-scripts/wget/bin/
+export PATH=$PATH:$HOME/.build-scripts/wget/bin/
+echo 'PATH=$PATH:$HOME/.build-scripts/wget/bin/' >> $HOME/.bashrc
+echo 'export PATH=$PATH:$HOME/.build-scripts/wget/bin/' >> $HOME/.bashrc
+fi
+if [ -z $INSTX_PREFIX ]; then
+INSTX_PREFIX="$HOME/.local"
+export INSTX_PREFIX="$HOME/.local"
+echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
+echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
+fi
+if [ -f /usr/bin/apt-get ]; then
+   mkdir -p $HOME/.local/bin/
+   cp ./apt-local $HOME/.local/bin/
+   chmod +x $HOME/.local/bin/apt-local
+   checkinstall=$(dpkg --get-selections | grep build-essential| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install build-essential please wait"
+      apt-local -y install build-essential >/dev/null 2>&1
+   fi
+   checkinstall=$(dpkg --get-selections | grep texinfo| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install texinfo please wait"
+      apt-local -y install texinfo >/dev/null 2>&1
+   fi
+   checkinstall=$(dpkg --get-selections | grep pkg-config| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install pkg-config please wait"
+      apt-local -y install pkg-config >/dev/null 2>&1
+   fi
+   checkinstall=$(dpkg --get-selections | grep patch| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install patch please wait"
+      apt-local -y install patch >/dev/null 2>&1
+   fi
+   checkinstall=$(dpkg --get-selections | grep libtool| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install libtool please wait"
+      apt-local -y install libtool >/dev/null 2>&1
+   fi
+elif [ -f /usr/bin/dnf ]; then
+   mkdir -p $HOME/.local/bin/
+   cp ./dnf-local $HOME/.local/bin/
+   chmod +x $HOME/.local/bin/dnf-local
+   checkinstall=$(rpm -qa | grep gcc| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install gcc please wait"
+      dnf-local -y install gcc >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep gcc-c++| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install gcc-c++ please wait"
+      dnf-local -y install gcc-c++ >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep make| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install make please wait"
+      dnf-local -y install make >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep texinfo| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install texinfo please wait"
+      dnf-local -y install texinfo >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep pkg-config| sed -n '1p')
+   checkinstall2=$(rpm -qa | grep pkg-config| sed -n '1p')
+   if [[ -z $checkinstall || -z $checkinstall2  ]]; then
+      echo "install pkg-config please wait"
+      dnf-local -y install pkg-config >/dev/null 2>&1
+      dnf-local -y install pkgconfig >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep patch| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install patch please wait"
+      dnf-local -y install patch >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep libtool| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install libtool please wait"
+      dnf-local -y install libtool >/dev/null 2>&1
+   fi
+elif [ -f /usr/bin/yum ]; then
+   mkdir -p $HOME/.local/bin/
+   cp ./yum-local $HOME/.local/bin/
+   chmod +x $HOME/.local/bin/yum-local
+   checkinstall=$(rpm -qa | grep gcc| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install gcc please wait"
+      yum-local -y install gcc >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep gcc-c++| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install gcc-c++ please wait"
+      yum-local -y install gcc-c++ >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep make| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install make please wait"
+      yum-local -y install make >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep texinfo| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install texinfo please wait"
+      yum-local -y install texinfo >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep pkg-config| sed -n '1p')
+   checkinstall2=$(rpm -qa | grep pkg-config| sed -n '1p')
+   if [ -z $checkinstall | -z $checkinstall2  ]; then
+      echo "install pkg-config please wait"
+      yum-local -y install pkg-config >/dev/null 2>&1
+      yum-local -y install pkgconfig >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep patch| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install patch please wait"
+      yum-local -y install patch >/dev/null 2>&1
+   fi
+   checkinstall=$(rpm -qa | grep libtool| sed -n '1p')
+   if [ -z $checkinstall ]; then
+      echo "install patch please wait"
+      yum-local -y install libtool >/dev/null 2>&1
+   fi
+fi
+
 # Binaries
 WGET_TAR=wget-1.25.0.tar.gz
 UNISTR_TAR=libunistring-1.1.tar.gz
@@ -357,12 +502,5 @@ fi
 
 
 mv $HOME/.build-scripts/wget/bin/openssl $HOME/.build-scripts/wget/bin/openssl.old
-INSTX_PREFIX="$HOME/.local"
-export INSTX_PREFIX="$HOME/.local"
-echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
-echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
-export PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/bin:$HOME/.local/sbin:$PATH"
-echo 'PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
-echo 'export PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
 
 exit 0
