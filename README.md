@@ -25,7 +25,7 @@ EOF
 elif [ -f /usr/bin/python2 ]; then
    python2 <<EOF
 import urllib
-urllib.urlretrieve("https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master", "Build-Scripts-master.tar.gz")
+urllib.urlretrieve("$2", "$1")
 EOF
 fi
 }
@@ -301,4 +301,5 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
