@@ -11,8 +11,6 @@ Some recipes only work on modern platforms. For example, GNU SIP Witch may not b
 Once you clone the repo you should perform a one-time setup. The setup installs updated CA certificates and builds a modern Wget. `setup-cacerts.sh` installs a local copy of 11 CA certificates in `$HOME/.build-scripts/cacerts`. They are used to download source code packages for programs and libraries. `setup-wget.sh` installs a local copy of `wget` in `$HOME/.build-scripts/wget`. It is a reduced-functionality version of Wget with only HTTPS, IPv4, IPv6 and large-file support. It is anemic but functional enough to download packages over HTTPS.
 
 
-test (./README.md)
-
 ```
 cd
 python3 <<EOF
@@ -22,7 +20,7 @@ opener=urllib.request.build_opener()
 opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
 urllib.request.install_opener(opener)
 filename = "Build-Scripts-master.tar.gz"
-url = "https://codeload.github.com/{{REPO_OWNER}}/Build-Scripts/tar.gz/refs/heads/master"
+url = "https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master"
 urllib.request.urlretrieve(url, filename)
 EOF
 tar -xvf Build-Scripts-master.tar.gz
@@ -298,6 +296,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
