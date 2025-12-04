@@ -1,0 +1,65 @@
+#!/bin/bash
+yumutils=$(rpm -qa | grep yum-utils| sed -n '1p')
+if [ -z $dnfpluginscore ]; then
+echo "please contact your system administrator"
+echo "and request install yum-utils" 
+echo "sudo yum -y install yum-utils"   
+sleep 60
+exit 1
+fi
+cpio=$(rpm -qa | grep cpio| sed -n '1p')
+if [ -z $cpio ]; then
+echo "please contact your system administrator"
+echo "and request install cpio and rpm2cpio" 
+echo "sudo yum -y install cpio rpm2cpio"   
+sleep 60
+exit 1
+fi
+if [ -z $LD_LIBRARY_PATH ]; then
+LD_LIBRARY_PATH=$HOME/.local/lib
+export LD_LIBRARY_PATH=$HOME/.local/lib
+echo 'LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
+echo 'export LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
+fi
+if [ -z $PKG_CONFIG_PATH ]; then
+PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
+export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/
+echo 'PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
+echo 'export PKG_CONFIG_PATH=$HOME/.local/lib/pkconfig/' >> $HOME/.bashrc
+fi
+patchcheck=$(echo $PATH|grep $HOME/.local/bin)
+if [ -z $PATH ]; then
+PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/
+echo 'PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+echo 'export PATH=$PATH:$HOME/.local/bin/' >> $HOME/.bashrc
+fi
+mkdir -p $HOME/.local/etc/yum/   
+if [ -f /etc/yum/yum.conf ]; then
+   cp /etc/yum/yum.conf $HOME/.local/etc/yum/
+elif [ -f /etc/yum.conf ]; then
+   cp /etc/yum.conf $HOME/.local/etc/yum/
+fi
+mkdir -p $HOME/.local/etc/yum.repos.d/
+cp /etc/yum.repos.d/* $HOME/.local/etc/yum.repos.d/
+echo "reposdir=$HOME/.local/etc/yum.repos.d/" >> $HOME/.local/etc/dnf/dnf.conf
+mkdir -p $HOME/.local/var/cache/yum
+rm -rf $HOME/.local/var/cache/yum/*
+echo "cachedir=$HOME/.local/var/cache/yum" >> $HOME/.local/etc/yum/dnf.conf
+yum --config=$HOME/.local/etc/yum/yum.conf update --assumeno
+yum --config=$HOME/.local/etc/yum/yum.conf $@ --downloadonly
+mkdir -p $HOME/.local/bin/
+cat > $HOME/.local/bin/extractrpm <<EOF
+#!/bin/bash
+DIR=\$PWD
+cd \$HOME/.local/
+rpm2cpio \$1 | cpio -i --make-directories >/dev/null 2>&1
+cp -R \$HOME/.local/usr/lib64/* \$HOME/.local/usr/lib/ >/dev/null 2>&1
+rm -rf \$HOME/.local/usr/lib64/ >/dev/null 2>&1
+cp -R \$HOME/.local/usr/* \$HOME/.local/ >/dev/null 2>&1
+rm -rf \$HOME/.local/usr
+cd \$DIR
+EOF
+chmod +x $HOME/.local/bin/extractrpm
+find $HOME/.local/var/cache/dnf -name "*.rpm" -exec $HOME/.local/bin/extractrpm {} \;
+find $HOME/.local/var/cache/dnf -name "*.rpm"  -exec rm {} \;
