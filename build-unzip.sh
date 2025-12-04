@@ -95,7 +95,7 @@ if [[ -e ../patch/unzip.patch ]]; then
     echo "Patching package"
     echo "**************************"
 
-    patch -u -p0 < ../patch/unzip.patch
+    patch -u -p1 < ../patch/unzip.patch
 fi
 
 # Fix sys_lib_dlsearch_path_spec
