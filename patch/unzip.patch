@@ -1,369 +1,735 @@
---- man/funzip.1
-+++ man/funzip.1
-@@ -20,7 +20,7 @@
- .in -4n
- ..
- .\" =========================================================================
--.TH FUNZIP 1L "20 April 2009 (v3.95)" "Info-ZIP"
-+.TH FUNZIP 1 "20 April 2009 (v3.95)" "Info-ZIP"
- .SH NAME
- funzip \- filter for extracting from a ZIP archive in a pipe
- .PD
-@@ -78,7 +78,7 @@
- .EE
- .PP
- To use \fIzip\fP and \fIfunzip\fP in place of \fIcompress\fP(1) and
--\fIzcat\fP(1) (or \fIgzip\fP(1L) and \fIgzcat\fP(1L)) for tape backups:
-+\fIzcat\fP(1) (or \fIgzip\fP(1) and \fIgzcat\fP(1)) for tape backups:
- .PP
- .EX
- tar cf \- . | zip \-7 | dd of=/dev/nrst0 obs=8k
-@@ -108,8 +108,8 @@
- .PD
- .\" =========================================================================
- .SH "SEE ALSO"
--\fIgzip\fP(1L), \fIunzip\fP(1L), \fIunzipsfx\fP(1L), \fIzip\fP(1L),
--\fIzipcloak\fP(1L), \fIzipinfo\fP(1L), \fIzipnote\fP(1L), \fIzipsplit\fP(1L)
-+\fIgzip\fP(1), \fIunzip\fP(1), \fIunzipsfx\fP(1), \fIzip\fP(1),
-+\fIzipcloak\fP(1), \fIzipinfo\fP(1), \fIzipnote\fP(1), \fIzipsplit\fP(1)
- .PD
- .\" =========================================================================
- .SH URL
---- man/unzip.1
-+++ man/unzip.1
-@@ -20,7 +20,7 @@
- .in -4n
- ..
- .\" =========================================================================
--.TH UNZIP 1L "20 April 2009 (v6.0)" "Info-ZIP"
-+.TH UNZIP 1 "20 April 2009 (v6.0)" "Info-ZIP"
- .SH NAME
- unzip \- list, test and extract compressed files in a ZIP archive
- .PD
-@@ -34,7 +34,7 @@
- \fIunzip\fP will list, test, or extract files from a ZIP archive, commonly
- found on MS-DOS systems.  The default behavior (with no options) is to extract
- into the current directory (and subdirectories below it) all files from the
--specified ZIP archive.  A companion program, \fIzip\fP(1L), creates ZIP
-+specified ZIP archive.  A companion program, \fIzip\fP(1), creates ZIP
- archives; both programs are compatible with archives created by PKWARE's
- \fIPKZIP\fP and \fIPKUNZIP\fP for MS-DOS, but in many cases the program
- options or default behaviors differ.
-@@ -105,8 +105,8 @@
- list of all possible flags.  The exhaustive list follows:
- .TP
- .B \-Z
--\fIzipinfo\fP(1L) mode.  If the first option on the command line is \fB\-Z\fP,
--the remaining options are taken to be \fIzipinfo\fP(1L) options.  See the
-+\fIzipinfo\fP(1) mode.  If the first option on the command line is \fB\-Z\fP,
-+the remaining options are taken to be \fIzipinfo\fP(1) options.  See the
- appropriate manual page for a description of these options.
- .TP
- .B \-A
-@@ -178,7 +178,7 @@
- compressed size and compression ratio figures are independent of the entry's
- encryption status and show the correct compression performance.  (The complete
- size of the encrypted compressed data stream for zipfile entries is reported
--by the more verbose \fIzipinfo\fP(1L) reports, see the separate manual.)
-+by the more verbose \fIzipinfo\fP(1) reports, see the separate manual.)
- When no zipfile is specified (that is, the complete command is simply
- ``\fCunzip \-v\fR''), a diagnostic screen is printed.  In addition to
- the normal header with release date and version, \fIunzip\fP lists the
-@@ -379,8 +379,8 @@
- .TP
- .B \-N
- [Amiga] extract file comments as Amiga filenotes.  File comments are created
--with the \-c option of \fIzip\fP(1L), or with the \-N option of the Amiga port
--of \fIzip\fP(1L), which stores filenotes as comments.
-+with the \-c option of \fIzip\fP(1), or with the \-N option of the Amiga port
-+of \fIzip\fP(1), which stores filenotes as comments.
- .TP
- .B \-o
- overwrite existing files without prompting.  This is a dangerous option, so
-@@ -598,7 +598,7 @@
- As suggested by the examples above, the default variable names are UNZIP_OPTS
- for VMS (where the symbol used to install \fIunzip\fP as a foreign command
- would otherwise be confused with the environment variable), and UNZIP
--for all other operating systems.  For compatibility with \fIzip\fP(1L),
-+for all other operating systems.  For compatibility with \fIzip\fP(1),
- UNZIPOPT is also accepted (don't ask).  If both UNZIP and UNZIPOPT
- are defined, however, UNZIP takes precedence.  \fIunzip\fP's diagnostic
- option (\fB\-v\fP with no zipfile name) can be used to check the values
-@@ -648,8 +648,8 @@
- a password is not known, entering a null password (that is, just a carriage
- return or ``Enter'') is taken as a signal to skip all further prompting.
- Only unencrypted files in the archive(s) will thereafter be extracted.  (In
--fact, that's not quite true; older versions of \fIzip\fP(1L) and
--\fIzipcloak\fP(1L) allowed null passwords, so \fIunzip\fP checks each encrypted
-+fact, that's not quite true; older versions of \fIzip\fP(1) and
-+\fIzipcloak\fP(1) allowed null passwords, so \fIunzip\fP checks each encrypted
- file to see if the null password works.  This may result in ``false positives''
- and extraction errors, as noted above.)
- .PP
-@@ -943,8 +943,8 @@
- .PD
- .\" =========================================================================
- .SH "SEE ALSO"
--\fIfunzip\fP(1L), \fIzip\fP(1L), \fIzipcloak\fP(1L), \fIzipgrep\fP(1L),
--\fIzipinfo\fP(1L), \fIzipnote\fP(1L), \fIzipsplit\fP(1L)
-+\fIfunzip\fP(1), \fIzip\fP(1), \fIzipcloak\fP(1), \fIzipgrep\fP(1),
-+\fIzipinfo\fP(1), \fIzipnote\fP(1), \fIzipsplit\fP(1)
- .PD
- .\" =========================================================================
- .SH URL
---- man/unzipsfx.1
-+++ man/unzipsfx.1
-@@ -20,7 +20,7 @@
- .in -4n
- ..
- .\" =========================================================================
--.TH UNZIPSFX 1L "20 April 2009 (v6.0)" "Info-ZIP"
-+.TH UNZIPSFX 1 "20 April 2009 (v6.0)" "Info-ZIP"
- .SH NAME
- unzipsfx \- self-extracting stub for prepending to ZIP archives
- .PD
-@@ -30,7 +30,7 @@
- .PD
- .\" =========================================================================
- .SH DESCRIPTION
--\fIunzipsfx\fP is a modified version of \fIunzip\fP(1L) designed to be
-+\fIunzipsfx\fP is a modified version of \fIunzip\fP(1) designed to be
- prepended to existing ZIP archives in order to form self-extracting archives.
- Instead of taking its first non-flag argument to be the zipfile(s) to be
- extracted, \fIunzipsfx\fP seeks itself under the name by which it was invoked
-@@ -109,7 +109,7 @@
- .PD
- .\" =========================================================================
- .SH OPTIONS
--\fIunzipsfx\fP supports the following \fIunzip\fP(1L) options:  \fB\-c\fP
-+\fIunzipsfx\fP supports the following \fIunzip\fP(1) options:  \fB\-c\fP
- and \fB\-p\fP (extract to standard output/screen), \fB\-f\fP and \fB\-u\fP
- (freshen and update existing files upon extraction), \fB\-t\fP (test
- archive) and \fB\-z\fP (print archive comment).  All normal listing options
-@@ -118,11 +118,11 @@
- those creating self-extracting archives may wish to include a short listing
- in the zipfile comment.
- .PP
--See \fIunzip\fP(1L) for a more complete description of these options.
-+See \fIunzip\fP(1) for a more complete description of these options.
- .PD
- .\" =========================================================================
- .SH MODIFIERS
--\fIunzipsfx\fP currently supports all \fIunzip\fP(1L) modifiers:  \fB\-a\fP
-+\fIunzipsfx\fP currently supports all \fIunzip\fP(1) modifiers:  \fB\-a\fP
- (convert text files), \fB\-n\fP (never overwrite), \fB\-o\fP (overwrite
- without prompting), \fB\-q\fP (operate quietly), \fB\-C\fP (match names
- case-insensitively), \fB\-L\fP (convert uppercase-OS names to lowercase),
-@@ -137,18 +137,18 @@
- of course continue to be supported since the zipfile format implies ASCII
- storage of text files.)
- .PP
--See \fIunzip\fP(1L) for a more complete description of these modifiers.
-+See \fIunzip\fP(1) for a more complete description of these modifiers.
- .PD
- .\" =========================================================================
- .SH "ENVIRONMENT OPTIONS"
--\fIunzipsfx\fP uses the same environment variables as \fIunzip\fP(1L) does,
-+\fIunzipsfx\fP uses the same environment variables as \fIunzip\fP(1) does,
- although this is likely to be an issue only for the person creating and
--testing the self-extracting archive.  See \fIunzip\fP(1L) for details.
-+testing the self-extracting archive.  See \fIunzip\fP(1) for details.
- .PD
- .\" =========================================================================
- .SH DECRYPTION
--Decryption is supported exactly as in \fIunzip\fP(1L); that is, interactively
--with a non-echoing prompt for the password(s).  See \fIunzip\fP(1L) for
-+Decryption is supported exactly as in \fIunzip\fP(1); that is, interactively
-+with a non-echoing prompt for the password(s).  See \fIunzip\fP(1) for
- details.  Once again, note that if the archive has no encrypted files there
- is no reason to use a version of \fIunzipsfx\fP with decryption support;
- that only adds to the size of the archive.
-@@ -286,7 +286,7 @@
- from anywhere in the user's path.  The situation is not known for AmigaDOS,
- Atari TOS, MacOS, etc.
- .PP
--As noted above, a number of the normal \fIunzip\fP(1L) functions have
-+As noted above, a number of the normal \fIunzip\fP(1) functions have
- been removed in order to make \fIunzipsfx\fP smaller:  usage and diagnostic
- info, listing functions and extraction to other directories.  Also, only
- stored and deflated files are supported.  The latter limitation is mainly
-@@ -303,17 +303,17 @@
- defined as a ``debug hunk.'')  There may be compatibility problems between
- the ROM levels of older Amigas and newer ones.
- .PP
--All current bugs in \fIunzip\fP(1L) exist in \fIunzipsfx\fP as well.
-+All current bugs in \fIunzip\fP(1) exist in \fIunzipsfx\fP as well.
- .PD
- .\" =========================================================================
- .SH DIAGNOSTICS
- \fIunzipsfx\fP's exit status (error level) is identical to that of
--\fIunzip\fP(1L); see the corresponding man page.
-+\fIunzip\fP(1); see the corresponding man page.
- .PD
- .\" =========================================================================
- .SH "SEE ALSO"
--\fIfunzip\fP(1L), \fIunzip\fP(1L), \fIzip\fP(1L), \fIzipcloak\fP(1L),
--\fIzipgrep\fP(1L), \fIzipinfo\fP(1L), \fIzipnote\fP(1L), \fIzipsplit\fP(1L)
-+\fIfunzip\fP(1), \fIunzip\fP(1), \fIzip\fP(1), \fIzipcloak\fP(1),
-+\fIzipgrep\fP(1), \fIzipinfo\fP(1), \fIzipnote\fP(1), \fIzipsplit\fP(1)
- .PD
- .PD
- .\" =========================================================================
-@@ -330,7 +330,7 @@
- .\" =========================================================================
- .SH AUTHORS
- Greg Roelofs was responsible for the basic modifications to UnZip necessary
--to create UnZipSFX.  See \fIunzip\fP(1L) for the current list of Zip-Bugs
-+to create UnZipSFX.  See \fIunzip\fP(1) for the current list of Zip-Bugs
- authors, or the file CONTRIBS in the UnZip source distribution for the
- full list of Info-ZIP contributors.
- .PD
---- man/zipgrep.1
-+++ man/zipgrep.1
-@@ -8,7 +8,7 @@
- .\" zipgrep.1 by Greg Roelofs.
- .\"
- .\" =========================================================================
--.TH ZIPGREP 1L "20 April 2009" "Info-ZIP"
-+.TH ZIPGREP 1 "20 April 2009" "Info-ZIP"
- .SH NAME
- zipgrep \- search files in a ZIP archive for lines matching a pattern
- .PD
-@@ -21,7 +21,7 @@
- .SH DESCRIPTION
- \fIzipgrep\fP will search files within a ZIP archive for lines matching
- the given string or pattern.  \fIzipgrep\fP is a shell script and requires
--\fIegrep\fP(1) and \fIunzip\fP(1L) to function.  Its output is identical to
-+\fIegrep\fP(1) and \fIunzip\fP(1) to function.  Its output is identical to
- that of \fIegrep\fP(1).
- .PD
- .\" =========================================================================
-@@ -69,8 +69,8 @@
- .PD
- .\" =========================================================================
- .SH "SEE ALSO"
--\fIegrep\fP(1), \fIunzip\fP(1L), \fIzip\fP(1L), \fIfunzip\fP(1L),
--\fIzipcloak\fP(1L), \fIzipinfo\fP(1L), \fIzipnote\fP(1L), \fIzipsplit\fP(1L)
-+\fIegrep\fP(1), \fIunzip\fP(1), \fIzip\fP(1), \fIfunzip\fP(1),
-+\fIzipcloak\fP(1), \fIzipinfo\fP(1), \fIzipnote\fP(1), \fIzipsplit\fP(1)
- .PD
- .\" =========================================================================
- .SH URL
---- man/zipinfo.1
-+++ man/zipinfo.1
-@@ -34,7 +34,7 @@
- .in -4n
- ..
- .\" =========================================================================
--.TH ZIPINFO 1L "20 April 2009 (v3.0)" "Info-ZIP"
-+.TH ZIPINFO 1 "20 April 2009 (v3.0)" "Info-ZIP"
- .SH NAME
- zipinfo \- list detailed information about a ZIP archive
- .PD
-@@ -272,7 +272,7 @@
- Note that because of limitations in the MS-DOS format used to store file
- times, the seconds field is always rounded to the nearest even second.
- For Unix files this is expected to change in the next major releases of
--\fIzip\fP(1L) and \fIunzip\fP.
-+\fIzip\fP(1) and \fIunzip\fP.
- .PP
- In addition to individual file information, a default zipfile listing
- also includes header and trailer lines:
-@@ -361,7 +361,7 @@
- As suggested above, the default variable names are ZIPINFO_OPTS for VMS
- (where the symbol used to install \fIzipinfo\fP as a foreign command
- would otherwise be confused with the environment variable), and ZIPINFO
--for all other operating systems.  For compatibility with \fIzip\fP(1L),
-+for all other operating systems.  For compatibility with \fIzip\fP(1),
- ZIPINFOOPT is also accepted (don't ask).  If both ZIPINFO and ZIPINFOOPT
- are defined, however, ZIPINFO takes precedence.  \fIunzip\fP's diagnostic
- option (\fB\-v\fP with no zipfile name) can be used to check the values
-@@ -496,8 +496,8 @@
- .PP
- .\" =========================================================================
- .SH "SEE ALSO"
--\fIls\fP(1), \fIfunzip\fP(1L), \fIunzip\fP(1L), \fIunzipsfx\fP(1L),
--\fIzip\fP(1L), \fIzipcloak\fP(1L), \fIzipnote\fP(1L), \fIzipsplit\fP(1L)
-+\fIls\fP(1), \fIfunzip\fP(1), \fIunzip\fP(1), \fIunzipsfx\fP(1),
-+\fIzip\fP(1), \fIzipcloak\fP(1), \fIzipnote\fP(1), \fIzipsplit\fP(1)
- .PD
- .\" =========================================================================
- .SH URL
-
-
---- unzip.c
-+++ unzip.c
-@@ -570,8 +570,7 @@
- #else /* !VMS */
- # ifdef COPYRIGHT_CLEAN
-    static ZCONST char Far UnzipUsageLine1[] = "\
--UnZip %d.%d%d%s of %s, by Info-ZIP.  Maintained by C. Spieler.  Send\n\
--bug reports using http://www.info-zip.org/zip-bug.html; see README for details.\
-+UnZip %d.%d%d%s of %s, by Debian. Original by Info-ZIP.\
- \n\n";
- # else
-    static ZCONST char Far UnzipUsageLine1[] = "\
-
-
---- unix/unxcfg.h
-+++ unix/unxcfg.h
-@@ -52,6 +52,7 @@
+diff -up unzip60/unix/configure.bzip2-configure unzip60/unix/configure
+--- unzip60/unix/configure.bzip2-configure	2009-04-16 21:25:12.000000000 +0200
++++ unzip60/unix/configure	2009-11-18 11:22:14.598389194 +0100
+@@ -640,7 +640,24 @@ else
+     D_USE_BZ2="-DUSE_BZIP2"
+     L_BZ2="${BZLF} -lbz2"
+   else
+-    echo "-- bzip2 sources not found - no bzip2 support"
++    echo "  Check if OS already has bzip2 library installed"
++    cat > conftest.c << _EOF_
++#include "bzlib.h"
++int main()
++{
++  bz_stream strm;
++  BZ2_bzCompressEnd(&strm);
++  return 0;
++}
++_EOF_
++    $CC $CFLAGS -o conftest conftest.c -lbz2 > /dev/null 2>/dev/null
++    if test $? -eq 0; then
++      echo "-- OS supports bzip2 - linking in bzip2"
++      D_USE_BZ2="-DUSE_BZIP2"
++      L_BZ2="${BZLF} -lbz2"
++    else
++      echo "-- Either bzlib.h or libbz2.a not found - no bzip2"
++    fi
+   fi
+ fi
  
- #include <sys/types.h>          /* off_t, time_t, dev_t, ... */
- #include <sys/stat.h>
-+#include <unistd.h>
+ diff -up unzip60/crc_i386.S.exec-shield unzip60/crc_i386.S
+--- unzip60/crc_i386.S.exec-shield	2007-01-07 06:02:58.000000000 +0100
++++ unzip60/crc_i386.S	2009-11-18 11:16:39.630389312 +0100
+@@ -302,3 +302,6 @@ _crc32:                         /* ulg c
+ #endif /* i386 || _i386 || _I386 || __i386 */
  
- #ifdef NO_OFF_T
-   typedef long zoff_t;
-
-
---- process.c
-+++ process.c
-@@ -1729,6 +1729,13 @@
-     else if (uO.L_flag > 1)   /* let -LL force lower case for all names */
-         G.pInfo->lcflag = 1;
- 
-+    /* Handle the PKWare verification bit, bit 2 (0x0004) of internal
-+       attributes.  If this is set, then a verification checksum is in the
-+       first 3 bytes of the external attributes.  In this case all we can use
-+       for setting file attributes is the last external attributes byte. */
-+    if (G.crec.internal_file_attributes & 0x0004)
-+      G.crec.external_file_attributes &= (ulg)0xff;
+ #endif /* !USE_ZLIB && !CRC_TABLE_ONLY */
 +
-     /* do Amigas (AMIGA_) also have volume labels? */
-     if (IS_VOLID(G.crec.external_file_attributes) &&
-         (G.pInfo->hostnum == FS_FAT_ || G.pInfo->hostnum == FS_HPFS_ ||
-
-
---- process.c
-+++ process.c
-@@ -2904,7 +2904,7 @@
- #ifdef IZ_HAVE_UXUIDGID
-             if (eb_len >= EB_UX3_MINLEN
-                 && z_uidgid != NULL
--                && (*((EB_HEADSIZE + 0) + ef_buf) == 1)
-+                && (*((EB_HEADSIZE + 0) + ef_buf) == 1))
-                     /* only know about version 1 */
-             {
-                 uch uid_size;
-@@ -2916,10 +2916,10 @@
-                 flags &= ~0x0ff;      /* ignore any previous UNIX field */
++.section .note.GNU-stack, "", @progbits
++.previous
+diff -up unzip60/extract.c.close unzip60/extract.c
+--- unzip60/extract.c.close	2009-03-14 02:32:52.000000000 +0100
++++ unzip60/extract.c	2009-11-19 08:17:23.481263496 +0100
+@@ -1924,24 +1924,21 @@ static int extract_or_test_member(__G)  
  
-                 if ( read_ux3_value((EB_HEADSIZE + 2) + ef_buf,
--                                    uid_size, z_uidgid[0])
-+                                    uid_size, &z_uidgid[0])
-                     &&
-                      read_ux3_value((EB_HEADSIZE + uid_size + 3) + ef_buf,
--                                    gid_size, z_uidgid[1]) )
-+                                    gid_size, &z_uidgid[1]) )
-                 {
-                     flags |= EB_UX2_VALID;   /* signal success */
-                 }
-
-
---- process.c
-+++ process.c
-@@ -1758,6 +1758,12 @@
+ #ifdef VMS                  /* VMS:  required even for stdout! (final flush) */
+     if (!uO.tflag)           /* don't close NULL file */
+-        close_outfile(__G);
++        error = close_outfile(__G);
+ #else
+ #ifdef DLL
+     if (!uO.tflag && (!uO.cflag || G.redirect_data)) {
+         if (G.redirect_data)
+             FINISH_REDIRECT();
+         else
+-            close_outfile(__G);
++            error = close_outfile(__G);
+     }
+ #else
+     if (!uO.tflag && !uO.cflag)   /* don't close NULL file or stdout */
+-        close_outfile(__G);
++        error = close_outfile(__G);
+ #endif
+ #endif /* VMS */
+ 
+-            /* GRR: CONVERT close_outfile() TO NON-VOID:  CHECK FOR ERRORS! */
+-
+-
+     if (G.disk_full) {            /* set by flush() */
+         if (G.disk_full > 1) {
+ #if (defined(DELETE_IF_FULL) && defined(HAVE_UNLINK))
+diff -up unzip60/unix/unix.c.close unzip60/unix/unix.c
+--- unzip60/unix/unix.c.close	2009-01-24 00:31:26.000000000 +0100
++++ unzip60/unix/unix.c	2009-11-19 08:33:25.568389171 +0100
+@@ -1096,10 +1096,41 @@ static int get_extattribs(__G__ pzt, z_u
+ #ifndef MTS
+ 
+ /****************************/
++/* Function CloseError()    */
++/***************************/
++
++int CloseError(__G)
++    __GDEF
++{
++    int errval = PK_OK;
++    
++    if (fclose(G.outfile) < 0) {
++          switch (errno) {
++                case ENOSPC:
++                    /* Do we need this on fileio.c? */
++                    Info(slide, 0x4a1, ((char *)slide, "%s: write error (disk full?).   Continue? (y/n/^C) ",
++                          FnFilter1(G.filename)));
++                    fgets(G.answerbuf, 9, stdin);
++                    if (*G.answerbuf == 'y')     /* stop writing to this file */
++                        G.disk_full = 1;         /* pass to next */
++                    else
++                        G.disk_full = 2;         /* no: exit program */
++          
++                    errval = PK_DISK;
++                    break;
++
++                default:
++                    errval = PK_WARN;
++          }
++     }
++     return errval;
++} /* End of CloseError() */
++
++/****************************/
+ /* Function close_outfile() */
+ /****************************/
+ 
+-void close_outfile(__G)    /* GRR: change to return PK-style warning level */
++int close_outfile(__G) 
+     __GDEF
+ {
+     union {
+@@ -1108,6 +1139,7 @@ void close_outfile(__G)    /* GRR: chang
+     } zt;
+     ulg z_uidgid[2];
+     int have_uidgid_flg;
++    int errval = PK_OK;
+ 
+     have_uidgid_flg = get_extattribs(__G__ &(zt.t3), z_uidgid);
+ 
+@@ -1141,16 +1173,16 @@ void close_outfile(__G)    /* GRR: chang
+             Info(slide, 0x201, ((char *)slide,
+               "warning:  symbolic link (%s) failed: mem alloc overflow\n",
+               FnFilter1(G.filename)));
+-            fclose(G.outfile);
+-            return;
++            errval = CloseError(G.outfile, G.filename);
++            return errval ? errval : PK_WARN;
+         }
+ 
+         if ((slnk_entry = (slinkentry *)malloc(slnk_entrysize)) == NULL) {
+             Info(slide, 0x201, ((char *)slide,
+               "warning:  symbolic link (%s) failed: no mem\n",
+               FnFilter1(G.filename)));
+-            fclose(G.outfile);
+-            return;
++            errval = CloseError(G.outfile, G.filename);
++            return errval ? errval : PK_WARN;
+         }
+         slnk_entry->next = NULL;
+         slnk_entry->targetlen = ucsize;
+@@ -1174,10 +1206,10 @@ void close_outfile(__G)    /* GRR: chang
+               "warning:  symbolic link (%s) failed\n",
+               FnFilter1(G.filename)));
+             free(slnk_entry);
+-            fclose(G.outfile);
+-            return;
++            errval = CloseError(G.outfile, G.filename);
++            return errval ? errval : PK_WARN;
+         }
+-        fclose(G.outfile);                  /* close "link" file for good... */
++        errval = CloseError(G.outfile, G.filename); /* close "link" file for good... */
+         slnk_entry->target[ucsize] = '\0';
+         if (QCOND2)
+             Info(slide, 0, ((char *)slide, "-> %s ",
+@@ -1188,7 +1220,7 @@ void close_outfile(__G)    /* GRR: chang
+         else
+             G.slink_head = slnk_entry;
+         G.slink_last = slnk_entry;
+-        return;
++        return errval;
+     }
+ #endif /* SYMLINKS */
+ 
+@@ -1201,7 +1233,7 @@ void close_outfile(__G)    /* GRR: chang
+ #endif
+ 
+ #if (defined(NO_FCHOWN))
+-    fclose(G.outfile);
++    errval = CloseError(G.outfile, G.filename);
+ #endif
+ 
+     /* if -X option was specified and we have UID/GID info, restore it */
+@@ -1227,7 +1259,7 @@ void close_outfile(__G)    /* GRR: chang
+     }
+ 
+ #if (!defined(NO_FCHOWN) && defined(NO_FCHMOD))
+-    fclose(G.outfile);
++    errval = CloseError(G.outfile, G.filename);
+ #endif
+ 
+ #if (!defined(NO_FCHOWN) && !defined(NO_FCHMOD))
+@@ -1239,7 +1271,7 @@ void close_outfile(__G)    /* GRR: chang
+     if (fchmod(fileno(G.outfile), filtattr(__G__ G.pInfo->file_attr)))
+         perror("fchmod (file attributes) error");
+ 
+-    fclose(G.outfile);
++    errval = CloseError(G.outfile, G.filename);
+ #endif /* !NO_FCHOWN && !NO_FCHMOD */
+ 
+     /* skip restoring time stamps on user's request */
+@@ -1267,6 +1299,7 @@ void close_outfile(__G)    /* GRR: chang
+ #endif
+ #endif /* NO_FCHOWN || NO_FCHMOD */
+ 
++    return errval;
+ } /* end function close_outfile() */
+ 
+ #endif /* !MTS */
+diff -up unzip60/unzpriv.h.close unzip60/unzpriv.h
+--- unzip60/unzpriv.h.close	2009-04-20 01:59:26.000000000 +0200
++++ unzip60/unzpriv.h	2009-11-19 08:19:08.610388618 +0100
+@@ -2604,7 +2604,7 @@ char    *GetLoadPath     OF((__GPRO));  
+    int   SetFileSize     OF((FILE *file, zusz_t filesize));         /* local */
+ #endif
+ #ifndef MTS /* macro in MTS */
+-   void  close_outfile   OF((__GPRO));                              /* local */
++   int  close_outfile   OF((__GPRO));                              /* local */
+ #endif
+ #ifdef SET_SYMLINK_ATTRIBS
+    int  set_symlnk_attribs  OF((__GPRO__ slinkentry *slnk_entry));  /* local */
+diff -up unzip60/zipinfo.c.attribs-overflow unzip60/zipinfo.c
+--- unzip60/zipinfo.c.attribs-overflow	2009-11-30 09:55:39.000000000 +0100
++++ unzip60/zipinfo.c	2009-11-30 09:56:42.844263244 +0100
+@@ -1881,7 +1881,7 @@ static int zi_short(__G)   /* return PK-
+ #endif
+     int         k, error, error_in_archive=PK_COOL;
+     unsigned    hostnum, hostver, methid, methnum, xattr;
+-    char        *p, workspace[12], attribs[16];
++    char        *p, workspace[12], attribs[17];
+     char        methbuf[5];
+     static ZCONST char dtype[5]="NXFS"; /* normal, maximum, fast, superfast */
+     static ZCONST char Far os[NUM_HOSTS+1][4] = {
+diff -up unzip60/unix/configure.nostrip unzip60/unix/configure
+--- unzip60/unix/configure.nostrip	2009-11-30 10:18:09.000000000 +0100
++++ unzip60/unix/configure	2009-11-30 10:21:08.354264213 +0100
+@@ -17,7 +17,7 @@ CFLAGSR=${CFLAGS}
+ IZ_BZIP2=${3}
+ CFLAGS="${CFLAGS} -I. -DUNIX"
+ LFLAGS1=""
+-LFLAGS2="-s"
++LFLAGS2="${LFLAGS2}"
+ LN="ln -s"
+ 
+ CFLAGS_OPT=''
+--- unzip60/man/unzip.1	2011-01-11 11:59:59.000000000 +0000
++++ unzip60/man/unzip_new	2011-02-05 18:45:55.000000000 +0000
+@@ -424,7 +424,7 @@
+ .\" Amiga support possible eventually, but not yet
+ [MS-DOS, OS/2, NT] restore the volume label if the extraction medium is
+ removable (e.g., a diskette).  Doubling the option (\fB\-$$\fP) allows fixed
+-media (hard disks) to be labelled as well.  By default, volume labels are
++media (hard disks) to be labeled as well.  By default, volume labels are
+ ignored.
+ .IP \fB\-/\fP\ \fIextensions\fP
+ [Acorn only] overrides the extension list supplied by Unzip$Ext environment
+diff -up unzip60/match.c.recmatch unzip60/match.c
+--- unzip60/match.c.recmatch	2005-08-14 13:00:36.000000000 -0400
++++ unzip60/match.c	2013-05-28 10:29:57.949077543 -0400
+@@ -27,16 +27,14 @@
+ 
+   ---------------------------------------------------------------------------
+ 
+-  Copyright on recmatch() from Zip's util.c (although recmatch() was almost
+-  certainly written by Mark Adler...ask me how I can tell :-) ):
++  Copyright on recmatch() from Zip's util.c
++	 Copyright (c) 1990-2005 Info-ZIP.  All rights reserved.
+ 
+-     Copyright (C) 1990-1992 Mark Adler, Richard B. Wales, Jean-loup Gailly,
+-     Kai Uwe Rommel and Igor Mandrichenko.
++	 See the accompanying file LICENSE, version 2004-May-22 or later
++	 for terms of use.
++	 If, for some reason, both of these files are missing, the Info-ZIP license
++	 also may be found at:  ftp://ftp.info-zip.org/pub/infozip/license.html  
+ 
+-     Permission is granted to any individual or institution to use, copy,
+-     or redistribute this software so long as all of the original files are
+-     included unmodified, that it is not sold for profit, and that this copy-
+-     right notice is retained.
+ 
+   ---------------------------------------------------------------------------
+ 
+@@ -53,7 +51,7 @@
+ 
+   A set is composed of characters or ranges; a range looks like ``character
+   hyphen character'' (as in 0-9 or A-Z).  [0-9a-zA-Z_] is the minimal set of
+-  characters allowed in the [..] pattern construct.  Other characters are
++  characters ALlowed in the [..] pattern construct.  Other characters are
+   allowed (i.e., 8-bit characters) if your system will support them.
+ 
+   To suppress the special syntactic significance of any of ``[]*?!^-\'', in-
+@@ -101,8 +99,32 @@
+ #  define WILDCHAR   '?'
+ #  define BEG_RANGE  '['
+ #  define END_RANGE  ']'
++#  define WILDCHR_SINGLE '?'
++#  define DIRSEP_CHR '/'
++#  define WILDCHR_MULTI '*'
+ #endif
+ 
++#ifdef WILD_STOP_AT_DIR
++   int wild_stop_at_dir = 1; /* default wildcards do not include / in matches */
++#else
++   int wild_stop_at_dir = 0; /* default wildcards do include / in matches */
++#endif
++
++
++
++/*
++ * case mapping functions. case_map is used to ignore case in comparisons,
++ * to_up is used to force upper case even on Unix (for dosify option).
++ */
++#ifdef USE_CASE_MAP
++#  define case_map(c) upper[(c) & 0xff]
++#  define to_up(c)    upper[(c) & 0xff]
++#else
++#  define case_map(c) (c)
++#  define to_up(c)    ((c) >= 'a' && (c) <= 'z' ? (c)-'a'+'A' : (c))
++#endif /* USE_CASE_MAP */
++
++
+ #if 0                /* GRR:  add this to unzip.h someday... */
+ #if !(defined(MSDOS) && defined(DOSWILD))
+ #ifdef WILD_STOP_AT_DIR
+@@ -114,8 +136,8 @@ int recmatch OF((ZCONST uch *pattern, ZC
+                  int ignore_case __WDLPRO));
+ #endif
+ #endif /* 0 */
+-static int recmatch OF((ZCONST uch *pattern, ZCONST uch *string,
+-                        int ignore_case __WDLPRO));
++static int recmatch OF((ZCONST char *, ZCONST char *, 
++                        int));
+ static char *isshexp OF((ZCONST char *p));
+ static int namecmp OF((ZCONST char *s1, ZCONST char *s2));
+ 
+@@ -154,192 +176,240 @@ int match(string, pattern, ignore_case _
+             }
+             dospattern[j-1] = '\0';                    /* nuke the end "." */
+         }
+-        j = recmatch((uch *)dospattern, (uch *)string, ignore_case __WDL);
++        j = recmatch(dospattern, string, ignore_case);
+         free(dospattern);
+         return j == 1;
+     } else
+ #endif /* MSDOS && DOSWILD */
+-    return recmatch((uch *)pattern, (uch *)string, ignore_case __WDL) == 1;
++    return recmatch(pattern, string, ignore_case) == 1;
+ }
+ 
++#ifdef _MBCS
++
++char *___tmp_ptr;
+ 
++#endif
+ 
+-static int recmatch(p, s, ic __WDL)
+-    ZCONST uch *p;        /* sh pattern to match */
+-    ZCONST uch *s;        /* string to which to match it */
+-    int ic;               /* true for case insensitivity */
+-    __WDLDEF              /* directory sepchar for WildStopAtDir mode, or 0 */
++static int recmatch(p, s, cs)
++ZCONST char *p;         /* sh pattern to match */
++ZCONST char *s;         /* string to match it to */
++int cs;                 /* flag: force case-sensitive matching */
+ /* Recursively compare the sh pattern p with the string s and return 1 if
+- * they match, and 0 or 2 if they don't or if there is a syntax error in the
+- * pattern.  This routine recurses on itself no more deeply than the number
+- * of characters in the pattern. */
++   they match, and 0 or 2 if they don't or if there is a syntax error in the
++   pattern.  This routine recurses on itself no deeper than the number of
++   characters in the pattern. */
+ {
+-    unsigned int c;       /* pattern char or start of range in [-] loop */
++  int c;                /* pattern char or start of range in [-] loop */
++  /* Get first character, the pattern for new recmatch calls follows */
++ /* borrowed from Zip's global.c */
++ int no_wild = 0; 
++ int allow_regex=1;
++  /* This fix provided by akt@m5.dion.ne.jp for Japanese.
++     See 21 July 2006 mail.
++     It only applies when p is pointing to a doublebyte character and
++     things like / and wildcards are not doublebyte.  This probably
++     should not be needed. */
+ 
+-    /* Get first character, the pattern for new recmatch calls follows */
+-    c = *p; INCSTR(p);
++#ifdef _MBCS
++  if (CLEN(p) == 2) {
++    if (CLEN(s) == 2) {
++      return (*p == *s && *(p+1) == *(s+1)) ?
++        recmatch(p + 2, s + 2, cs) : 0;
++    } else {
++      return 0;
++    }
++  }
++#endif /* ?_MBCS */
+ 
+-    /* If that was the end of the pattern, match if string empty too */
+-    if (c == 0)
+-        return *s == 0;
++  c = *POSTINCSTR(p);
+ 
+-    /* '?' (or '%') matches any character (but not an empty string). */
+-    if (c == WILDCHAR)
+-#ifdef WILD_STOP_AT_DIR
+-        /* If uO.W_flag is non-zero, it won't match '/' */
+-        return (*s && (!sepc || *s != (uch)sepc))
+-               ? recmatch(p, s + CLEN(s), ic, sepc) : 0;
+-#else
+-        return *s ? recmatch(p, s + CLEN(s), ic) : 0;
+-#endif
++  /* If that was the end of the pattern, match if string empty too */
++  if (c == 0)
++    return *s == 0;
++
++  /* '?' (or '%' or '#') matches any character (but not an empty string) */
++  if (c == WILDCHR_SINGLE) {
++    if (wild_stop_at_dir)
++      return (*s && *s != DIRSEP_CHR) ? recmatch(p, s + CLEN(s), cs) : 0;
++    else
++      return *s ? recmatch(p, s + CLEN(s), cs) : 0;
++  }
+ 
+-    /* '*' matches any number of characters, including zero */
++  /* WILDCHR_MULTI ('*') matches any number of characters, including zero */
+ #ifdef AMIGA
+-    if (c == '#' && *p == '?')     /* "#?" is Amiga-ese for "*" */
+-        c = '*', p++;
++  if (!no_wild && c == '#' && *p == '?')            /* "#?" is Amiga-ese for "*" */
++    c = WILDCHR_MULTI, p++;
+ #endif /* AMIGA */
+-    if (c == '*') {
+-#ifdef WILD_STOP_AT_DIR
+-        if (sepc) {
+-          /* check for single "*" or double "**" */
+-#  ifdef AMIGA
+-          if ((c = p[0]) == '#' && p[1] == '?') /* "#?" is Amiga-ese for "*" */
+-            c = '*', p++;
+-          if (c != '*') {
+-#  else /* !AMIGA */
+-          if (*p != '*') {
+-#  endif /* ?AMIGA */
+-            /* single "*": this doesn't match the dirsep character */
+-            for (; *s && *s != (uch)sepc; INCSTR(s))
+-                if ((c = recmatch(p, s, ic, sepc)) != 0)
+-                    return (int)c;
+-            /* end of pattern: matched if at end of string, else continue */
+-            if (*p == '\0')
+-                return (*s == 0);
+-            /* continue to match if at sepc in pattern, else give up */
+-            return (*p == (uch)sepc || (*p == '\\' && p[1] == (uch)sepc))
+-                   ? recmatch(p, s, ic, sepc) : 2;
+-          }
+-          /* "**": this matches slashes */
+-          ++p;        /* move p behind the second '*' */
+-          /* and continue with the non-W_flag code variant */
+-        }
+-#endif /* WILD_STOP_AT_DIR */
++  if (!no_wild && c == WILDCHR_MULTI)
++  {
++    if (wild_stop_at_dir) {
++      /* Check for an immediately following WILDCHR_MULTI */
++# ifdef AMIGA
++      if ((c = p[0]) == '#' && p[1] == '?') /* "#?" is Amiga-ese for "*" */
++        c = WILDCHR_MULTI, p++;
++      if (c != WILDCHR_MULTI) {
++# else /* !AMIGA */
++      if (*p != WILDCHR_MULTI) {
++# endif /* ?AMIGA */
++        /* Single WILDCHR_MULTI ('*'): this doesn't match slashes */
++        for (; *s && *s != DIRSEP_CHR; INCSTR(s))
++          if ((c = recmatch(p, s, cs)) != 0)
++            return c;
++        /* end of pattern: matched if at end of string, else continue */
+         if (*p == 0)
+-            return 1;
+-        if (isshexp((ZCONST char *)p) == NULL) {
+-            /* Optimization for rest of pattern being a literal string:
+-             * If there are no other shell expression chars in the rest
+-             * of the pattern behind the multi-char wildcard, then just
+-             * compare the literal string tail.
+-             */
+-            ZCONST uch *srest;
+-
+-            srest = s + (strlen((ZCONST char *)s) - strlen((ZCONST char *)p));
+-            if (srest - s < 0)
+-                /* remaining literal string from pattern is longer than rest
+-                 * of test string, there can't be a match
+-                 */
+-                return 0;
+-            else
+-              /* compare the remaining literal pattern string with the last
+-               * bytes of the test string to check for a match
+-               */
++          return (*s == 0);
++        /* continue to match if at DIRSEP_CHR in pattern, else give up */
++        return (*p == DIRSEP_CHR || (*p == '\\' && p[1] == DIRSEP_CHR))
++               ? recmatch(p, s, cs) : 2;
++      }
++      /* Two consecutive WILDCHR_MULTI ("**"): this matches DIRSEP_CHR ('/') */
++      p++;        /* move p past the second WILDCHR_MULTI */
++      /* continue with the normal non-WILD_STOP_AT_DIR code */
++    } /* wild_stop_at_dir */
++
++    /* Not wild_stop_at_dir */
++    if (*p == 0)
++      return 1;
++    if (!isshexp((char *)p))
++    {
++      /* optimization for rest of pattern being a literal string */
++
++      /* optimization to handle patterns like *.txt */
++      /* if the first char in the pattern is '*' and there */
++      /* are no other shell expression chars, i.e. a literal string */
++      /* then just compare the literal string at the end */
++
++      ZCONST char *srest;
++
++      srest = s + (strlen(s) - strlen(p));
++      if (srest - s < 0)
++        /* remaining literal string from pattern is longer than rest of
++           test string, there can't be a match
++         */
++        return 0;
++      else
++        /* compare the remaining literal pattern string with the last bytes
++           of the test string to check for a match */
+ #ifdef _MBCS
+-            {
+-                ZCONST uch *q = s;
++      {
++        ZCONST char *q = s;
+ 
+-                /* MBCS-aware code must not scan backwards into a string from
+-                 * the end.
+-                 * So, we have to move forward by character from our well-known
+-                 * character position s in the test string until we have
+-                 * advanced to the srest position.
+-                 */
+-                while (q < srest)
+-                  INCSTR(q);
+-                /* In case the byte *srest is a trailing byte of a multibyte
+-                 * character in the test string s, we have actually advanced
+-                 * past the position (srest).
+-                 * For this case, the match has failed!
+-                 */
+-                if (q != srest)
+-                    return 0;
+-                return ((ic
+-                         ? namecmp((ZCONST char *)p, (ZCONST char *)q)
+-                         : strcmp((ZCONST char *)p, (ZCONST char *)q)
+-                        ) == 0);
+-            }
++        /* MBCS-aware code must not scan backwards into a string from
++         * the end.
++         * So, we have to move forward by character from our well-known
++         * character position s in the test string until we have advanced
++         * to the srest position.
++         */
++        while (q < srest)
++          INCSTR(q);
++        /* In case the byte *srest is a trailing byte of a multibyte
++         * character, we have actually advanced past the position (srest).
++         * For this case, the match has failed!
++         */
++        if (q != srest)
++          return 0;
++        return ((cs ? strcmp(p, q) : namecmp(p, q)) == 0);
++      }
+ #else /* !_MBCS */
+-                return ((ic
+-                         ? namecmp((ZCONST char *)p, (ZCONST char *)srest)
+-                         : strcmp((ZCONST char *)p, (ZCONST char *)srest)
+-                        ) == 0);
++        return ((cs ? strcmp(p, srest) : namecmp(p, srest)) == 0);
+ #endif /* ?_MBCS */
+-        } else {
+-            /* pattern contains more wildcards, continue with recursion... */
+-            for (; *s; INCSTR(s))
+-                if ((c = recmatch(p, s, ic __WDL)) != 0)
+-                    return (int)c;
+-            return 2;  /* 2 means give up--match will return false */
+-        }
+     }
+-
+-    /* Parse and process the list of characters and ranges in brackets */
+-    if (c == BEG_RANGE) {
+-        int e;          /* flag true if next char to be taken literally */
+-        ZCONST uch *q;  /* pointer to end of [-] group */
+-        int r;          /* flag true to match anything but the range */
+-
+-        if (*s == 0)                            /* need a character to match */
+-            return 0;
+-        p += (r = (*p == '!' || *p == '^'));    /* see if reverse */
+-        for (q = p, e = 0; *q; INCSTR(q))       /* find closing bracket */
+-            if (e)
+-                e = 0;
+-            else
+-                if (*q == '\\')      /* GRR:  change to ^ for MS-DOS, OS/2? */
+-                    e = 1;
+-                else if (*q == END_RANGE)
+-                    break;
+-        if (*q != END_RANGE)         /* nothing matches if bad syntax */
+-            return 0;
+-        for (c = 0, e = (*p == '-'); p < q; INCSTR(p)) {
+-            /* go through the list */
+-            if (!e && *p == '\\')               /* set escape flag if \ */
+-                e = 1;
+-            else if (!e && *p == '-')           /* set start of range if - */
+-                c = *(p-1);
+-            else {
+-                unsigned int cc = Case(*s);
+-
+-                if (*(p+1) != '-')
+-                    for (c = c ? c : *p; c <= *p; c++)  /* compare range */
+-                        if ((unsigned)Case(c) == cc) /* typecast for MSC bug */
+-                            return r ? 0 : recmatch(q + 1, s + 1, ic __WDL);
+-                c = e = 0;   /* clear range, escape flags */
+-            }
+-        }
+-        return r ? recmatch(q + CLEN(q), s + CLEN(s), ic __WDL) : 0;
+-                                        /* bracket match failed */
++    else
++    {
++      /* pattern contains more wildcards, continue with recursion... */
++      for (; *s; INCSTR(s))
++        if ((c = recmatch(p, s, cs)) != 0)
++          return c;
++      return 2;           /* 2 means give up--shmatch will return false */
+     }
++  }
+ 
+-    /* if escape ('\\'), just compare next character */
+-    if (c == '\\' && (c = *p++) == 0)     /* if \ at end, then syntax error */
+-        return 0;
++#ifndef VMS             /* No bracket matching in VMS */
++  /* Parse and process the list of characters and ranges in brackets */
++  if (!no_wild && allow_regex && c == '[')
++  {
++    int e;              /* flag true if next char to be taken literally */
++    ZCONST char *q;     /* pointer to end of [-] group */
++    int r;              /* flag true to match anything but the range */
++
++    if (*s == 0)                        /* need a character to match */
++      return 0;
++    p += (r = (*p == '!' || *p == '^')); /* see if reverse */
++    for (q = p, e = 0; *q; q++)         /* find closing bracket */
++      if (e)
++        e = 0;
++      else
++        if (*q == '\\')
++          e = 1;
++        else if (*q == ']')
++          break;
++    if (*q != ']')                      /* nothing matches if bad syntax */
++      return 0;
++    for (c = 0, e = *p == '-'; p < q; p++)      /* go through the list */
++    {
++      if (e == 0 && *p == '\\')         /* set escape flag if \ */
++        e = 1;
++      else if (e == 0 && *p == '-')     /* set start of range if - */
++        c = *(p-1);
++      else
++      {
++        uch cc = (cs ? (uch)*s : case_map((uch)*s));
++        uch uc = (uch) c;
++        if (*(p+1) != '-')
++          for (uc = uc ? uc : (uch)*p; uc <= (uch)*p; uc++)
++            /* compare range */
++            if ((cs ? uc : case_map(uc)) == cc)
++              return r ? 0 : recmatch(q + CLEN(q), s + CLEN(s), cs);
++        c = e = 0;                      /* clear range, escape flags */
++      }
++    }
++    return r ? recmatch(q + CLEN(q), s + CLEN(s), cs) : 0;
++                                        /* bracket match failed */
++  }
++#endif /* !VMS */
+ 
+-    /* just a character--compare it */
+-#ifdef QDOS
+-    return QMatch(Case((uch)c), Case(*s)) ?
+-           recmatch(p, s + CLEN(s), ic __WDL) : 0;
+-#else
+-    return Case((uch)c) == Case(*s) ?
+-           recmatch(p, s + CLEN(s), ic __WDL) : 0;
+-#endif
++  /* If escape ('\'), just compare next character */
++  if (!no_wild && c == '\\')
++    if ((c = *p++) == '\0')             /* if \ at end, then syntax error */
++      return 0;
++
++#ifdef VMS
++  /* 2005-11-06 SMS.
++     Handle "..." wildcard in p with "." or "]" in s.
++  */
++  if ((c == '.') && (*p == '.') && (*(p+ CLEN( p)) == '.') &&
++   ((*s == '.') || (*s == ']')))
++  {
++    /* Match "...]" with "]".  Continue after "]" in both. */
++    if ((*(p+ 2* CLEN( p)) == ']') && (*s == ']'))
++      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), cs);
++
++    /* Else, look for a reduced match in s, until "]" in or end of s. */
++    for (; *s && (*s != ']'); INCSTR(s))
++      if (*s == '.')
++        /* If reduced match, then continue after "..." in p, "." in s. */
++        if ((c = recmatch( (p+ CLEN( p)), s, cs)) != 0)
++          return (int)c;
++
++    /* Match "...]" with "]".  Continue after "]" in both. */
++    if ((*(p+ 2* CLEN( p)) == ']') && (*s == ']'))
++      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), cs);
++
++    /* No reduced match.  Quit. */
++    return 2;
++  }
++
++#endif /* def VMS */
++
++  /* Just a character--compare it */
++  return (cs ? c == *s : case_map((uch)c) == case_map((uch)*s)) ?
++          recmatch(p, s + CLEN(s), cs) : 0;
++}
+ 
+-} /* end function recmatch() */
+ 
+ 
+ 
++/*************************************************************************************************/
+ static char *isshexp(p)
+ ZCONST char *p;
+ /* If p is a sh expression, a pointer to the first special character is
+diff --git a/process.c b/process.c
+index 1e9a1e1..905732b 100644
+--- a/process.c
++++ b/process.c
+@@ -1751,6 +1751,12 @@ int process_cdir_file_hdr(__G)    /* return PK-type error code */
          = (G.crec.general_purpose_bit_flag & (1 << 11)) == (1 << 11);
  #endif
  
@@ -376,36 +742,310 @@
      return PK_COOL;
  
  } /* end function process_cdir_file_hdr() */
-
-
---- list.c
-+++ list.c
-@@ -97,7 +97,7 @@
- {
-     int do_this_file=FALSE, cfactor, error, error_in_archive=PK_COOL;
- #ifndef WINDLL
--    char sgn, cfactorstr[10];
-+    char sgn, cfactorstr[12];
-     int longhdr=(uO.vflag>1);
+diff --git a/match.c b/match.c
+index 6cd656f..4e569f5 100644
+--- a/match.c
++++ b/match.c
+@@ -190,10 +190,10 @@ char *___tmp_ptr;
+ 
  #endif
-     int date_format;
-
-
---- zipinfo.c
-+++ zipinfo.c
-@@ -2114,7 +2114,7 @@
-             else
-                 attribs[9] = (xattr & UNX_ISVTX)? 'T' : '-';  /* T==undefined */
  
--            sprintf(&attribs[12], "%u.%u", hostver/10, hostver%10);
-+            sprintf(&attribs[11], "%2u.%u", hostver/10, hostver%10);
-             break;
+-static int recmatch(p, s, cs)
++static int recmatch(p, s, ci)
+ ZCONST char *p;         /* sh pattern to match */
+ ZCONST char *s;         /* string to match it to */
+-int cs;                 /* flag: force case-sensitive matching */
++int ci;                 /* flag: force case-insensitive matching */
+ /* Recursively compare the sh pattern p with the string s and return 1 if
+    they match, and 0 or 2 if they don't or if there is a syntax error in the
+    pattern.  This routine recurses on itself no deeper than the number of
+@@ -214,7 +214,7 @@ int cs;                 /* flag: force case-sensitive matching */
+   if (CLEN(p) == 2) {
+     if (CLEN(s) == 2) {
+       return (*p == *s && *(p+1) == *(s+1)) ?
+-        recmatch(p + 2, s + 2, cs) : 0;
++        recmatch(p + 2, s + 2, ci) : 0;
+     } else {
+       return 0;
+     }
+@@ -230,9 +230,9 @@ int cs;                 /* flag: force case-sensitive matching */
+   /* '?' (or '%' or '#') matches any character (but not an empty string) */
+   if (c == WILDCHR_SINGLE) {
+     if (wild_stop_at_dir)
+-      return (*s && *s != DIRSEP_CHR) ? recmatch(p, s + CLEN(s), cs) : 0;
++      return (*s && *s != DIRSEP_CHR) ? recmatch(p, s + CLEN(s), ci) : 0;
+     else
+-      return *s ? recmatch(p, s + CLEN(s), cs) : 0;
++      return *s ? recmatch(p, s + CLEN(s), ci) : 0;
+   }
  
-     } /* end switch (hostnum: external attributes format) */
-
-
---- extract.c
-+++ extract.c
+   /* WILDCHR_MULTI ('*') matches any number of characters, including zero */
+@@ -253,14 +253,14 @@ int cs;                 /* flag: force case-sensitive matching */
+ # endif /* ?AMIGA */
+         /* Single WILDCHR_MULTI ('*'): this doesn't match slashes */
+         for (; *s && *s != DIRSEP_CHR; INCSTR(s))
+-          if ((c = recmatch(p, s, cs)) != 0)
++          if ((c = recmatch(p, s, ci)) != 0)
+             return c;
+         /* end of pattern: matched if at end of string, else continue */
+         if (*p == 0)
+           return (*s == 0);
+         /* continue to match if at DIRSEP_CHR in pattern, else give up */
+         return (*p == DIRSEP_CHR || (*p == '\\' && p[1] == DIRSEP_CHR))
+-               ? recmatch(p, s, cs) : 2;
++               ? recmatch(p, s, ci) : 2;
+       }
+       /* Two consecutive WILDCHR_MULTI ("**"): this matches DIRSEP_CHR ('/') */
+       p++;        /* move p past the second WILDCHR_MULTI */
+@@ -308,17 +308,17 @@ int cs;                 /* flag: force case-sensitive matching */
+          */
+         if (q != srest)
+           return 0;
+-        return ((cs ? strcmp(p, q) : namecmp(p, q)) == 0);
++        return ((!ci ? strcmp(p, q) : namecmp(p, q)) == 0);
+       }
+ #else /* !_MBCS */
+-        return ((cs ? strcmp(p, srest) : namecmp(p, srest)) == 0);
++        return ((!ci ? strcmp(p, srest) : namecmp(p, srest)) == 0);
+ #endif /* ?_MBCS */
+     }
+     else
+     {
+       /* pattern contains more wildcards, continue with recursion... */
+       for (; *s; INCSTR(s))
+-        if ((c = recmatch(p, s, cs)) != 0)
++        if ((c = recmatch(p, s, ci)) != 0)
+           return c;
+       return 2;           /* 2 means give up--shmatch will return false */
+     }
+@@ -353,17 +353,17 @@ int cs;                 /* flag: force case-sensitive matching */
+         c = *(p-1);
+       else
+       {
+-        uch cc = (cs ? (uch)*s : case_map((uch)*s));
++        uch cc = (!ci ? (uch)*s : to_up((uch)*s));
+         uch uc = (uch) c;
+         if (*(p+1) != '-')
+           for (uc = uc ? uc : (uch)*p; uc <= (uch)*p; uc++)
+             /* compare range */
+-            if ((cs ? uc : case_map(uc)) == cc)
+-              return r ? 0 : recmatch(q + CLEN(q), s + CLEN(s), cs);
++            if ((!ci ? uc : to_up(uc)) == cc)
++              return r ? 0 : recmatch(q + CLEN(q), s + CLEN(s), ci);
+         c = e = 0;                      /* clear range, escape flags */
+       }
+     }
+-    return r ? recmatch(q + CLEN(q), s + CLEN(s), cs) : 0;
++    return r ? recmatch(q + CLEN(q), s + CLEN(s), ci) : 0;
+                                         /* bracket match failed */
+   }
+ #endif /* !VMS */
+@@ -382,18 +382,18 @@ int cs;                 /* flag: force case-sensitive matching */
+   {
+     /* Match "...]" with "]".  Continue after "]" in both. */
+     if ((*(p+ 2* CLEN( p)) == ']') && (*s == ']'))
+-      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), cs);
++      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), ci);
+ 
+     /* Else, look for a reduced match in s, until "]" in or end of s. */
+     for (; *s && (*s != ']'); INCSTR(s))
+       if (*s == '.')
+         /* If reduced match, then continue after "..." in p, "." in s. */
+-        if ((c = recmatch( (p+ CLEN( p)), s, cs)) != 0)
++        if ((c = recmatch( (p+ CLEN( p)), s, ci)) != 0)
+           return (int)c;
+ 
+     /* Match "...]" with "]".  Continue after "]" in both. */
+     if ((*(p+ 2* CLEN( p)) == ']') && (*s == ']'))
+-      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), cs);
++      return recmatch( (p+ 3* CLEN( p)), (s+ CLEN( s)), ci);
+ 
+     /* No reduced match.  Quit. */
+     return 2;
+@@ -402,8 +402,8 @@ int cs;                 /* flag: force case-sensitive matching */
+ #endif /* def VMS */
+ 
+   /* Just a character--compare it */
+-  return (cs ? c == *s : case_map((uch)c) == case_map((uch)*s)) ?
+-          recmatch(p, s + CLEN(s), cs) : 0;
++  return (!ci ? c == *s : to_up((uch)c) == to_up((uch)*s)) ?
++          recmatch(p, s + CLEN(s), ci) : 0;
+ }
+ 
+ 
+diff --git a/extract.c b/extract.c
+index eeb2f57..a0a4929 100644
+--- a/extract.c
++++ b/extract.c
+@@ -472,8 +472,8 @@ int extract_or_test_files(__G)    /* return PK-type error code */
+                      */
+                     Info(slide, 0x401, ((char *)slide,
+                       LoadFarString(CentSigMsg), j + blknum*DIR_BLKSIZ + 1));
+-                    Info(slide, 0x401, ((char *)slide,
+-                      LoadFarString(ReportMsg)));
++                    Info(slide, 0x401,
++                         ((char *)slide,"%s", LoadFarString(ReportMsg)));
+                     error_in_archive = PK_BADERR;
+                 }
+                 reached_end = TRUE;     /* ...so no more left to do */
+@@ -752,8 +752,8 @@ int extract_or_test_files(__G)    /* return PK-type error code */
+ 
+ #ifndef SFX
+     if (no_endsig_found) {                      /* just to make sure */
+-        Info(slide, 0x401, ((char *)slide, LoadFarString(EndSigMsg)));
+-        Info(slide, 0x401, ((char *)slide, LoadFarString(ReportMsg)));
++        Info(slide, 0x401, ((char *)slide,"%s", LoadFarString(EndSigMsg)));
++        Info(slide, 0x401, ((char *)slide,"%s", LoadFarString(ReportMsg)));
+         if (!error_in_archive)       /* don't overwrite stronger error */
+             error_in_archive = PK_WARN;
+     }
+diff --git a/list.c b/list.c
+index 15e0011..f7359c3 100644
+--- a/list.c
++++ b/list.c
+@@ -181,7 +181,7 @@ int list_files(__G)    /* return PK-type error code */
+                 Info(slide, 0x401,
+                      ((char *)slide, LoadFarString(CentSigMsg), j));
+                 Info(slide, 0x401,
+-                     ((char *)slide, LoadFarString(ReportMsg)));
++                     ((char *)slide,"%s", LoadFarString(ReportMsg)));
+                 return PK_BADERR;   /* sig not found */
+             }
+         }
+@@ -507,7 +507,8 @@ int list_files(__G)    /* return PK-type error code */
+             && (!G.ecrec.is_zip64_archive)
+             && (memcmp(G.sig, end_central_sig, 4) != 0)
+            ) {          /* just to make sure again */
+-            Info(slide, 0x401, ((char *)slide, LoadFarString(EndSigMsg)));
++            Info(slide, 0x401, 
++                 ((char *)slide,"%s", LoadFarString(EndSigMsg)));
+             error_in_archive = PK_WARN;   /* didn't find sig */
+         }
+ 
+@@ -591,7 +592,7 @@ int get_time_stamp(__G__ last_modtime, nmember)  /* return PK-type error code */
+                 Info(slide, 0x401,
+                      ((char *)slide, LoadFarString(CentSigMsg), j));
+                 Info(slide, 0x401,
+-                     ((char *)slide, LoadFarString(ReportMsg)));
++                     ((char *)slide,"%s", LoadFarString(ReportMsg)));
+                 return PK_BADERR;   /* sig not found */
+             }
+         }
+@@ -674,7 +675,7 @@ int get_time_stamp(__G__ last_modtime, nmember)  /* return PK-type error code */
+   ---------------------------------------------------------------------------*/
+ 
+     if (memcmp(G.sig, end_central_sig, 4)) {    /* just to make sure again */
+-        Info(slide, 0x401, ((char *)slide, LoadFarString(EndSigMsg)));
++        Info(slide, 0x401, ((char *)slide,"%s", LoadFarString(EndSigMsg)));
+         error_in_archive = PK_WARN;
+     }
+     if (*nmember == 0L && error_in_archive <= PK_WARN)
+diff --git a/zipinfo.c b/zipinfo.c
+index 6e22cc8..ac5c61b 100644
+--- a/zipinfo.c
++++ b/zipinfo.c
+@@ -771,7 +771,7 @@ int zipinfo(__G)   /* return PK-type error code */
+                 Info(slide, 0x401,
+                      ((char *)slide, LoadFarString(CentSigMsg), j));
+                 Info(slide, 0x401,
+-                     ((char *)slide, LoadFarString(ReportMsg)));
++                     ((char *)slide,"%s", LoadFarString(ReportMsg)));
+                 error_in_archive = PK_BADERR;   /* sig not found */
+                 break;
+             }
+@@ -960,7 +960,8 @@ int zipinfo(__G)   /* return PK-type error code */
+             && (!G.ecrec.is_zip64_archive)
+             && (memcmp(G.sig, end_central_sig, 4) != 0)
+            ) {          /* just to make sure again */
+-            Info(slide, 0x401, ((char *)slide, LoadFarString(EndSigMsg)));
++            Info(slide, 0x401, 
++                 ((char *)slide,"%s", LoadFarString(EndSigMsg)));
+             error_in_archive = PK_WARN;   /* didn't find sig */
+         }
+ 
+diff --git a/fileio.c b/fileio.c
+index ba0a1d0..03fc4be 100644
+--- a/fileio.c
++++ b/fileio.c
+@@ -2006,6 +2006,7 @@ int do_string(__G__ length, option)   /* return PK-type error code */
+     unsigned comment_bytes_left;
+     unsigned int block_len;
+     int error=PK_OK;
++    unsigned int length2;
+ #ifdef AMIGA
+     char tmp_fnote[2 * AMIGA_FILENOTELEN];   /* extra room for squozen chars */
+ #endif
+@@ -2292,8 +2293,12 @@ int do_string(__G__ length, option)   /* return PK-type error code */
+             seek_zipf(__G__ G.cur_zipfile_bufstart - G.extra_bytes +
+                       (G.inptr-G.inbuf) + length);
+         } else {
+-            if (readbuf(__G__ (char *)G.extra_field, length) == 0)
++            if ((length2 = readbuf(__G__ (char *)G.extra_field, length)) == 0)
+                 return PK_EOF;
++            if(length2 < length) {
++              memset (__G__ (char *)G.extra_field+length2, 0 , length-length2);
++              length = length2;
++            }
+             /* Looks like here is where extra fields are read */
+             getZip64Data(__G__ G.extra_field, length);
+ #ifdef UNICODE_SUPPORT
+--- ./process.c.orig    2009-03-06 02:25:10.000000000 +0100
++++ ./process.c 2013-09-12 10:51:16.000000000 +0200
+@@ -2901,9 +2901,9 @@
+         */
+ 
+ #ifdef IZ_HAVE_UXUIDGID
+-            if (eb_len >= EB_UX3_MINLEN
+-                && z_uidgid != NULL
+-                && (*((EB_HEADSIZE + 0) + ef_buf) == 1)
++            if ((eb_len >= EB_UX3_MINLEN)
++                && (z_uidgid != NULL)
++                && ((*((EB_HEADSIZE + 0) + ef_buf) == 1)))
+                     /* only know about version 1 */
+             {
+                 uch uid_size;
+@@ -2915,10 +2915,10 @@
+                 flags &= ~0x0ff;      /* ignore any previous UNIX field */
+ 
+                 if ( read_ux3_value((EB_HEADSIZE + 2) + ef_buf,
+-                                    uid_size, z_uidgid[0])
++                                    uid_size, &z_uidgid[0])
+                     &&
+                      read_ux3_value((EB_HEADSIZE + uid_size + 3) + ef_buf,
+-                                    gid_size, z_uidgid[1]) )
++                                    gid_size, &z_uidgid[1]) )
+                 {
+                     flags |= EB_UX2_VALID;   /* signal success */
+                 }
+diff --git a/extract.c b/extract.c
+index a0a4929..9ef80b3 100644
+--- a/extract.c
++++ b/extract.c
+@@ -2214,6 +2214,7 @@ static int test_compr_eb(__G__ eb, eb_size, compr_offset, test_uc_ebdata)
+     ulg eb_ucsize;
+     uch *eb_ucptr;
+     int r;
++    ush method;
+ 
+     if (compr_offset < 4)                /* field is not compressed: */
+         return PK_OK;                    /* do nothing and signal OK */
+@@ -2223,6 +2224,12 @@ static int test_compr_eb(__G__ eb, eb_size, compr_offset, test_uc_ebdata)
+          eb_size <= (compr_offset + EB_CMPRHEADLEN)))
+         return IZ_EF_TRUNC;               /* no compressed data! */
+ 
++    method = makeword(eb + (EB_HEADSIZE + compr_offset));
++    if ((method == STORED) && (eb_size != compr_offset + EB_CMPRHEADLEN + eb_ucsize))
++        return PK_ERR;            /* compressed & uncompressed
++                                   * should match in STORED
++                                   * method */
++
+     if (
+ #ifdef INT_16BIT
+         (((ulg)(extent)eb_ucsize) != eb_ucsize) ||
+diff --git a/extract.c b/extract.c
+index 9ef80b3..c741b5f 100644
+--- a/extract.c
++++ b/extract.c
 @@ -1,5 +1,5 @@
  /*
 -  Copyright (c) 1990-2009 Info-ZIP.  All rights reserved.
@@ -413,7 +1053,7 @@
  
    See the accompanying file LICENSE, version 2009-Jan-02 or later
    (the contents of which are also included in unzip.h) for terms of use.
-@@ -298,6 +298,8 @@
+@@ -298,6 +298,8 @@ char ZCONST Far TruncNTSD[] =
  #ifndef SFX
     static ZCONST char Far InconsistEFlength[] = "bad extra-field entry:\n \
       EF block length (%u bytes) exceeds remaining EF data (%u bytes)\n";
@@ -422,7 +1062,7 @@
     static ZCONST char Far InvalidComprDataEAs[] =
       " invalid compressed data for EAs\n";
  #  if (defined(WIN32) && defined(NTSD_EAS))
-@@ -2023,7 +2025,8 @@
+@@ -2020,7 +2022,8 @@ static int TestExtraField(__G__ ef, ef_len)
          ebID = makeword(ef);
          ebLen = (unsigned)makeword(ef+EB_LEN);
  
@@ -432,32 +1072,60 @@
             /* Discovered some extra field inconsistency! */
              if (uO.qflag)
                  Info(slide, 1, ((char *)slide, "%-22s ",
-@@ -2158,11 +2161,19 @@
+@@ -2155,11 +2158,29 @@ static int TestExtraField(__G__ ef, ef_len)
                  }
                  break;
              case EF_PKVMS:
 -                if (makelong(ef+EB_HEADSIZE) !=
-+                if (ebLen < 4)
+-                    crc32(CRCVAL_INITIAL, ef+(EB_HEADSIZE+4),
+-                          (extent)(ebLen-4)))
+-                    Info(slide, 1, ((char *)slide,
+-                      LoadFarString(BadCRC_EAs)));
++                /* 2015-01-30 SMS.  Added sufficient-bytes test/message
++                 * here.  (Removed defective ebLen test above.)
++                 *
++                 * If sufficient bytes (EB_PKVMS_MINLEN) are available,
++                 * then compare the stored CRC value with the calculated
++                 * CRC for the remainder of the data (and complain about
++                 * a mismatch).
++                 */
++                if (ebLen < EB_PKVMS_MINLEN)
 +                {
-+                    Info(slide, 1,
-+                     ((char *)slide, LoadFarString(TooSmallEBlength),
-+                     ebLen, 4));
++                    /* Insufficient bytes available. */
++                    Info( slide, 1,
++                     ((char *)slide, LoadFarString( TooSmallEBlength),
++                     ebLen, EB_PKVMS_MINLEN));
 +                }
-+                else if (makelong(ef+EB_HEADSIZE) !=
-                     crc32(CRCVAL_INITIAL, ef+(EB_HEADSIZE+4),
-                           (extent)(ebLen-4)))
++                else if (makelong(ef+ EB_HEADSIZE) !=
++                 crc32(CRCVAL_INITIAL,
++                 (ef+ EB_HEADSIZE+ EB_PKVMS_MINLEN),
++                 (extent)(ebLen- EB_PKVMS_MINLEN)))
 +                {
-                     Info(slide, 1, ((char *)slide,
-                       LoadFarString(BadCRC_EAs)));
++                     Info(slide, 1, ((char *)slide,
++                       LoadFarString(BadCRC_EAs)));
 +                }
                  break;
              case EF_PKW32:
              case EF_PKUNIX:
+diff --git a/unzpriv.h b/unzpriv.h
+index 005cee0..5c83a6e 100644
+--- a/unzpriv.h
++++ b/unzpriv.h
+@@ -1806,6 +1806,8 @@
+ #define EB_NTSD_VERSION   4    /* offset of NTSD version byte */
+ #define EB_NTSD_MAX_VER   (0)  /* maximum version # we know how to handle */
+ 
++#define EB_PKVMS_MINLEN   4    /* minimum data length of PKVMS extra block */
++
+ #define EB_ASI_CRC32      0    /* offset of ASI Unix field's crc32 checksum */
+ #define EB_ASI_MODE       4    /* offset of ASI Unix permission mode field */
+ 
 
-
---- extract.c
-+++ extract.c
-@@ -2232,10 +2232,17 @@
+diff --git a/extract.c b/extract.c
+index c741b5f..e4a4c7b 100644
+--- a/extract.c
++++ b/extract.c
+@@ -2240,10 +2240,17 @@ static int test_compr_eb(__G__ eb, eb_size, compr_offset, test_uc_ebdata)
      if (compr_offset < 4)                /* field is not compressed: */
          return PK_OK;                    /* do nothing and signal OK */
  
@@ -476,13 +1144,13 @@
 +     ((eb_ucsize > 0L) && (eb_size <= (compr_offset + EB_CMPRHEADLEN))))
 +        return IZ_EF_TRUNC;             /* no/bad compressed data! */
  
-     if (
- #ifdef INT_16BIT
-
-
---- fileio.c
-+++ fileio.c
-@@ -176,6 +176,8 @@
+     method = makeword(eb + (EB_HEADSIZE + compr_offset));
+     if ((method == STORED) && (eb_size != compr_offset + EB_CMPRHEADLEN + eb_ucsize))
+diff --git a/fileio.c b/fileio.c
+index 03fc4be..2a61a30 100644
+--- a/fileio.c
++++ b/fileio.c
+@@ -176,6 +176,8 @@ static ZCONST char Far FilenameTooLongTrunc[] =
  #endif
  static ZCONST char Far ExtraFieldTooLong[] =
    "warning:  extra field too long (%d).  Ignoring...\n";
@@ -491,9 +1159,9 @@
  
  #ifdef WINDLL
     static ZCONST char Far DiskFullQuery[] =
-@@ -2295,7 +2297,12 @@
-             if (readbuf(__G__ (char *)G.extra_field, length) == 0)
-                 return PK_EOF;
+@@ -2300,7 +2302,13 @@ int do_string(__G__ length, option)   /* return PK-type error code */
+               length = length2;
+             }
              /* Looks like here is where extra fields are read */
 -            getZip64Data(__G__ G.extra_field, length);
 +            if (getZip64Data(__G__ G.extra_field, length) != PK_COOL)
@@ -502,11 +1170,14 @@
 +                 LoadFarString( ExtraFieldCorrupt), EF_PKSZ64));
 +                error = PK_WARN;
 +            }
++
  #ifdef UNICODE_SUPPORT
              G.unipath_filename = NULL;
              if (G.UzO.U_flag < 2) {
---- process.c
-+++ process.c
+diff --git a/process.c b/process.c
+index be6e006..0d57ab4 100644
+--- a/process.c
++++ b/process.c
 @@ -1,5 +1,5 @@
  /*
 -  Copyright (c) 1990-2009 Info-ZIP.  All rights reserved.
@@ -514,7 +1185,7 @@
  
    See the accompanying file LICENSE, version 2009-Jan-02 or later
    (the contents of which are also included in unzip.h) for terms of use.
-@@ -1901,48 +1901,82 @@
+@@ -1894,48 +1894,83 @@ int getZip64Data(__G__ ef_buf, ef_len)
      and a 4-byte version of disk start number.
      Sets both local header and central header fields.  Not terribly clever,
      but it means that this procedure is only called in one place.
@@ -553,7 +1224,7 @@
              break;
          }
 -        if (eb_id == EF_PKSZ64) {
--
+ 
 +        if (eb_id == EF_PKSZ64)
 +        {
            int offset = EB_HEADSIZE;
@@ -613,51 +1284,55 @@
          ef_buf += (eb_len + EB_HEADSIZE);
          ef_len -= (eb_len + EB_HEADSIZE);
      }
-
-
---- extract.c
-+++ extract.c
-@@ -2228,6 +2228,7 @@
-     ulg eb_ucsize;
-     uch *eb_ucptr;
-     int r;
-+    ush eb_compr_method;
+diff --git a/list.c b/list.c
+index f7359c3..4c3d703 100644
+--- a/list.c
++++ b/list.c
+@@ -97,7 +97,7 @@ int list_files(__G)    /* return PK-type error code */
+ {
+     int do_this_file=FALSE, cfactor, error, error_in_archive=PK_COOL;
+ #ifndef WINDLL
+-    char sgn, cfactorstr[10];
++    char sgn, cfactorstr[13];
+     int longhdr=(uO.vflag>1);
+ #endif
+     int date_format;
+@@ -339,7 +339,19 @@ int list_files(__G)    /* return PK-type error code */
+                 G.crec.compression_method == ENHDEFLATED) {
+                 methbuf[5] = dtype[(G.crec.general_purpose_bit_flag>>1) & 3];
+             } else if (methnum >= NUM_METHODS) {
+-                sprintf(&methbuf[4], "%03u", G.crec.compression_method);
++                /* 2013-02-26 SMS.
++                 * http://sourceforge.net/tracker/?func=detail
++                 *  &aid=2861648&group_id=118012&atid=679786
++                 * Unexpectedly large compression methods overflow
++                 * &methbuf[].  Use the old, three-digit decimal format
++                 * for values which fit.  Otherwise, sacrifice the
++                 * colon, and use four-digit hexadecimal.
++                 */
++                if (G.crec.compression_method <= 999) {
++                    sprintf( &methbuf[ 4], "%03u", G.crec.compression_method);
++                } else {
++                    sprintf( &methbuf[ 3], "%04X", G.crec.compression_method);
++                }
+             }
  
-     if (compr_offset < 4)                /* field is not compressed: */
-         return PK_OK;                    /* do nothing and signal OK */
-@@ -2244,6 +2245,15 @@
-      ((eb_ucsize > 0L) && (eb_size <= (compr_offset + EB_CMPRHEADLEN))))
-         return IZ_EF_TRUNC;             /* no/bad compressed data! */
- 
-+    /* 2015-02-10 Mancha(?), Michal Zalewski, Tomas Hoger, SMS.
-+     * For STORE method, compressed and uncompressed sizes must agree.
-+     * http://www.info-zip.org/phpBB3/viewtopic.php?f=7&t=450
-+     */
-+    eb_compr_method = makeword( eb + (EB_HEADSIZE + compr_offset));
-+    if ((eb_compr_method == STORED) &&
-+     (eb_size != compr_offset + EB_CMPRHEADLEN + eb_ucsize))
-+        return PK_ERR;
-+
-     if (
- #ifdef INT_16BIT
-         (((ulg)(extent)eb_ucsize) != eb_ucsize) ||
+ #if 0       /* GRR/Euro:  add this? */
+From bdd4a0cecd745cb4825e4508b5bdf2579731086a Mon Sep 17 00:00:00 2001
+From: Petr Stodulka <pstodulk@redhat.com>
+Date: Mon, 14 Sep 2015 18:23:17 +0200
+Subject: [PATCH 1/3] upstream fix for heap overflow
 
+https://bugzilla.redhat.com/attachment.cgi?id=1073002
+---
+ crypt.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
---- unix/unix.c
-+++ unix/unix.c
-@@ -1705,7 +1705,7 @@
- #endif /* Sun */
- #endif /* SGI */
- 
--#ifdef __DATE__
-+#if 0
-       " on ", __DATE__
- #else
-       "", ""
-
---- crypt.c
-+++ crypt.c
-@@ -465,7 +465,17 @@
+diff --git a/crypt.c b/crypt.c
+index 784e411..a8975f2 100644
+--- a/crypt.c
++++ b/crypt.c
+@@ -465,7 +465,17 @@ int decrypt(__G__ passwrd)
      GLOBAL(pInfo->encrypted) = FALSE;
      defer_leftover_input(__G);
      for (n = 0; n < RAND_HEAD_LEN; n++) {
@@ -676,11 +1351,25 @@
          h[n] = (uch)b;
          Trace((stdout, " (%02x)", h[n]));
      }
+-- 
+2.4.6
 
 
---- extract.c
-+++ extract.c
-@@ -2729,6 +2729,12 @@
+From 4b48844661ff9569f2ecf582a387d46a5775b5d8 Mon Sep 17 00:00:00 2001
+From: Kamil Dudka <kdudka@redhat.com>
+Date: Mon, 14 Sep 2015 18:24:56 +0200
+Subject: [PATCH 2/3] fix infinite loop when extracting empty bzip2 data
+
+Bug: https://sourceforge.net/p/infozip/patches/23/
+---
+ extract.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/extract.c b/extract.c
+index 7134bfe..29db027 100644
+--- a/extract.c
++++ b/extract.c
+@@ -2733,6 +2733,12 @@ __GDEF
      int repeated_buf_err;
      bz_stream bstrm;
  
@@ -693,11 +1382,25 @@
  #if (defined(DLL) && !defined(NO_SLIDE_REDIR))
      if (G.redirect_slide)
          wsize = G.redirect_size, redirSlide = G.redirect_buffer;
+-- 
+2.4.6
 
 
---- extract.c
-+++ extract.c
-@@ -1257,8 +1257,17 @@
+From bd150334fb4084f5555a6be26b015a0671cb5b74 Mon Sep 17 00:00:00 2001
+From: Kamil Dudka <kdudka@redhat.com>
+Date: Tue, 22 Sep 2015 18:52:23 +0200
+Subject: [PATCH 3/3] extract: prevent unsigned overflow on invalid input
+
+Suggested-by: Stefan Cornelius
+---
+ extract.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/extract.c b/extract.c
+index 29db027..b9ae667 100644
+--- a/extract.c
++++ b/extract.c
+@@ -1257,8 +1257,17 @@ static int extract_or_test_entrylist(__G__ numchunk,
          if (G.lrec.compression_method == STORED) {
              zusz_t csiz_decrypted = G.lrec.csize;
  
@@ -716,96 +1419,20 @@
              if (G.lrec.ucsize != csiz_decrypted) {
                  Info(slide, 0x401, ((char *)slide,
                    LoadFarStringSmall2(WrnStorUCSizCSizDiff),
+-- 
+2.5.2
 
+From: Giovanni Scafora <giovanni.archlinux.org>
+Subject: unzip files encoded with non-latin, non-unicode file names
+Last-Update: 2015-02-11
 
---- process.c
-+++ process.c
-@@ -2914,10 +2914,13 @@
-             break;
- 
-           case EF_IZUNIX2:
--            if (have_new_type_eb == 0) {
--                flags &= ~0x0ff;        /* ignore any previous IZUNIX field */
-+            if (have_new_type_eb == 0) {        /* (< 1) */
-                 have_new_type_eb = 1;
-             }
-+            if (have_new_type_eb <= 1) {
-+                /* Ignore any prior (EF_IZUNIX/EF_PKUNIX) UID/GID. */
-+                flags &= 0x0ff;
-+            }
- #ifdef IZ_HAVE_UXUIDGID
-             if (have_new_type_eb > 1)
-                 break;          /* IZUNIX3 overrides IZUNIX2 e.f. block ! */
-@@ -2933,6 +2936,8 @@
-             /* new 3rd generation Unix ef */
-             have_new_type_eb = 2;
- 
-+            /* Ignore any prior EF_IZUNIX/EF_PKUNIX/EF_IZUNIX2 UID/GID. */
-+            flags &= 0x0ff;
-         /*
-           Version       1 byte      version of this extra field, currently 1
-           UIDSize       1 byte      Size of UID field
-@@ -2953,8 +2958,6 @@
-                 uid_size = *((EB_HEADSIZE + 1) + ef_buf);
-                 gid_size = *((EB_HEADSIZE + uid_size + 2) + ef_buf);
- 
--                flags &= ~0x0ff;      /* ignore any previous UNIX field */
--
-                 if ( read_ux3_value((EB_HEADSIZE + 2) + ef_buf,
-                                     uid_size, &z_uidgid[0])
-                     &&
+Updated 2015-02-11 by Marc Deslauriers <marc.deslauriers@canonical.com>
+to fix buffer overflow in charset_to_intern()
 
-
---- list.c
-+++ list.c
-@@ -339,7 +339,18 @@
-                 G.crec.compression_method == ENHDEFLATED) {
-                 methbuf[5] = dtype[(G.crec.general_purpose_bit_flag>>1) & 3];
-             } else if (methnum >= NUM_METHODS) {
--                sprintf(&methbuf[4], "%03u", G.crec.compression_method);
-+                /* 2013-02-26 SMS.
-+                 * http://sourceforge.net/p/infozip/bugs/27/  CVE-2014-9913.
-+                 * Unexpectedly large compression methods overflow
-+                 * &methbuf[].  Use the old, three-digit decimal format
-+                 * for values which fit.  Otherwise, sacrifice the
-+                 * colon, and use four-digit hexadecimal.
-+                 */
-+                if (G.crec.compression_method <= 999) {
-+                    sprintf( &methbuf[ 4], "%03u", G.crec.compression_method);
-+                } else {
-+                    sprintf( &methbuf[ 3], "%04X", G.crec.compression_method);
-+                }
-             }
- 
- #if 0       /* GRR/Euro:  add this? */
-
-
---- zipinfo.c
-+++ zipinfo.c
-@@ -1921,7 +1921,18 @@
-         ush  dnum=(ush)((G.crec.general_purpose_bit_flag>>1) & 3);
-         methbuf[3] = dtype[dnum];
-     } else if (methnum >= NUM_METHODS) {   /* unknown */
--        sprintf(&methbuf[1], "%03u", G.crec.compression_method);
-+        /* 2016-12-05 SMS.
-+         * https://launchpad.net/bugs/1643750
-+         * Unexpectedly large compression methods overflow
-+         * &methbuf[].  Use the old, three-digit decimal format
-+         * for values which fit.  Otherwise, sacrifice the "u",
-+         * and use four-digit hexadecimal.
-+         */
-+        if (G.crec.compression_method <= 999) {
-+            sprintf( &methbuf[ 1], "%03u", G.crec.compression_method);
-+        } else {
-+            sprintf( &methbuf[ 0], "%04X", G.crec.compression_method);
-+        }
-     }
- 
-     for (k = 0;  k < 15;  ++k)
-
-
---- unix/unix.c
-+++ unix/unix.c
+Index: unzip-6.0/unix/unix.c
+===================================================================
+--- unzip-6.0.orig/unix/unix.c	2015-02-11 08:46:43.675324290 -0500
++++ unzip-6.0/unix/unix.c	2015-02-11 09:18:04.902081319 -0500
 @@ -30,6 +30,9 @@
  #define UNZIP_INTERNAL
  #include "unzip.h"
@@ -849,7 +1476,7 @@
 +    const char *local_charset;
 +    int i;
 +
-+    /* Make a guess only if OEM_CP not already set. */
++    /* Make a guess only if OEM_CP not already set. */ 
 +    if(*OEM_CP == '\0') {
 +    	local_charset = nl_langinfo(CODESET);
 +    	for(i = 0; i < sizeof(dos_charset_map)/sizeof(CHARSET_MAP); i++)
@@ -919,23 +1546,23 @@
 +{
 +    charset_to_intern(string, ISO_CP);
 +}
-Index: unzip/unix/unxcfg.h
+Index: unzip-6.0/unix/unxcfg.h
 ===================================================================
---- unix/unxcfg.h
-+++ unix/unxcfg.h
+--- unzip-6.0.orig/unix/unxcfg.h	2015-02-11 08:46:43.675324290 -0500
++++ unzip-6.0/unix/unxcfg.h	2015-02-11 08:46:43.671324260 -0500
 @@ -228,4 +228,30 @@
  /* wild_dir, dirname, wildname, matchname[], dirnamelen, have_dirname, */
  /*    and notfirstcall are used by do_wild().                          */
  
 +
-+#define MAX_CP_NAME 25
-+
++#define MAX_CP_NAME 25 
++   
 +#ifdef SETLOCALE
 +#  undef SETLOCALE
 +#endif
 +#define SETLOCALE(category, locale) setlocale(category, locale)
 +#include <locale.h>
-+
++   
 +#ifdef _ISO_INTERN
 +#  undef _ISO_INTERN
 +#endif
@@ -952,12 +1579,12 @@ Index: unzip/unix/unxcfg.h
 +void iso_intern(char *);
 +void oem_intern(char *);
 +void init_conversion_charsets(void);
-+
++   
  #endif /* !__unxcfg_h */
-Index: unzip/unzip.c
+Index: unzip-6.0/unzip.c
 ===================================================================
---- unzip.c
-+++ unzip.c
+--- unzip-6.0.orig/unzip.c	2015-02-11 08:46:43.675324290 -0500
++++ unzip-6.0/unzip.c	2015-02-11 08:46:43.675324290 -0500
 @@ -327,11 +327,21 @@
    -2  just filenames but allow -h/-t/-z  -l  long Unix \"ls -l\" format\n\
                                           -v  verbose, multi-page format\n";
@@ -965,19 +1592,17 @@ Index: unzip/unzip.c
 +#ifndef UNIX
  static ZCONST char Far ZipInfoUsageLine3[] = "miscellaneous options:\n\
    -h  print header line       -t  print totals for listed files or for all\n\
--  -z  print zipfile comment   -T  print file times in sortable decimal format\
--\n  -C  be case-insensitive   %s\
-+  -z  print zipfile comment   -T  print file times in sortable decimal format\n\
-+  -C  be case-insensitive     %s\
+   -z  print zipfile comment   -T  print file times in sortable decimal format\
+ \n  -C  be case-insensitive   %s\
    -x  exclude filenames that follow from listing\n";
 +#else /* UNIX */
 +static ZCONST char Far ZipInfoUsageLine3[] = "miscellaneous options:\n\
 +  -h  print header line       -t  print totals for listed files or for all\n\
-+  -z  print zipfile comment   -T  print file times in sortable decimal format\n\
-+  -C  be case-insensitive   %s\
++  -z  print zipfile comment   -T  print file times in sortable decimal format\
++\n  -C  be case-insensitive   %s\
 +  -x  exclude filenames that follow from listing\n\
-+  -O CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
-+  -I CHARSET  specify a character encoding for UNIX and other archives\n";
++  -O  CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
++  -I  CHARSET  specify a character encoding for UNIX and other archives\n";
 +#endif /* !UNIX */
  #ifdef MORE
     static ZCONST char Far ZipInfoUsageLine4[] =
@@ -995,8 +1620,8 @@ Index: unzip/unzip.c
 +  -U  use escapes for all non-ASCII Unicode  -UU ignore any Unicode fields\n\
 +  -C  match filenames case-insensitively     -L  make (some) names \
 +lowercase\n %-42s  -V  retain VMS version numbers\n%s\
-+  -O CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
-+  -I CHARSET  specify a character encoding for UNIX and other archives\n\n";
++  -O  CHARSET  specify a character encoding for DOS, Windows and OS/2 archives\n\
++  -I  CHARSET  specify a character encoding for UNIX and other archives\n\n";
  #else /* !VMS */
  static ZCONST char Far UnzipUsageLine4[] = "\
  modifiers:\n\
@@ -1019,7 +1644,7 @@ Index: unzip/unzip.c
 +    extern char OEM_CP[MAX_CP_NAME];
 +    extern char ISO_CP[MAX_CP_NAME];
 +#endif
-+
++    
      while (++argv, (--argc > 0 && *argv != NULL && **argv == '-')) {
          s = *argv + 1;
          while ((c = *s++) != 0) {    /* "!= 0":  prevent Turbo C warning */
@@ -1036,10 +1661,10 @@ Index: unzip/unzip.c
 +    				} else {
 +    					if(*s) { /* Handle the -Icharset case */
 +    						/* Assume that charsets can't start with a dash to spot arguments misuse */
-+    						if(*s == '-') {
++    						if(*s == '-') { 
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						strncpy(ISO_CP, s, sizeof(ISO_CP));
 +    					} else { /* -I charset */
@@ -1047,7 +1672,7 @@ Index: unzip/unzip.c
 +    						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						s = *argv;
 +    						strncpy(ISO_CP, s, sizeof(ISO_CP));
@@ -1072,10 +1697,10 @@ Index: unzip/unzip.c
 +    				} else {
 +    					if(*s) { /* Handle the -Ocharset case */
 +    						/* Assume that charsets can't start with a dash to spot arguments misuse */
-+    						if(*s == '-') {
++    						if(*s == '-') { 
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						strncpy(OEM_CP, s, sizeof(OEM_CP));
 +    					} else { /* -O charset */
@@ -1083,7 +1708,7 @@ Index: unzip/unzip.c
 +    						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -O argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						s = *argv;
 +    						strncpy(OEM_CP, s, sizeof(OEM_CP));
@@ -1095,37 +1720,10 @@ Index: unzip/unzip.c
                  case ('p'):    /* pipes:  extract to stdout, no messages */
                      if (negative) {
                          uO.cflag = FALSE;
-@@ -2162,6 +2250,7 @@
-   "         ACORN_FTYPE_NFS] Translate filetype and append to name.",
-   "  -i   [MacOS] Ignore filenames in MacOS extra field.  Instead, use name in",
-   "         standard header.",
-+  "  -I CHARSET  [UNIX] Specify a character encoding for UNIX and other archives.",
-   "  -j   Junk paths and deposit all files in extraction directory.",
-   "  -J   [BeOS] Junk file attributes.  [MacOS] Ignore MacOS specific info.",
-   "  -K   [AtheOS, BeOS, Unix] Restore SUID/SGID/Tacky file attributes.",
-@@ -2172,6 +2261,8 @@
-   "  -N   [Amiga] Extract file comments as Amiga filenotes.",
-   "  -o   Overwrite existing files without prompting.  Useful with -f.  Use with",
-   "         care.",
-+  "  -O CHARSET  [UNIX] Specify a character encoding for DOS, Windows",
-+  "                and OS/2 archives.",
-   "  -P p Use password p to decrypt files.  THIS IS INSECURE!  Some OS show",
-   "         command line to other users.",
-   "  -q   Perform operations quietly.  The more q (as in -qq) the quieter.",
-@@ -2264,6 +2355,9 @@
-   "        representing the Unicode character number of the character in hex.",
-   "  -UU [UNICODE]  Disable use of any UTF-8 path information.",
-   "  -z  Include archive comment if any in listing.",
-+  "  -O CHARSET  [UNIX] Specify a character encoding for DOS, Windows",
-+  "                and OS/2 archives.",
-+  "  -I CHARSET  [UNIX] Specify a character encoding for UNIX and other archives.",
-   "",
-   "",
-   "funzip stream extractor:",
-Index: unzip/unzpriv.h
+Index: unzip-6.0/unzpriv.h
 ===================================================================
---- unzpriv.h
-+++ unzpriv.h
+--- unzip-6.0.orig/unzpriv.h	2015-02-11 08:46:43.675324290 -0500
++++ unzip-6.0/unzpriv.h	2015-02-11 08:46:43.675324290 -0500
 @@ -3008,7 +3008,7 @@
           !(((islochdr) || (isuxatt)) && \
             ((hostver) == 25 || (hostver) == 26 || (hostver) == 40))) || \
@@ -1135,10 +1733,10 @@ Index: unzip/unzpriv.h
          _OEM_INTERN((string)); \
      } else { \
          _ISO_INTERN((string)); \
-Index: unzip/zipinfo.c
+Index: unzip-6.0/zipinfo.c
 ===================================================================
---- zipinfo.c
-+++ zipinfo.c
+--- unzip-6.0.orig/zipinfo.c	2015-02-11 08:46:43.675324290 -0500
++++ unzip-6.0/zipinfo.c	2015-02-11 08:46:43.675324290 -0500
 @@ -457,6 +457,10 @@
      int    tflag_slm=TRUE, tflag_2v=FALSE;
      int    explicit_h=FALSE, explicit_t=FALSE;
@@ -1163,10 +1761,10 @@ Index: unzip/zipinfo.c
 +    				} else {
 +    					if(*s) { /* Handle the -Icharset case */
 +    						/* Assume that charsets can't start with a dash to spot arguments misuse */
-+    						if(*s == '-') {
++    						if(*s == '-') { 
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						strncpy(ISO_CP, s, sizeof(ISO_CP));
 +    					} else { /* -I charset */
@@ -1174,7 +1772,7 @@ Index: unzip/zipinfo.c
 +    						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						s = *argv;
 +    						strncpy(ISO_CP, s, sizeof(ISO_CP));
@@ -1199,10 +1797,10 @@ Index: unzip/zipinfo.c
 +    				} else {
 +    					if(*s) { /* Handle the -Ocharset case */
 +    						/* Assume that charsets can't start with a dash to spot arguments misuse */
-+    						if(*s == '-') {
++    						if(*s == '-') { 
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -I argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						strncpy(OEM_CP, s, sizeof(OEM_CP));
 +    					} else { /* -O charset */
@@ -1210,7 +1808,7 @@ Index: unzip/zipinfo.c
 +    						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
 +    	                        Info(slide, 0x401, ((char *)slide,
 +        		                  "error:  a valid character encoding should follow the -O argument"));
-+    	                        return(PK_PARAM);
++    	                        return(PK_PARAM); 
 +    						}
 +    						s = *argv;
 +    						strncpy(OEM_CP, s, sizeof(OEM_CP));
@@ -1222,93 +1820,681 @@ Index: unzip/zipinfo.c
                  case 's':      /* default:  shorter "ls -l" type listing */
                      if (negative)
                          uO.lflag = -2, negative = 0;
-Index: unzip/man/unzip.1
-===================================================================
---- man/unzip.1
-+++ man/unzip.1
-@@ -325,6 +325,8 @@
- [MacOS only] ignore filenames stored in MacOS extra fields. Instead, the
- most compatible filename stored in the generic part of the entry's header
- is used.
-+.IP \fB\-I\fP\ \fICHARSET\fP
-+[UNIX only] Specify a character encoding for UNIX and other archives.
- .TP
- .B \-j
- junk paths.  The archive's directory structure is not recreated; all files
-@@ -386,6 +388,8 @@
- overwrite existing files without prompting.  This is a dangerous option, so
- use it with care.  (It is often used with \fB\-f\fP, however, and is the only
- way to overwrite directory EAs under OS/2.)
-+.IP \fB\-O\fP\ \fICHARSET\fP
-+[UNIX only] Specify a character encoding for DOS, Windows and OS/2 archives.
- .IP \fB\-P\fP\ \fIpassword\fP
- use \fIpassword\fP to decrypt encrypted zipfile entries (if any).  \fBTHIS IS
- INSECURE!\fP  Many multi-user operating systems provide ways for any user to
-Index: unzip/man/zipinfo.1
-===================================================================
---- man/zipinfo.1
-+++ man/zipinfo.1
-@@ -174,6 +174,10 @@
- .TP
- .B \-z
- include the archive comment (if any) in the listing.
-+.IP \fB\-I\fP\ \fICHARSET\fP
-+[UNIX only] Specify a character encoding for UNIX and other archives.
-+.IP \fB\-O\fP\ \fICHARSET\fP
-+[UNIX only] Specify a character encoding for DOS, Windows and OS/2 archives.
- .PD
- .\" =========================================================================
- .SH "DETAILED DESCRIPTION"
+From ca0212ba19b64488b9e8459a762c11ecd6e7d0bd Mon Sep 17 00:00:00 2001
+From: Petr Stodulka <pstodulk@redhat.com>
+Date: Tue, 24 Nov 2015 17:56:11 +0100
+Subject: [PATCH] print correctly non-ascii filenames
 
+---
+ extract.c | 289 ++++++++++++++++++++++++++++++++++++++++++++++++--------------
+ unzpriv.h |   7 ++
+ 2 files changed, 233 insertions(+), 63 deletions(-)
 
---- fileio.c
-+++ fileio.c
-@@ -1582,6 +1582,10 @@
+diff --git a/extract.c b/extract.c
+index 0ee4e93..741b7e0 100644
+--- a/extract.c
++++ b/extract.c
+@@ -2648,8 +2648,21 @@ static void set_deferred_symlink(__G__ slnk_entry)
+ } /* end function set_deferred_symlink() */
+ #endif /* SYMLINKS */
+ 
++/*
++ * If Unicode is supported, assume we have what we need to do this
++ * check using wide characters, avoiding MBCS issues.
++ */
+ 
+-
++#ifndef UZ_FNFILTER_REPLACECHAR
++        /* A convenient choice for the replacement of unprintable char codes is
++         * the "single char wildcard", as this character is quite unlikely to
++         * appear in filenames by itself.  The following default definition
++         * sets the replacement char to a question mark as the most common
++         * "single char wildcard"; this setting should be overridden in the
++         * appropiate system-specific configuration header when needed.
++         */
++# define UZ_FNFILTER_REPLACECHAR      '?'
++#endif
+ 
+ /*************************/
+ /*  Function fnfilter()  */        /* here instead of in list.c for SFX */
+@@ -2661,48 +2674,168 @@ char *fnfilter(raw, space, size)   /* convert name to safely printable form */
+     extent size;
+ {
+ #ifndef NATIVE   /* ASCII:  filter ANSI escape codes, etc. */
+-    ZCONST uch *r=(ZCONST uch *)raw;
++    ZCONST uch *r; // =(ZCONST uch *)raw;
+     uch *s=space;
+     uch *slim=NULL;
+     uch *se=NULL;
+     int have_overflow = FALSE;
+ 
+-    if (size > 0) {
+-        slim = space + size
+-#ifdef _MBCS
+-                     - (MB_CUR_MAX - 1)
+-#endif
+-                     - 4;
++# if defined( UNICODE_SUPPORT) && defined( _MBCS)
++/* If Unicode support is enabled, and we have multi-byte characters,
++ * then do the isprint() checks by first converting to wide characters
++ * and checking those.  This avoids our having to parse multi-byte
++ * characters for ourselves.  After the wide-char replacements have been
++ * made, the wide string is converted back to the local character set.
++ */
++    wchar_t *wstring;    /* wchar_t version of raw */
++    size_t wslen;        /* length of wstring */
++    wchar_t *wostring;   /* wchar_t version of output string */
++    size_t woslen;       /* length of wostring */
++    char *newraw;        /* new raw */
++
++    /* 2012-11-06 SMS.
++     * Changed to check the value returned by mbstowcs(), and bypass the
++     * Unicode processing if it fails.  This seems to fix a problem
++     * reported in the SourceForge forum, but it's not clear that we
++     * should be doing any Unicode processing without some evidence that
++     * the name actually is Unicode.  (Check bit 11 in the flags before
++     * coming here?)
++     * http://sourceforge.net/p/infozip/bugs/40/
++     */
++
++    if (MB_CUR_MAX <= 1)
++    {
++        /* There's no point to converting multi-byte chars if there are
++         * no multi-byte chars.
++         */
++        wslen = (size_t)-1;
+     }
+-    while (*r) {
+-        if (size > 0 && s >= slim && se == NULL) {
+-            se = s;
++    else
++    {
++        /* Get Unicode wide character count (for storage allocation). */
++        wslen = mbstowcs( NULL, raw, 0);
++    }
++
++    if (wslen != (size_t)-1)
++    {
++        /* Apparently valid Unicode.  Allocate wide-char storage. */
++        wstring = (wchar_t *)malloc((wslen + 1) * sizeof(wchar_t));
++        if (wstring == NULL) {
++            strcpy( (char *)space, raw);
++            return (char *)space;
+         }
+-#ifdef QDOS
+-        if (qlflag & 2) {
+-            if (*r == '/' || *r == '.') {
++        wostring = (wchar_t *)malloc(2 * (wslen + 1) * sizeof(wchar_t));
++        if (wostring == NULL) {
++            free(wstring);
++            strcpy( (char *)space, raw);
++            return (char *)space;
++        }
++
++        /* Convert the multi-byte Unicode to wide chars. */
++        wslen = mbstowcs(wstring, raw, wslen + 1);
++
++        /* Filter the wide-character string. */
++        fnfilterw( wstring, wostring, (2 * (wslen + 1) * sizeof(wchar_t)));
++
++        /* Convert filtered wide chars back to multi-byte. */
++        woslen = wcstombs( NULL, wostring, 0);
++        if ((newraw = malloc(woslen + 1)) == NULL) {
++            free(wstring);
++            free(wostring);
++            strcpy( (char *)space, raw);
++            return (char *)space;
++        }
++        woslen = wcstombs( newraw, wostring, (woslen * MB_CUR_MAX) + 1);
++
++        if (size > 0) {
++            slim = space + size - 4;
++        }
++        r = (ZCONST uch *)newraw;
++        while (*r) {
++            if (size > 0 && s >= slim && se == NULL) {
++                se = s;
++            }
++#  ifdef QDOS
++            if (qlflag & 2) {
++                if (*r == '/' || *r == '.') {
++                    if (se != NULL && (s > (space + (size-3)))) {
++                        have_overflow = TRUE;
++                        break;
++                    }
++                    ++r;
++                    *s++ = '_';
++                    continue;
++                }
++            } else
++#  endif
++            {
+                 if (se != NULL && (s > (space + (size-3)))) {
+                     have_overflow = TRUE;
+                     break;
+                 }
+-                ++r;
+-                *s++ = '_';
+-                continue;
++                *s++ = *r++;
+             }
+-        } else
++        }
++        if (have_overflow) {
++            strcpy((char *)se, "...");
++        } else {
++            *s = '\0';
++        }
++
++        free(wstring);
++        free(wostring);
++        free(newraw);
++    }
++    else
++# endif /* defined( UNICODE_SUPPORT) && defined( _MBCS) */
++    {
++        /* No Unicode support, or apparently invalid Unicode. */
++        r = (ZCONST uch *)raw;
++
++        if (size > 0) {
++            slim = space + size
++#ifdef _MBCS
++                         - (MB_CUR_MAX - 1)
++#endif
++                         - 4;
++        }
++        while (*r) {
++            if (size > 0 && s >= slim && se == NULL) {
++                se = s;
++            }
++#ifdef QDOS
++            if (qlflag & 2) {
++                if (*r == '/' || *r == '.') {
++                    if (se != NULL && (s > (space + (size-3)))) {
++                        have_overflow = TRUE;
++                        break;
++                    }
++                    ++r;
++                    *s++ = '_';
++                    continue;
++                }
++            } else
+ #endif
+ #ifdef HAVE_WORKING_ISPRINT
+-# ifndef UZ_FNFILTER_REPLACECHAR
+-    /* A convenient choice for the replacement of unprintable char codes is
+-     * the "single char wildcard", as this character is quite unlikely to
+-     * appear in filenames by itself.  The following default definition
+-     * sets the replacement char to a question mark as the most common
+-     * "single char wildcard"; this setting should be overridden in the
+-     * appropiate system-specific configuration header when needed.
+-     */
+-#   define UZ_FNFILTER_REPLACECHAR      '?'
+-# endif
+-        if (!isprint(*r)) {
++            if (!isprint(*r)) {
++                if (*r < 32) {
++                    /* ASCII control codes are escaped as "^{letter}". */
++                    if (se != NULL && (s > (space + (size-4)))) {
++                        have_overflow = TRUE;
++                        break;
++                    }
++                    *s++ = '^', *s++ = (uch)(64 + *r++);
++                } else {
++                    /* Other unprintable codes are replaced by the
++                     * placeholder character. */
++                    if (se != NULL && (s > (space + (size-3)))) {
++                        have_overflow = TRUE;
++                        break;
++                    }
++                    *s++ = UZ_FNFILTER_REPLACECHAR;
++                    INCSTR(r);
++                }
++#else /* !HAVE_WORKING_ISPRINT */
+             if (*r < 32) {
+                 /* ASCII control codes are escaped as "^{letter}". */
+                 if (se != NULL && (s > (space + (size-4)))) {
+@@ -2710,47 +2843,30 @@ char *fnfilter(raw, space, size)   /* convert name to safely printable form */
+                     break;
+                 }
+                 *s++ = '^', *s++ = (uch)(64 + *r++);
++#endif /* ?HAVE_WORKING_ISPRINT */
+             } else {
+-                /* Other unprintable codes are replaced by the
+-                 * placeholder character. */
++#ifdef _MBCS
++                unsigned i = CLEN(r);
++                if (se != NULL && (s > (space + (size-i-2)))) {
++                    have_overflow = TRUE;
++                    break;
++                }
++                for (; i > 0; i--)
++                    *s++ = *r++;
++#else
+                 if (se != NULL && (s > (space + (size-3)))) {
+                     have_overflow = TRUE;
+                     break;
+                 }
+-                *s++ = UZ_FNFILTER_REPLACECHAR;
+-                INCSTR(r);
+-            }
+-#else /* !HAVE_WORKING_ISPRINT */
+-        if (*r < 32) {
+-            /* ASCII control codes are escaped as "^{letter}". */
+-            if (se != NULL && (s > (space + (size-4)))) {
+-                have_overflow = TRUE;
+-                break;
+-            }
+-            *s++ = '^', *s++ = (uch)(64 + *r++);
+-#endif /* ?HAVE_WORKING_ISPRINT */
+-        } else {
+-#ifdef _MBCS
+-            unsigned i = CLEN(r);
+-            if (se != NULL && (s > (space + (size-i-2)))) {
+-                have_overflow = TRUE;
+-                break;
+-            }
+-            for (; i > 0; i--)
+                 *s++ = *r++;
+-#else
+-            if (se != NULL && (s > (space + (size-3)))) {
+-                have_overflow = TRUE;
+-                break;
+-            }
+-            *s++ = *r++;
+ #endif
+-         }
+-    }
+-    if (have_overflow) {
+-        strcpy((char *)se, "...");
+-    } else {
+-        *s = '\0';
++             }
++        }
++        if (have_overflow) {
++            strcpy((char *)se, "...");
++        } else {
++            *s = '\0';
++        }
+     }
+ 
+ #ifdef WINDLL
+@@ -2772,6 +2888,53 @@ char *fnfilter(raw, space, size)   /* convert name to safely printable form */
+ } /* end function fnfilter() */
+ 
+ 
++#if defined( UNICODE_SUPPORT) && defined( _MBCS)
++
++/****************************/
++/*  Function fnfilter[w]()  */  /* (Here instead of in list.c for SFX.) */
++/****************************/
++
++/* fnfilterw() - Convert wide name to safely printable form. */
++
++/* fnfilterw() - Convert wide-character name to safely printable form. */
++
++wchar_t *fnfilterw( src, dst, siz)
++    ZCONST wchar_t *src;        /* Pointer to source char (string). */
++    wchar_t *dst;               /* Pointer to destination char (string). */
++    extent siz;                 /* Not used (!). */
++{
++    wchar_t *dsx = dst;
++
++    /* Filter the wide chars. */
++    while (*src)
++    {
++        if (iswprint( *src))
++        {
++            /* Printable code.  Copy it. */
++            *dst++ = *src;
++        }
++        else
++        {
++            /* Unprintable code.  Substitute something printable for it. */
++            if (*src < 32)
++            {
++                /* Replace ASCII control code with "^{letter}". */
++                *dst++ = (wchar_t)'^';
++                *dst++ = (wchar_t)(64 + *src);
++            }
++            else
++            {
++                /* Replace other unprintable code with the placeholder. */
++                *dst++ = (wchar_t)UZ_FNFILTER_REPLACECHAR;
++            }
++        }
++        src++;
++    }
++    *dst = (wchar_t)0;  /* NUL-terminate the destination string. */
++    return dsx;
++} /* fnfilterw(). */
++
++#endif /* defined( UNICODE_SUPPORT) && defined( _MBCS) */
+ 
+ 
+ #ifdef SET_DIR_ATTRIB
+diff --git a/unzpriv.h b/unzpriv.h
+index 22d3923..e48a652 100644
+--- a/unzpriv.h
++++ b/unzpriv.h
+@@ -1212,6 +1212,7 @@
+ # ifdef UNICODE_WCHAR
+ #  if !(defined(_WIN32_WCE) || defined(POCKET_UNZIP))
+ #   include <wchar.h>
++#   include <wctype.h>
+ #  endif
+ # endif
+ # ifndef _MBCS  /* no need to include <locale.h> twice, see below */
+@@ -2410,6 +2411,12 @@ int    memflush                  OF((__GPRO__ ZCONST uch *rawbuf, ulg size));
+ char  *fnfilter                  OF((ZCONST char *raw, uch *space,
+                                      extent size));
+ 
++# if defined( UNICODE_SUPPORT) && defined( _MBCS)
++wchar_t *fnfilterw               OF((ZCONST wchar_t *src, wchar_t *dst,
++                                     extent siz));
++#endif
++
++
+ /*---------------------------------------------------------------------------
+     Decompression functions:
+   ---------------------------------------------------------------------------*/
+-- 
+2.4.3
+
+From 754137e70cf58a64ad524b704a86b651ba0cde07 Mon Sep 17 00:00:00 2001
+From: Petr Stodulka <pstodulk@redhat.com>
+Date: Wed, 14 Dec 2016 16:30:36 +0100
+Subject: [PATCH] Fix CVE-2016-9844 (rhbz#1404283)
+
+Fixes buffer overflow in zipinfo in similar way like fix for
+CVE-2014-9913 provided by upstream.
+---
+ zipinfo.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/zipinfo.c b/zipinfo.c
+index c03620e..accca2a 100644
+--- a/zipinfo.c
++++ b/zipinfo.c
+@@ -1984,7 +1984,19 @@ static int zi_short(__G)   /* return PK-type error code */
+         ush  dnum=(ush)((G.crec.general_purpose_bit_flag>>1) & 3);
+         methbuf[3] = dtype[dnum];
+     } else if (methnum >= NUM_METHODS) {   /* unknown */
+-        sprintf(&methbuf[1], "%03u", G.crec.compression_method);
++        /* 2016-12-05 SMS.
++         * https://launchpad.net/bugs/1643750
++         * Unexpectedly large compression methods overflow
++         * &methbuf[].  Use the old, three-digit decimal format
++         * for values which fit.  Otherwise, sacrifice the "u",
++         * and use four-digit hexadecimal.
++         */
++        if (G.crec.compression_method <= 999) {
++              sprintf( &methbuf[ 1], "%03u", G.crec.compression_method);
++        } else {
++              sprintf( &methbuf[ 0], "%04X", G.crec.compression_method);
++        }
++
+     }
+ 
+     for (k = 0;  k < 15;  ++k)
+-- 
+2.5.5
+
+From: "Steven M. Schweda" <sms@antinode.info>
+Subject: Do not ignore extra fields containing Unix Timestamps
+Bug-Debian: https://bugs.debian.org/842993
+X-Debian-version: 6.0-21
+
+--- a/process.c
++++ b/process.c
+@@ -2914,10 +2914,13 @@
+             break;
+ 
+           case EF_IZUNIX2:
+-            if (have_new_type_eb == 0) {
+-                flags &= ~0x0ff;        /* ignore any previous IZUNIX field */
++            if (have_new_type_eb == 0) {        /* (< 1) */
+                 have_new_type_eb = 1;
+             }
++            if (have_new_type_eb <= 1) {
++                /* Ignore any prior (EF_IZUNIX/EF_PKUNIX) UID/GID. */
++                flags &= 0x0ff;
++            }
+ #ifdef IZ_HAVE_UXUIDGID
+             if (have_new_type_eb > 1)
+                 break;          /* IZUNIX3 overrides IZUNIX2 e.f. block ! */
+@@ -2933,6 +2936,8 @@
+             /* new 3rd generation Unix ef */
+             have_new_type_eb = 2;
+ 
++            /* Ignore any prior EF_IZUNIX/EF_PKUNIX/EF_IZUNIX2 UID/GID. */
++            flags &= 0x0ff;
+         /*
+           Version       1 byte      version of this extra field, currently 1
+           UIDSize       1 byte      Size of UID field
+@@ -2953,8 +2958,6 @@
+                 uid_size = *((EB_HEADSIZE + 1) + ef_buf);
+                 gid_size = *((EB_HEADSIZE + uid_size + 2) + ef_buf);
+ 
+-                flags &= ~0x0ff;      /* ignore any previous UNIX field */
+-
+                 if ( read_ux3_value((EB_HEADSIZE + 2) + ef_buf,
+                                     uid_size, &z_uidgid[0])
+                     &&
+--- a/fileio.c	2014-12-05 05:06:05 -0600
++++ b/fileio.c	2017-11-14 01:06:28 -0600
+@@ -1,5 +1,5 @@
+ /*
+-  Copyright (c) 1990-2009 Info-ZIP.  All rights reserved.
++  Copyright (c) 1990-2017 Info-ZIP.  All rights reserved.
+ 
+   See the accompanying file LICENSE, version 2009-Jan-02 or later
+   (the contents of which are also included in unzip.h) for terms of use.
+@@ -1582,6 +1582,8 @@
      int r = IZ_PW_ENTERED;
      char *m;
      char *prompt;
-+    char *zfnf;
-+    char *efnf;
-+    size_t zfnfl;
-+    int isOverflow;
++    char *ep;
++    char *zp;
  
  #ifndef REENTRANT
      /* tell picky compilers to shut up about "unused variable" warnings */
-@@ -1590,7 +1594,15 @@
+@@ -1590,9 +1592,12 @@
  
      if (*rcnt == 0) {           /* First call for current entry */
          *rcnt = 2;
 -        if ((prompt = (char *)malloc(2*FILNAMSIZ + 15)) != (char *)NULL) {
-+        zfnf = FnFilter1(zfn);
-+        efnf = FnFilter2(efn);
-+        zfnfl = strlen(zfnf);
-+        isOverflow = TRUE;
-+        if (2*FILNAMSIZ >= zfnfl && (2*FILNAMSIZ - zfnfl) >= strlen(efnf))
-+        {
-+		isOverflow = FALSE;
-+        }
-+        if ((isOverflow == FALSE) && ((prompt = (char *)malloc(2*FILNAMSIZ + 15)) != (char *)NULL)) {
-             sprintf(prompt, LoadFarString(PasswPrompt),
-                     FnFilter1(zfn), FnFilter2(efn));
+-            sprintf(prompt, LoadFarString(PasswPrompt),
+-                    FnFilter1(zfn), FnFilter2(efn));
++        zp = FnFilter1( zfn);
++        ep = FnFilter2( efn);
++        prompt = (char *)malloc(        /* Slightly too long (2* "%s"). */
++         sizeof( PasswPrompt)+ strlen( zp)+ strlen( ep));
++        if (prompt != (char *)NULL) {
++            sprintf(prompt, LoadFarString(PasswPrompt), zp, ep);
              m = prompt;
+         } else
+             m = (char *)LoadFarString(PasswPrompt2);
+--- unzip60/list.c	
++++ unzip60/list.c	
+@@ -97,7 +97,7 @@ int list_files(__G)    /* return PK-type
+ {
+     int do_this_file=FALSE, cfactor, error, error_in_archive=PK_COOL;
+ #ifndef WINDLL
+-    char sgn, cfactorstr[13];
++    char sgn, cfactorstr[1+10+1+1];	/* <sgn><int>%NUL */
+     int longhdr=(uO.vflag>1);
+ #endif
+     int date_format;
+@@ -389,9 +389,9 @@ int list_files(__G)    /* return PK-type
+             }
+ #else /* !WINDLL */
+             if (cfactor == 100)
+-                sprintf(cfactorstr, LoadFarString(CompFactor100));
++                snprintf(cfactorstr, sizeof(cfactorstr), LoadFarString(CompFactor100));
+             else
+-                sprintf(cfactorstr, LoadFarString(CompFactorStr), sgn, cfactor);
++                snprintf(cfactorstr, sizeof(cfactorstr), LoadFarString(CompFactorStr), sgn, cfactor);
+             if (longhdr)
+                 Info(slide, 0, ((char *)slide, LoadFarString(LongHdrStats),
+                   FmZofft(G.crec.ucsize, "8", "u"), methbuf,
+@@ -471,9 +471,9 @@ int list_files(__G)    /* return PK-type
+ 
+ #else /* !WINDLL */
+         if (cfactor == 100)
+-            sprintf(cfactorstr, LoadFarString(CompFactor100));
++            snprintf(cfactorstr, sizeof(cfactorstr), LoadFarString(CompFactor100));
+         else
+-            sprintf(cfactorstr, LoadFarString(CompFactorStr), sgn, cfactor);
++            snprintf(cfactorstr, sizeof(cfactorstr), LoadFarString(CompFactorStr), sgn, cfactor);
+         if (longhdr) {
+             Info(slide, 0, ((char *)slide, LoadFarString(LongFileTrailer),
+               FmZofft(tot_ucsize, "8", "u"), FmZofft(tot_csize, "8", "u"),
+From 06d1b08aef94984256cad3c5a54cedb10295681f Mon Sep 17 00:00:00 2001
+From: Jakub Martisko <jamartis@redhat.com>
+Date: Thu, 8 Nov 2018 09:31:18 +0100
+Subject: [PATCH] Possible unterminated string fix
 
+---
+ unix/unix.c   |  4 +++-
+ unix/unxcfg.h |  2 +-
+ unzip.c       | 12 ++++++++----
+ zipinfo.c     | 12 ++++++++----
+ 4 files changed, 20 insertions(+), 10 deletions(-)
 
+diff --git a/unix/unix.c b/unix/unix.c
+index 59b622d..cd57f80 100644
+--- a/unix/unix.c
++++ b/unix/unix.c
+@@ -1945,7 +1945,9 @@ void init_conversion_charsets()
+     	for(i = 0; i < sizeof(dos_charset_map)/sizeof(CHARSET_MAP); i++)
+     		if(!strcasecmp(local_charset, dos_charset_map[i].local_charset)) {
+     			strncpy(OEM_CP, dos_charset_map[i].archive_charset,
+-    					sizeof(OEM_CP));
++    					MAX_CP_NAME - 1);
++
++			OEM_CP[MAX_CP_NAME - 1] = '\0';
+     			break;
+     		}
+     }
+diff --git a/unix/unxcfg.h b/unix/unxcfg.h
+index 8729de2..9ee8cfe 100644
+--- a/unix/unxcfg.h
++++ b/unix/unxcfg.h
+@@ -228,7 +228,7 @@ typedef struct stat z_stat;
+ /*    and notfirstcall are used by do_wild().                          */
+ 
+ 
+-#define MAX_CP_NAME 25 
++#define MAX_CP_NAME 25 + 1 
+    
+ #ifdef SETLOCALE
+ #  undef SETLOCALE
+diff --git a/unzip.c b/unzip.c
+index 2d94a38..a485f2b 100644
+--- a/unzip.c
++++ b/unzip.c
+@@ -1561,7 +1561,8 @@ int uz_opts(__G__ pargc, pargv)
+         		                  "error:  a valid character encoding should follow the -I argument"));
+     	                        return(PK_PARAM); 
+     						}
+-    						strncpy(ISO_CP, s, sizeof(ISO_CP));
++    						strncpy(ISO_CP, s, MAX_CP_NAME - 1);
++                ISO_CP[MAX_CP_NAME - 1] = '\0';
+     					} else { /* -I charset */
+     						++argv;
+     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
+@@ -1570,7 +1571,8 @@ int uz_opts(__G__ pargc, pargv)
+     	                        return(PK_PARAM); 
+     						}
+     						s = *argv;
+-    						strncpy(ISO_CP, s, sizeof(ISO_CP));
++    						strncpy(ISO_CP, s, MAX_CP_NAME - 1);
++                ISO_CP[MAX_CP_NAME - 1] = '\0';
+     					}
+     					while(*(++s)); /* No params straight after charset name */
+     				}
+@@ -1665,7 +1667,8 @@ int uz_opts(__G__ pargc, pargv)
+         		                  "error:  a valid character encoding should follow the -I argument"));
+     	                        return(PK_PARAM); 
+     						}
+-    						strncpy(OEM_CP, s, sizeof(OEM_CP));
++    						strncpy(OEM_CP, s, MAX_CP_NAME - 1);
++                OEM_CP[MAX_CP_NAME - 1] = '\0';
+     					} else { /* -O charset */
+     						++argv;
+     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
+@@ -1674,7 +1677,8 @@ int uz_opts(__G__ pargc, pargv)
+     	                        return(PK_PARAM); 
+     						}
+     						s = *argv;
+-    						strncpy(OEM_CP, s, sizeof(OEM_CP));
++    						strncpy(OEM_CP, s, MAX_CP_NAME - 1);
++                OEM_CP[MAX_CP_NAME - 1] = '\0';
+     					}
+     					while(*(++s)); /* No params straight after charset name */
+     				}
+diff --git a/zipinfo.c b/zipinfo.c
+index accca2a..cb7e08d 100644
+--- a/zipinfo.c
++++ b/zipinfo.c
+@@ -519,7 +519,8 @@ int zi_opts(__G__ pargc, pargv)
+         		                  "error:  a valid character encoding should follow the -I argument"));
+     	                        return(PK_PARAM); 
+     						}
+-    						strncpy(ISO_CP, s, sizeof(ISO_CP));
++    						strncpy(ISO_CP, s, MAX_CP_NAME - 1);
++                ISO_CP[MAX_CP_NAME - 1] = '\0';
+     					} else { /* -I charset */
+     						++argv;
+     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
+@@ -528,7 +529,8 @@ int zi_opts(__G__ pargc, pargv)
+     	                        return(PK_PARAM); 
+     						}
+     						s = *argv;
+-    						strncpy(ISO_CP, s, sizeof(ISO_CP));
++    						strncpy(ISO_CP, s, MAX_CP_NAME - 1);
++                ISO_CP[MAX_CP_NAME - 1] = '\0';
+     					}
+     					while(*(++s)); /* No params straight after charset name */
+     				}
+@@ -568,7 +570,8 @@ int zi_opts(__G__ pargc, pargv)
+         		                  "error:  a valid character encoding should follow the -I argument"));
+     	                        return(PK_PARAM); 
+     						}
+-    						strncpy(OEM_CP, s, sizeof(OEM_CP));
++    						strncpy(OEM_CP, s, MAX_CP_NAME - 1);
++                OEM_CP[MAX_CP_NAME - 1] = '\0';
+     					} else { /* -O charset */
+     						++argv;
+     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
+@@ -577,7 +580,8 @@ int zi_opts(__G__ pargc, pargv)
+     	                        return(PK_PARAM); 
+     						}
+     						s = *argv;
+-    						strncpy(OEM_CP, s, sizeof(OEM_CP));
++    						strncpy(OEM_CP, s, MAX_CP_NAME - 1);
++                OEM_CP[MAX_CP_NAME - 1] = '\0';
+     					}
+     					while(*(++s)); /* No params straight after charset name */
+     				}
+-- 
+2.14.5
 
---- fileio.c
-+++ fileio.c
-@@ -2477,6 +2477,7 @@
-      */
-     return (((zusz_t)sig[7]) << 56)
-         + (((zusz_t)sig[6]) << 48)
-+        + (((zusz_t)sig[5]) << 40)
-         + (((zusz_t)sig[4]) << 32)
-         + (zusz_t)((((ulg)sig[3]) << 24)
-                  + (((ulg)sig[2]) << 16)
+From 41beb477c5744bc396fa1162ee0c14218ec12213 Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Mon, 27 May 2019 08:20:32 -0700
+Subject: [PATCH] Fix bug in undefer_input() that misplaced the input state.
 
+---
+ fileio.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
---- fileio.c
-+++ fileio.c
-@@ -532,8 +532,10 @@
+diff --git a/fileio.c b/fileio.c
+index c042987..bc00d74 100644
+--- a/fileio.c
++++ b/fileio.c
+@@ -530,8 +530,10 @@ void undefer_input(__G)
           * This condition was checked when G.incnt_leftover was set > 0 in
           * defer_leftover_input(), and it is NOT allowed to touch G.csize
           * before calling undefer_input() when (G.incnt_leftover > 0)
@@ -1320,11 +2506,44 @@ Index: unzip/man/zipinfo.1
          G.incnt = G.incnt_leftover + (int)G.csize;
          G.inptr = G.inptr_leftover - (int)G.csize;
          G.incnt_leftover = 0;
+From 47b3ceae397d21bf822bc2ac73052a4b1daf8e1c Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Tue, 11 Jun 2019 22:01:18 -0700
+Subject: [PATCH] Detect and reject a zip bomb using overlapped entries.
 
+This detects an invalid zip file that has at least one entry that
+overlaps with another entry or with the central directory to the
+end of the file. A Fifield zip bomb uses overlapped local entries
+to vastly increase the potential inflation ratio. Such an invalid
+zip file is rejected.
 
---- extract.c
-+++ extract.c
-@@ -321,6 +321,125 @@
+See https://www.bamsoftware.com/hacks/zipbomb/ for David Fifield's
+analysis, construction, and examples of such zip bombs.
+
+The detection maintains a list of covered spans of the zip files
+so far, where the central directory to the end of the file and any
+bytes preceding the first entry at zip file offset zero are
+considered covered initially. Then as each entry is decompressed
+or tested, it is considered covered. When a new entry is about to
+be processed, its initial offset is checked to see if it is
+contained by a covered span. If so, the zip file is rejected as
+invalid.
+
+This commit depends on a preceding commit: "Fix bug in
+undefer_input() that misplaced the input state."
+---
+ extract.c | 190 +++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ globals.c |   1 +
+ globals.h |   3 +
+ process.c |  11 ++++
+ unzip.h   |   1 +
+ 5 files changed, 205 insertions(+), 1 deletion(-)
+
+diff --git a/extract.c b/extract.c
+index 1acd769..0973a33 100644
+--- a/extract.c
++++ b/extract.c
+@@ -319,6 +319,125 @@ static ZCONST char Far UnsupportedExtraField[] =
    "\nerror:  unsupported extra-field compression type (%u)--skipping\n";
  static ZCONST char Far BadExtraFieldCRC[] =
    "error [%s]:  bad extra-field CRC %08lx (should be %08lx)\n";
@@ -1450,7 +2669,7 @@ Index: unzip/man/zipinfo.1
  
  
  
-@@ -376,6 +495,29 @@
+@@ -374,6 +493,29 @@ int extract_or_test_files(__G)    /* return PK-type error code */
      }
  #endif /* !SFX || SFX_EXDIR */
  
@@ -1480,7 +2699,7 @@ Index: unzip/man/zipinfo.1
  /*---------------------------------------------------------------------------
      The basic idea of this function is as follows.  Since the central di-
      rectory lies at the end of the zipfile and the member files lie at the
-@@ -593,7 +735,8 @@
+@@ -591,7 +733,8 @@ int extract_or_test_files(__G)    /* return PK-type error code */
              if (error > error_in_archive)
                  error_in_archive = error;
              /* ...and keep going (unless disk full or user break) */
@@ -1490,7 +2709,7 @@ Index: unzip/man/zipinfo.1
                  /* clear reached_end to signal premature stop ... */
                  reached_end = FALSE;
                  /* ... and cancel scanning the central directory */
-@@ -1062,6 +1205,11 @@
+@@ -1060,6 +1203,11 @@ static int extract_or_test_entrylist(__G__ numchunk,
  
          /* seek_zipf(__G__ pInfo->offset);  */
          request = G.pInfo->offset + G.extra_bytes;
@@ -1502,7 +2721,7 @@ Index: unzip/man/zipinfo.1
          inbuf_offset = request % INBUFSIZ;
          bufstart = request - inbuf_offset;
  
-@@ -1602,6 +1750,18 @@
+@@ -1591,6 +1739,18 @@ static int extract_or_test_entrylist(__G__ numchunk,
              return IZ_CTRLC;        /* cancel operation by user request */
          }
  #endif
@@ -1521,7 +2740,7 @@ Index: unzip/man/zipinfo.1
  #ifdef MACOS  /* MacOS is no preemptive OS, thus call event-handling by hand */
          UserStop();
  #endif
-@@ -2003,6 +2163,34 @@
+@@ -1992,6 +2152,34 @@ static int extract_or_test_member(__G)    /* return PK-type error code */
      }
  
      undefer_input(__G);
@@ -1556,9 +2775,11 @@ Index: unzip/man/zipinfo.1
      return error;
  
  } /* end function extract_or_test_member() */
---- globals.c
-+++ globals.c
-@@ -181,6 +181,7 @@
+diff --git a/globals.c b/globals.c
+index fa8cca5..1e0f608 100644
+--- a/globals.c
++++ b/globals.c
+@@ -181,6 +181,7 @@ Uz_Globs *globalsCtor()
  # if (!defined(NO_TIMESTAMPS))
      uO.D_flag=1;    /* default to '-D', no restoration of dir timestamps */
  # endif
@@ -1566,9 +2787,11 @@ Index: unzip/man/zipinfo.1
  #endif
  
      uO.lflag=(-1);
---- globals.h
-+++ globals.h
-@@ -260,12 +260,15 @@
+diff --git a/globals.h b/globals.h
+index 11b7215..2bdcdeb 100644
+--- a/globals.h
++++ b/globals.h
+@@ -260,12 +260,15 @@ typedef struct Globals {
      ecdir_rec       ecrec;         /* used in unzip.c, extract.c */
      z_stat   statbuf;              /* used by main, mapname, check_for_newer */
  
@@ -1584,9 +2807,11 @@ Index: unzip/man/zipinfo.1
  
      int      didCRlast;            /* fileio static */
      ulg      numlines;             /* fileio static: number of lines printed */
---- process.c
-+++ process.c
-@@ -637,6 +637,13 @@
+diff --git a/process.c b/process.c
+index 1e9a1e1..d2e4dc3 100644
+--- a/process.c
++++ b/process.c
+@@ -637,6 +637,13 @@ void free_G_buffers(__G)     /* releases all memory allocated in global vars */
      }
  #endif
  
@@ -1600,7 +2825,7 @@ Index: unzip/man/zipinfo.1
  } /* end function free_G_buffers() */
  
  
-@@ -1913,6 +1920,8 @@
+@@ -1890,6 +1897,8 @@ int getZip64Data(__G__ ef_buf, ef_len)
  #define Z64FLGS 0xffff
  #define Z64FLGL 0xffffffff
  
@@ -1609,18 +2834,20 @@ Index: unzip/man/zipinfo.1
      if (ef_len == 0 || ef_buf == NULL)
          return PK_COOL;
  
-@@ -2084,6 +2093,8 @@
-                     (ZCONST char *)(offset + ef_buf), ULen);
-             G.unipath_filename[ULen] = '\0';
-           }
+@@ -1927,6 +1936,8 @@ int getZip64Data(__G__ ef_buf, ef_len)
+ #if 0
+           break;                /* Expect only one EF_PKSZ64 block. */
+ #endif /* 0 */
 +
 +          G.zip64 = TRUE;
          }
- 
-         /* Skip this extra field block */
---- unzip.h
-+++ unzip.h
-@@ -645,6 +645,7 @@
+
+         /* Skip this extra field block. */
+diff --git a/unzip.h b/unzip.h
+index 5b2a326..ed24a5b 100644
+--- a/unzip.h
++++ b/unzip.h
+@@ -645,6 +645,7 @@ typedef struct _Uzp_cdir_Rec {
  #define PK_NOZIP           9   /* zipfile not found */
  #define PK_PARAM          10   /* bad or illegal parameters specified */
  #define PK_FIND           11   /* no files found */
@@ -1628,11 +2855,30 @@ Index: unzip/man/zipinfo.1
  #define PK_DISK           50   /* disk full */
  #define PK_EOF            51   /* unexpected EOF */
  
+From 6d351831be705cc26d897db44f878a978f4138fc Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Thu, 25 Jul 2019 20:43:17 -0700
+Subject: [PATCH] Do not raise a zip bomb alert for a misplaced central
+ directory.
 
+There is a zip-like file in the Firefox distribution, omni.ja,
+which is a zip container with the central directory placed at the
+start of the file instead of after the local entries as required
+by the zip standard. This commit marks the actual location of the
+central directory, as well as the end of central directory records,
+as disallowed locations. This now permits such containers to not
+raise a zip bomb alert, where in fact there are no overlaps.
+---
+ extract.c | 25 +++++++++++++++++++------
+ process.c |  6 ++++++
+ unzpriv.h | 10 ++++++++++
+ 3 files changed, 35 insertions(+), 6 deletions(-)
 
---- extract.c
-+++ extract.c
-@@ -495,8 +495,11 @@
+diff --git a/extract.c b/extract.c
+index 0973a33..1b73cb0 100644
+--- a/extract.c
++++ b/extract.c
+@@ -493,8 +493,11 @@ int extract_or_test_files(__G)    /* return PK-type error code */
      }
  #endif /* !SFX || SFX_EXDIR */
  
@@ -1646,7 +2892,7 @@ Index: unzip/man/zipinfo.1
      if (G.cover == NULL) {
          G.cover = malloc(sizeof(cover_t));
          if (G.cover == NULL) {
-@@ -508,15 +511,25 @@
+@@ -506,15 +509,25 @@ int extract_or_test_files(__G)    /* return PK-type error code */
          ((cover_t *)G.cover)->max = 0;
      }
      ((cover_t *)G.cover)->num = 0;
@@ -1676,9 +2922,11 @@ Index: unzip/man/zipinfo.1
  
  /*---------------------------------------------------------------------------
      The basic idea of this function is as follows.  Since the central di-
---- process.c
-+++ process.c
-@@ -1408,6 +1408,10 @@
+diff --git a/process.c b/process.c
+index d2e4dc3..d75d405 100644
+--- a/process.c
++++ b/process.c
+@@ -1408,6 +1408,10 @@ static int find_ecrec64(__G__ searchlen)         /* return PK-class error */
  
      /* Now, we are (almost) sure that we have a Zip64 archive. */
      G.ecrec.have_ecr64 = 1;
@@ -1689,7 +2937,7 @@ Index: unzip/man/zipinfo.1
  
      /* Update the "end-of-central-dir offset" for later checks. */
      G.real_ecrec_offset = ecrec64_start_offset;
-@@ -1542,6 +1546,8 @@
+@@ -1542,6 +1546,8 @@ static int find_ecrec(__G__ searchlen)          /* return PK-class error */
        makelong(&byterec[OFFSET_START_CENTRAL_DIRECTORY]);
      G.ecrec.zipfile_comment_length =
        makeword(&byterec[ZIPFILE_COMMENT_LENGTH]);
@@ -1698,9 +2946,11 @@ Index: unzip/man/zipinfo.1
  
      /* Now, we have to read the archive comment, BEFORE the file pointer
         is moved away backwards to seek for a Zip64 ECLOC64 structure.
---- unzpriv.h
-+++ unzpriv.h
-@@ -2185,6 +2185,16 @@
+diff --git a/unzpriv.h b/unzpriv.h
+index dc9eff5..297b3c7 100644
+--- a/unzpriv.h
++++ b/unzpriv.h
+@@ -2185,6 +2185,16 @@ typedef struct VMStimbuf {
         int have_ecr64;                  /* valid Zip64 ecdir-record exists */
         int is_zip64_archive;            /* Zip64 ecdir-record is mandatory */
         ush zipfile_comment_length;
@@ -1717,10 +2967,48 @@ Index: unzip/man/zipinfo.1
     } ecdir_rec;
  
  
+From 6fe72291a5563cdbcd2bdd87e36528537b7cdcfb Mon Sep 17 00:00:00 2001
+From: Jakub Martisko <jamartis@redhat.com>
+Date: Mon, 18 Nov 2019 14:17:46 +0100
+Subject: [PATCH] update the man page
 
---- extract.c
-+++ extract.c
-@@ -3052,7 +3052,7 @@
+---
+ man/unzip.1 | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/man/unzip.1 b/man/unzip.1
+index 21816d1..4d66073 100644
+--- a/man/unzip.1
++++ b/man/unzip.1
+@@ -850,6 +850,8 @@ the specified zipfiles were not found.
+ invalid options were specified on the command line.
+ .IP 11
+ no matching files were found.
++.IP 12
++invalid zip file with overlapped components (possible zip-bomb). The zip-bomb checks can be disabled by using the UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE environment variable.
+ .IP 50
+ the disk is (or was) full during extraction.
+ .IP 51
+-- 
+2.23.0
+
+From 5e2efcd633a4a1fb95a129a75508e7d769e767be Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Sun, 9 Feb 2020 20:36:28 -0800
+Subject: [PATCH] Fix bug in UZbunzip2() that incorrectly updated G.incnt.
+
+The update assumed a full buffer, which is not always full. This
+could result in a false overlapped element detection when a small
+bzip2-compressed file was unzipped. This commit remedies that.
+---
+ extract.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/extract.c b/extract.c
+index d9866f9..0cb7bfc 100644
+--- a/extract.c
++++ b/extract.c
+@@ -3010,7 +3010,7 @@ __GDEF
  #endif
  
      G.inptr = (uch *)bstrm.next_in;
@@ -1729,11 +3017,24 @@ Index: unzip/man/zipinfo.1
  
  uzbunzip_cleanup_exit:
      err = BZ2_bzDecompressEnd(&bstrm);
+From 5c572555cf5d80309a07c30cf7a54b2501493720 Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Sun, 9 Feb 2020 21:39:09 -0800
+Subject: [PATCH] Fix bug in UZinflate() that incorrectly updated G.incnt.
 
+The update assumed a full buffer, which is not always full. This
+could result in a false overlapped element detection when a small
+deflate-compressed file was unzipped using an old zlib. This
+commit remedies that.
+---
+ inflate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- inflate.c
-+++ inflate.c
-@@ -700,7 +700,7 @@
+diff --git a/inflate.c b/inflate.c
+index 2f5a015..70e3cc0 100644
+--- a/inflate.c
++++ b/inflate.c
+@@ -700,7 +700,7 @@ int UZinflate(__G__ is_defl64)
        G.dstrm.total_out));
  
      G.inptr = (uch *)G.dstrm.next_in;
@@ -1742,1019 +3043,498 @@ Index: unzip/man/zipinfo.1
  
  uzinflate_cleanup_exit:
      err = inflateReset(&G.dstrm);
+From 122050bac16fae82a460ff739fb1ca0f106e9d85 Mon Sep 17 00:00:00 2001
+From: Mark Adler <madler@alumni.caltech.edu>
+Date: Sat, 2 Jan 2021 13:09:34 -0800
+Subject: [PATCH] Determine Zip64 status entry-by-entry instead of for entire
+ file.
 
+Fixes a bug for zip files with mixed Zip64 and not Zip64 entries,
+which resulted in an incorrect data descriptor length. The bug is
+seen when a Zip64 entry precedes a non-Zip64 entry, in which case
+the data descriptor would have been assumed to be larger than it
+is, resulting in an incorrect bomb warning due to a perceived
+overlap with the next entry. This commit determines and saves the
+Zip64 status for each entry based on the central directory, and
+then computes the length of each data descriptor accordingly.
+---
+ extract.c | 5 +++--
+ globals.h | 2 --
+ process.c | 4 +---
+ unzpriv.h | 1 +
+ 4 files changed, 5 insertions(+), 7 deletions(-)
 
---- unix/zipgrep
-+++ unix/zipgrep
-@@ -44,6 +44,7 @@
-   opt="-$opt"
- fi
- 
-+sts=0
- status_grep_global=1
- IFS='
- '
-
-
---- fileio.c
-+++ fileio.c
-@@ -171,8 +171,10 @@
- static ZCONST char Far FilenameTooLongTrunc[] =
-   "warning:  filename too long--truncating.\n";
- #ifdef UNICODE_SUPPORT
-+   static ZCONST char Far UFilenameCorrupt[] =
-+     "error: Unicode filename corrupt.\n";
-    static ZCONST char Far UFilenameTooLongTrunc[] =
--     "warning:  Converted unicode filename too long--truncating.\n";
-+     "warning:  Converted Unicode filename too long--truncating.\n";
- #endif
- static ZCONST char Far ExtraFieldTooLong[] =
-   "warning:  extra field too long (%d).  Ignoring...\n";
-@@ -2361,16 +2363,30 @@
-                   /* convert UTF-8 to local character set */
-                   fn = utf8_to_local_string(G.unipath_filename,
-                                             G.unicode_escape_all);
--                  /* make sure filename is short enough */
--                  if (strlen(fn) >= FILNAMSIZ) {
--                    fn[FILNAMSIZ - 1] = '\0';
-+
-+                  /* 2022-07-22 SMS, et al.  CVE-2022-0530
-+                   * Detect conversion failure, emit message.
-+                   * Continue with unconverted name.
-+                   */
-+                  if (fn == NULL)
-+                  {
-                     Info(slide, 0x401, ((char *)slide,
--                      LoadFarString(UFilenameTooLongTrunc)));
--                    error = PK_WARN;
-+                     LoadFarString(UFilenameCorrupt)));
-+                    error = PK_ERR;
-+                  }
-+                  else
-+                  {
-+                    /* make sure filename is short enough */
-+                    if (strlen(fn) >= FILNAMSIZ) {
-+                      fn[FILNAMSIZ - 1] = '\0';
-+                      Info(slide, 0x401, ((char *)slide,
-+                        LoadFarString(UFilenameTooLongTrunc)));
-+                      error = PK_WARN;
-+                    }
-+                    /* replace filename with converted UTF-8 */
-+                    strcpy(G.filename, fn);
-+                    free(fn);
-                   }
--                  /* replace filename with converted UTF-8 */
--                  strcpy(G.filename, fn);
--                  free(fn);
+diff --git a/extract.c b/extract.c
+index 504afd6..878817d 100644
+--- a/extract.c
++++ b/extract.c
+@@ -658,6 +658,7 @@ int extract_or_test_files(__G)    /* return PK-type error code */
+                     break;
                  }
- # endif /* UNICODE_WCHAR */
-                 if (G.unipath_filename != G.filename_full)
---- process.c
-+++ process.c
-@@ -222,6 +222,8 @@
-      "\nwarning:  Unicode Path version > 1\n";
-    static ZCONST char Far UnicodeMismatchError[] =
-      "\nwarning:  Unicode Path checksum invalid\n";
-+   static ZCONST char Far UFilenameTooLongTrunc[] =
-+     "warning:  filename too long (P1) -- truncating.\n";
- #endif
+             }
++            G.pInfo->zip64 = FALSE;
+             if ((error = do_string(__G__ G.crec.extra_field_length,
+                 EXTRA_FIELD)) != 0)
+             {
+@@ -2187,12 +2188,12 @@ static int extract_or_test_member(__G)    /* return PK-type error code */
+              (clen == SIG &&                    /* if not SIG, no signature */
+               ((G.lrec.csize & LOW) != SIG ||   /* if not SIG, have signature */
+                (ulen == SIG &&                  /* if not SIG, no signature */
+-                (G.zip64 ? G.lrec.csize >> 32 : G.lrec.ucsize) != SIG
++                (G.pInfo->zip64 ? G.lrec.csize >> 32 : G.lrec.ucsize) != SIG
+                                                 /* if not SIG, have signature */
+                 )))))
+                    /* skip four more bytes to account for signature */
+                    shy += 4 - readbuf((char *)buf, 4);
+-        if (G.zip64)
++        if (G.pInfo->zip64)
+             shy += 8 - readbuf((char *)buf, 8); /* skip eight more for ZIP64 */
+         if (shy)
+             error = PK_ERR;
+diff --git a/globals.h b/globals.h
+index f9c6daf..a883c90 100644
+--- a/globals.h
++++ b/globals.h
+@@ -261,8 +261,6 @@ typedef struct Globals {
+     ecdir_rec       ecrec;         /* used in unzip.c, extract.c */
+     z_stat   statbuf;              /* used by main, mapname, check_for_newer */
  
- 
-@@ -1915,7 +1917,7 @@
-     Sets both local header and central header fields.  Not terribly clever,
-     but it means that this procedure is only called in one place.
- 
--    2014-12-05 SMS.
-+    2014-12-05 SMS.  (oCERT.org report.)  CVE-2014-8141.
-     Added checks to ensure that enough data are available before calling
-     makeint64() or makelong().  Replaced various sizeof() values with
-     simple ("4" or "8") constants.  (The Zip64 structures do not depend
-@@ -1947,9 +1949,10 @@
-               ef_len - EB_HEADSIZE));
-             break;
-         }
-+
-         if (eb_id == EF_PKSZ64)
-         {
--          int offset = EB_HEADSIZE;
-+          unsigned offset = EB_HEADSIZE;
- 
-           if ((G.crec.ucsize == Z64FLGL) || (G.lrec.ucsize == Z64FLGL))
-           {
-@@ -2046,7 +2049,7 @@
-         }
-         if (eb_id == EF_UNIPATH) {
- 
--          int offset = EB_HEADSIZE;
-+          unsigned offset = EB_HEADSIZE;
-           ush ULen = eb_len - 5;
-           ulg chksum = CRCVAL_INITIAL;
- 
-@@ -2504,16 +2507,17 @@
-   int state_dependent;
-   int wsize = 0;
-   int max_bytes = MB_CUR_MAX;
--  char buf[9];
-+  char buf[ MB_CUR_MAX+ 1];             /* ("+1" not really needed?) */
-   char *buffer = NULL;
-   char *local_string = NULL;
-+  size_t buffer_size;                   /* CVE-2022-0529 */
- 
-   for (wsize = 0; wide_string[wsize]; wsize++) ;
- 
-   if (max_bytes < MAX_ESCAPE_BYTES)
-     max_bytes = MAX_ESCAPE_BYTES;
+-    int zip64;                     /* true if Zip64 info in extra field */
 -
--  if ((buffer = (char *)malloc(wsize * max_bytes + 1)) == NULL) {
-+  buffer_size = wsize * max_bytes + 1;          /* Reused below. */
-+  if ((buffer = (char *)malloc( buffer_size)) == NULL) {
-     return NULL;
-   }
+     int      mem_mode;
+     uch      *outbufptr;           /* extract.c static */
+     ulg      outsize;              /* extract.c static */
+diff --git a/process.c b/process.c
+index d75d405..d643c6f 100644
+--- a/process.c
++++ b/process.c
+@@ -1903,8 +1903,6 @@ int getZip64Data(__G__ ef_buf, ef_len)
+ #define Z64FLGS 0xffff
+ #define Z64FLGL 0xffffffff
  
-@@ -2551,8 +2555,28 @@
-     } else {
-       /* no MB for this wide */
-         /* use escape for wide character */
--        char *escape_string = wide_to_escape_string(wide_string[i]);
--        strcat(buffer, escape_string);
-+        size_t buffer_len;
-+        size_t escape_string_len;
-+        char *escape_string;
-+        int err_msg = 0;
-+
-+        escape_string = wide_to_escape_string(wide_string[i]);
-+        buffer_len = strlen( buffer);
-+        escape_string_len = strlen( escape_string);
-+
-+        /* Append escape string, as space allows. */
-+        /* 2022-07-18 SMS, et al.  CVE-2022-0529 */
-+        if (escape_string_len > buffer_size- buffer_len- 1)
-+        {
-+            escape_string_len = buffer_size- buffer_len- 1;
-+            if (err_msg == 0)
-+            {
-+                err_msg = 1;
-+                Info(slide, 0x401, ((char *)slide,
-+                 LoadFarString( UFilenameTooLongTrunc)));
-+            }
-+        }
-+        strncat( buffer, escape_string, escape_string_len);
-         free(escape_string);
-     }
-   }
-@@ -2604,9 +2628,18 @@
-   ZCONST char *utf8_string;
-   int escape_all;
- {
--  zwchar *wide = utf8_to_wide_string(utf8_string);
--  char *loc = wide_to_local_string(wide, escape_all);
--  free(wide);
-+  zwchar *wide;
-+  char *loc = NULL;
-+
-+  wide = utf8_to_wide_string( utf8_string);
-+
-+  /* 2022-07-25 SMS, et al.  CVE-2022-0530 */
-+  if (wide != NULL)
-+  {
-+    loc = wide_to_local_string( wide, escape_all);
-+    free( wide);
-+  }
-+
-   return loc;
- }
+-    G.zip64 = FALSE;
+-
+     if (ef_len == 0 || ef_buf == NULL)
+         return PK_COOL;
  
-
-
---- process.c
-+++ process.c
-@@ -1281,7 +1281,7 @@ static int find_ecrec64(__G__ searchlen)
-     fprintf(stdout,"\nnumber of disks (ECR) %u, (ECLOC64) %lu\n",
-             G.ecrec.number_this_disk, ecloc64_total_disks); fflush(stdout);
+@@ -1943,7 +1941,7 @@ int getZip64Data(__G__ ef_buf, ef_len)
+           break;                /* Expect only one EF_PKSZ64 block. */
+ #endif /* 0 */
+ 
+-          G.zip64 = TRUE;
++          G.pInfo->zip64 = TRUE;
+         }
+ 
+         /* Skip this extra field block. */
+diff --git a/unzpriv.h b/unzpriv.h
+index 09f288e..75b3359 100644
+--- a/unzpriv.h
++++ b/unzpriv.h
+@@ -2034,6 +2034,7 @@ typedef struct min_info {
+ #ifdef UNICODE_SUPPORT
+     unsigned GPFIsUTF8: 1;   /* crec gen_purpose_flag UTF-8 bit 11 is set */
  #endif
--    if ((G.ecrec.number_this_disk != 0xFFFF) &&
-+    if ((G.ecrec.number_this_disk != 0xFFFF) && ecloc64_total_disks &&
-         (G.ecrec.number_this_disk != ecloc64_total_disks - 1)) {
-       /* Note: For some unknown reason, the developers at PKWARE decided to
-          store the "zip64 total disks" value as a counter starting from 1,
++    unsigned zip64: 1;       /* true if entry has Zip64 extra block */
+ #ifndef SFX
+     char Far *cfilname;      /* central header version of filename */
+ #endif
+From af0d07f95809653b669d88aa0f424c6d5aa48ba0 Mon Sep 17 00:00:00 2001
+From: Mark Adler <fork@madler.net>
+Date: Sat, 2 Jul 2022 14:35:04 -0700
+Subject: [PATCH] Be more liberal in the acceptance of data descriptors.
 
+Previously the zip64 flag determined the size of the lengths in the
+data descriptor. This is compliant with the zip format. However, a
+bug in the Java zip library results in an incorrect setting of that
+flag. This commit permits either 32-bit or 64-bit lengths, auto-
+detecting which it is, which works around the Java bug.
+---
+ extract.c | 146 +++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 123 insertions(+), 23 deletions(-)
 
---- man/funzip.1
-+++ man/funzip.1
-@@ -115,11 +115,11 @@
- .SH URL
- The Info-ZIP home page is currently at
- .EX
--\fChttp://www.info-zip.org/pub/infozip/\fR
-+http://www.info-zip.org/pub/infozip/
- .EE
- or
- .EX
--\fCftp://ftp.info-zip.org/pub/infozip/\fR .
-+ftp://ftp.info-zip.org/pub/infozip/ .
- .EE
- .PD
- .\" =========================================================================
---- man/unzip.1
-+++ man/unzip.1
-@@ -65,9 +65,9 @@
- (Be sure to quote any character that might otherwise be interpreted or
- modified by the operating system, particularly under Unix and VMS.)  If no
- matches are found, the specification is assumed to be a literal filename;
--and if that also fails, the suffix \fC.zip\fR is appended.  Note that
-+and if that also fails, the suffix .zip is appended.  Note that
- self-extracting ZIP files are supported, as with any other ZIP archive;
--just specify the \fC.exe\fR suffix (if any) explicitly.
-+just specify the .exe suffix (if any) explicitly.
- .IP [\fIfile(s)\fP]
- An optional list of archive members to be processed, separated by spaces.
- (VMS versions compiled with VMSCLI defined must delimit files with commas
-@@ -80,7 +80,7 @@
- Since wildcard characters normally match (`/') directory separators
- (for exceptions see the option \fB\-W\fP), this option may be used
- to exclude any files that are in subdirectories.  For
--example, ``\fCunzip foo *.[ch] -x */*\fR'' would extract all C source files
-+example, ``unzip foo *.[ch] -x */*'' would extract all C source files
- in the main directory, but none in any subdirectories.  Without the \fB\-x\fP
- option, all C source files in all directories within the zipfile would be
- extracted.
-@@ -94,8 +94,8 @@
- specification, or between the \fIfile(s)\fP and the \fB\-x\fP option.
- The option and directory may be concatenated without any white space
- between them, but note that this may cause normal shell behavior to be
--suppressed.  In particular, ``\fC\-d\ ~\fR'' (tilde) is expanded by Unix
--C shells into the name of the user's home directory, but ``\fC\-d~\fR''
-+suppressed.  In particular, ``\-d\ ~'' (tilde) is expanded by Unix
-+C shells into the name of the user's home directory, but ``\-d~''
- is treated as a literal subdirectory ``\fB~\fP'' of the current directory.
- .\" =========================================================================
- .SH OPTIONS
-@@ -156,7 +156,7 @@
- .B \-T
- [most OSes] set the timestamp on the archive(s) to that of the newest file
- in each one.  This corresponds to \fIzip\fP's \fB\-go\fP option except that
--it can be used on wildcard zipfiles (e.g., ``\fCunzip \-T \e*.zip\fR'') and
-+it can be used on wildcard zipfiles (e.g., ``unzip \-T \e*.zip'') and
- is much faster.
- .TP
- .B \-u
-@@ -180,7 +180,7 @@
- size of the encrypted compressed data stream for zipfile entries is reported
- by the more verbose \fIzipinfo\fP(1) reports, see the separate manual.)
- When no zipfile is specified (that is, the complete command is simply
--``\fCunzip \-v\fR''), a diagnostic screen is printed.  In addition to
-+``unzip \-v''), a diagnostic screen is printed.  In addition to
- the normal header with release date and version, \fIunzip\fP lists the
- home Info-ZIP ftp site and where to find a list of other ftp and non-ftp
- sites; the target operating system for which it was compiled, as well
-@@ -212,7 +212,7 @@
- rather than the more common ASCII character set, and NT supports Unicode.)
- Note that \fIzip\fP's identification of text files is by no means perfect; some
- ``text'' files may actually be binary and vice versa.  \fIunzip\fP therefore
--prints ``\fC[text]\fR'' or ``\fC[binary]\fR'' as a visual check for each file
-+prints ``[text]'' or ``[binary]'' as a visual check for each file
- it extracts when using the \fB\-a\fP option.  The \fB\-aa\fP option forces
- all files to be extracted as text, regardless of the supposed file type.
- On VMS, see also \fB\-S\fP.
-@@ -246,14 +246,14 @@
- This feature works similarly to the default behavior of \fIemacs\fP(1)
- in many locations.
- .IP
--Example: the old copy of ``\fCfoo\fR'' is renamed to ``\fCfoo~\fR''.
-+Example: the old copy of ``foo'' is renamed to ``foo~''.
- .IP
- Warning: Users should be aware that the \fB-B\fP option does not prevent
- loss of existing data under all circumstances.  For example, when
--\fIunzip\fP is run in overwrite-all mode, an existing ``\fCfoo~\fR'' file
--is deleted before \fIunzip\fP attempts to rename ``\fCfoo\fR'' to
--``\fCfoo~\fR''.  When this rename attempt fails (because of a file locks,
--insufficient privileges, or ...), the extraction of ``\fCfoo~\fR'' gets
-+\fIunzip\fP is run in overwrite-all mode, an existing ``foo~'' file
-+is deleted before \fIunzip\fP attempts to rename ``foo'' to
-+``foo~''.  When this rename attempt fails (because of a file locks,
-+insufficient privileges, or ...), the extraction of ``foo~'' gets
- cancelled, but the old backup file is already lost.  A similar scenario
- takes place when the sequence number range for numbered backup files gets
- exhausted (99999, or 65535 for 16-bit systems).  In this case, the backup
-@@ -269,15 +269,15 @@
- (notably those under the Unix operating system) and because
- both ZIP archives and \fIunzip\fP itself are portable across platforms,
- \fIunzip\fP's default behavior is to match both wildcard and literal
--filenames case-sensitively.  That is, specifying ``\fCmakefile\fR''
-+filenames case-sensitively.  That is, specifying ``makefile''
- on the command line will \fIonly\fP match ``makefile'' in the archive,
- not ``Makefile'' or ``MAKEFILE'' (and similarly for wildcard specifications).
- Since this does not correspond to the behavior of many other
- operating/file systems (for example, OS/2 HPFS, which preserves
- mixed case but is not sensitive to it), the \fB\-C\fP option may be
- used to force all filename matches to be case-insensitive.  In the
--example above, all three files would then match ``\fCmakefile\fR''
--(or ``\fCmake*\fR'', or similar).  The \fB\-C\fP option affects
-+example above, all three files would then match ``makefile''
-+(or ``make*'', or similar).  The \fB\-C\fP option affects
- file specs in both the normal file list and the excluded-file list (xlist).
- .IP
- Please note that the \fB\-C\fP option does neither affect the search for
-@@ -411,7 +411,7 @@
- .B \-s
- [OS/2, NT, MS-DOS] convert spaces in filenames to underscores.  Since all PC
- operating systems allow spaces in filenames, \fIunzip\fP by default extracts
--filenames with spaces intact (e.g., ``\fCEA\ DATA.\ SF\fR'').  This can be
-+filenames with spaces intact (e.g., ``EA\ DATA.\ SF'').  This can be
- awkward, however, since MS-DOS in particular does not gracefully support
- spaces in filenames.  Conversion of spaces to underscores can eliminate the
- awkwardness in some cases.
-@@ -440,7 +440,7 @@
- .TP
- .B \-V
- retain (VMS) file version numbers.  VMS files can be stored with a version
--number, in the format \fCfile.ext;##\fR.  By default the ``\fC;##\fR'' version
-+number, in the format file.ext;##.  By default the ``;##'' version
- numbers are stripped, but this option allows them to be retained.  (On
- file systems that limit filenames to particularly short lengths, the version
- numbers may be truncated or stripped regardless of this option.)
-@@ -629,7 +629,7 @@
- Some compiled versions of \fIunzip\fP may not support decryption.
- To check a version for crypt support, either attempt to test or extract
- an encrypted archive, or else check \fIunzip\fP's diagnostic
--screen (see the \fB\-v\fP option above) for ``\fC[decryption]\fR'' as one
-+screen (see the \fB\-v\fP option above) for ``[decryption]'' as one
- of the special compilation options.
- .PP
- As noted above, the \fB\-P\fP option may be used to supply a password on
-@@ -787,7 +787,7 @@
- unzip \-ql file.zip
- .EE
- .PP
--(Note that the ``\fC.zip\fR'' is generally not necessary.)  To do a standard
-+(Note that the ``.zip'' is generally not necessary.)  To do a standard
- listing:
- .PP
- .EX
-@@ -806,16 +806,16 @@
- .\" =========================================================================
- .SH TIPS
- The current maintainer, being a lazy sort, finds it very useful to define
--a pair of aliases:  \fCtt\fR for ``\fCunzip \-tq\fR'' and \fCii\fR for
--``\fCunzip \-Z\fR'' (or ``\fCzipinfo\fR'').  One may then simply type
--``\fCtt zipfile\fR'' to test an archive, something that is worth making a
--habit of doing.  With luck \fIunzip\fP will report ``\fCNo errors detected
--in compressed data of zipfile.zip\fR,'' after which one may breathe a sigh
-+a pair of aliases:  tt for ``unzip \-tq'' and ii for
-+``unzip \-Z'' (or ``zipinfo'').  One may then simply type
-+``tt zipfile'' to test an archive, something that is worth making a
-+habit of doing.  With luck \fIunzip\fP will report ``No errors detected
-+in compressed data of zipfile.zip,'' after which one may breathe a sigh
- of relief.
- .PP
- The maintainer also finds it useful to set the UNZIP environment variable
--to ``\fC\-aL\fR'' and is tempted to add ``\fC\-C\fR'' as well.  His ZIPINFO
--variable is set to ``\fC\-z\fR''.
-+to ``\-aL'' and is tempted to add ``\-C'' as well.  His ZIPINFO
-+variable is set to ``\-z''.
- .PD
- .\" =========================================================================
- .SH DIAGNOSTICS
-@@ -882,11 +882,11 @@
- .SH BUGS
- Multi-part archives are not yet supported, except in conjunction with
- \fIzip\fP.  (All parts must be concatenated together in order, and then
--``\fCzip \-F\fR'' (for \fIzip 2.x\fP) or ``\fCzip \-FF\fR'' (for
-+``zip \-F'' (for \fIzip 2.x\fP) or ``zip \-FF'' (for
- \fIzip 3.x\fP) must be performed on the concatenated archive in order to
- ``fix'' it.  Also, \fIzip 3.0\fP and later can combine multi-part (split)
--archives into a combined single-file archive using ``\fCzip \-s\- inarchive
---O outarchive\fR''.  See the \fIzip 3\fP manual page for more information.)
-+archives into a combined single-file archive using ``zip \-s\- inarchive
-+-O outarchive''.  See the \fIzip 3\fP manual page for more information.)
- This will definitely be corrected in the next major release.
- .PP
- Archives read from standard input are not yet supported, except with
-@@ -933,7 +933,7 @@
- are newer or older than those on disk.  In practice this may mean a two-pass
- approach is required:  first unpack the archive normally (with or without
- freshening/updating existing files), then overwrite just the directory entries
--(e.g., ``\fCunzip -o foo */\fR'').
-+(e.g., ``unzip -o foo */'').
- .PP
- [VMS] When extracting to another directory, only the \fI[.foo]\fP syntax is
- accepted for the \fB\-d\fP option; the simple Unix \fIfoo\fP syntax is
-@@ -954,11 +954,11 @@
- .SH URL
- The Info-ZIP home page is currently at
- .EX
--\fChttp://www.info-zip.org/pub/infozip/\fR
-+http://www.info-zip.org/pub/infozip/
- .EE
- or
- .EX
--\fCftp://ftp.info-zip.org/pub/infozip/\fR .
-+ftp://ftp.info-zip.org/pub/infozip/ .
- .EE
- .PD
- .\" =========================================================================
---- man/unzipsfx.1
-+++ man/unzipsfx.1
-@@ -89,7 +89,7 @@
- An optional list of archive members to be excluded from processing.
- Since wildcard characters match directory separators (`/'), this option
- may be used to exclude any files that are in subdirectories.  For
--example, ``\fCfoosfx *.[ch] -x */*\fR'' would extract all C source files
-+example, ``foosfx *.[ch] -x */*'' would extract all C source files
- in the main directory, but none in any subdirectories.  Without the \fB\-x\fP
- option, all C source files in all directories within the zipfile would be
- extracted.
-@@ -103,8 +103,8 @@
- has permission to write to the directory).  The option and directory may
- be concatenated without any white space between them, but note that this
- may cause normal shell behavior to be suppressed.  In particular,
--``\fC\-d\ ~\fR'' (tilde) is expanded by Unix C shells into the name
--of the user's home directory, but ``\fC\-d~\fR'' is treated as a
-+``\-d\ ~'' (tilde) is expanded by Unix C shells into the name
-+of the user's home directory, but ``\-d~'' is treated as a
- literal subdirectory ``\fB~\fP'' of the current directory.
- .PD
- .\" =========================================================================
-@@ -213,7 +213,7 @@
- .EE
- .PP
- (MakeSFX is included with the UnZip source distribution and with Amiga
--binary distributions.  ``\fCzip -A\fR'' doesn't work on Amiga self-extracting
-+binary distributions.  ``zip -A'' doesn't work on Amiga self-extracting
- archives.)
- To test (or list) the newly created self-extracting archive:
- .PP
-@@ -235,13 +235,13 @@
- letters
- .EE
- .PP
--To extract all \fC*.txt\fR files (in Unix quote the `*'):
-+To extract all *.txt files (in Unix quote the `*'):
- .PP
- .EX
- letters *.txt
- .EE
- .PP
--To extract everything \fIexcept\fP the \fC*.txt\fR files:
-+To extract everything \fIexcept\fP the *.txt files:
- .PP
- .EX
- letters -x *.txt
-@@ -295,7 +295,7 @@
- VMS users must know how to set up self-extracting archives as foreign
- commands in order to use any of \fIunzipsfx\fP's options.  This is not
- necessary for simple extraction, but the command to do so then becomes,
--e.g., ``\fCrun letters\fR'' (to continue the examples given above).
-+e.g., ``run letters'' (to continue the examples given above).
- .PP
- \fIunzipsfx\fP on the Amiga requires the use of a special program, MakeSFX,
- in order to create working self-extracting archives; simple concatenation
-@@ -320,11 +320,11 @@
- .SH URL
- The Info-ZIP home page is currently at
- .EX
--\fChttp://www.info-zip.org/pub/infozip/\fR
-+http://www.info-zip.org/pub/infozip/
- .EE
- or
- .EX
--\fCftp://ftp.info-zip.org/pub/infozip/\fR .
-+ftp://ftp.info-zip.org/pub/infozip/ .
- .EE
- .PD
- .\" =========================================================================
---- man/zipgrep.1
-+++ man/zipgrep.1
-@@ -32,9 +32,9 @@
- expression accepted by \fIegrep\fP(1) may be used.
- .IR file [ .zip ]
- Path of the ZIP archive.  (Wildcard expressions for the ZIP archive name are
--not supported.)  If the literal filename is not found, the suffix \fC.zip\fR
-+not supported.)  If the literal filename is not found, the suffix .zip
- is appended.  Note that self-extracting ZIP files are supported, as with any
--other ZIP archive; just specify the \fC.exe\fR suffix (if any) explicitly.
-+other ZIP archive; just specify the .exe suffix (if any) explicitly.
- .IP [\fIfile(s)\fP]
- An optional list of archive members to be processed, separated by spaces.
- If no member files are specified, all members of the ZIP archive are searched.
-@@ -58,7 +58,7 @@
- An optional list of archive members to be excluded from processing.
- Since wildcard characters match directory separators (`/'), this option
- may be used to exclude any files that are in subdirectories.  For
--example, ``\fCzipgrep grumpy foo *.[ch] -x */*\fR'' would search for the
-+example, ``zipgrep grumpy foo *.[ch] -x */*'' would search for the
- string ``grumpy'' in all C source files in the main directory of the ``foo''
- archive, but none in any subdirectories.  Without the \fB\-x\fP
- option, all C source files in all directories within the zipfile would be
-@@ -76,11 +76,11 @@
- .SH URL
- The Info-ZIP home page is currently at
- .EX
--\fChttp://www.info-zip.org/pub/infozip/\fR
-+http://www.info-zip.org/pub/infozip/
- .EE
- or
- .EX
--\fCftp://ftp.info-zip.org/pub/infozip/\fR .
-+ftp://ftp.info-zip.org/pub/infozip/ .
- .EE
- .PD
- .\" =========================================================================
---- man/zipinfo.1
-+++ man/zipinfo.1
-@@ -54,7 +54,7 @@
- behavior (with no options) is
- to list single-line entries for each file in the archive, with header and
- trailer lines providing summary information for the entire archive.  The
--format is a cross between Unix ``\fCls \-l\fR'' and ``\fCunzip \-v\fR''
-+format is a cross between Unix ``ls \-l'' and ``unzip \-v''
- output.  See
- .B "DETAILED DESCRIPTION"
- below.  Note that \fIzipinfo\fP is the same program as \fIunzip\fP (under
-@@ -87,9 +87,9 @@
- (Be sure to quote any character that might otherwise be interpreted or
- modified by the operating system, particularly under Unix and VMS.)  If no
- matches are found, the specification is assumed to be a literal filename;
--and if that also fails, the suffix \fC.zip\fR is appended.  Note that
-+and if that also fails, the suffix .zip is appended.  Note that
- self-extracting ZIP files are supported, as with any other ZIP archive;
--just specify the \fC.exe\fR suffix (if any) explicitly.
-+just specify the .exe suffix (if any) explicitly.
- .IP [\fIfile(s)\fP]
- An optional list of archive members to be processed, separated by spaces.
- (VMS versions compiled with VMSCLI defined must delimit files with commas
-@@ -113,16 +113,16 @@
- useful in cases where the stored filenames are particularly long.
- .TP
- .B \-s
--list zipfile info in short Unix ``\fCls \-l\fR'' format.  This is the default
-+list zipfile info in short Unix ``ls \-l'' format.  This is the default
- behavior; see below.
- .TP
- .B \-m
--list zipfile info in medium Unix ``\fCls \-l\fR'' format.  Identical to the
-+list zipfile info in medium Unix ``ls \-l'' format.  Identical to the
- \fB\-s\fP output, except that the compression factor, expressed as a
- percentage, is also listed.
- .TP
- .B \-l
--list zipfile info in long Unix ``\fCls \-l\fR'' format.  As with \fB\-m\fP
-+list zipfile info in long Unix ``ls \-l'' format.  As with \fB\-m\fP
- except that the compressed size (in bytes) is printed instead of the
- compression ratio.
- .TP
-@@ -294,7 +294,7 @@
- their total uncompressed size, and their total compressed size (not
- including any of \fIzip\fP's internal overhead).  If, however, one or
- more \fIfile(s)\fP are provided, the header and trailer lines are
--not listed.  This behavior is also similar to that of Unix's ``\fCls \-l\fR'';
-+not listed.  This behavior is also similar to that of Unix's ``ls \-l'';
- it may be overridden by specifying the \fB\-h\fP and \fB\-t\fP options
- explicitly.
- In such a case the listing format must also be specified explicitly,
-@@ -334,7 +334,7 @@
- either of the above.
- .PP
- The default listing format, as noted above, corresponds roughly
--to the "\fCzipinfo \-hst\fR" command (except when individual zipfile members
-+to the "zipinfo \-hst" command (except when individual zipfile members
- are specified).
- A user who prefers the long-listing format (\fB\-l\fP) can make use of the
- \fIzipinfo\fP's environment variable to change this default:
-@@ -355,7 +355,7 @@
- If, in addition, the user dislikes the trailer line, \fIzipinfo\fP's
- concept of ``negative options'' may be used to override the default
- inclusion of the line.  This is accomplished by preceding the undesired
--option with one or more minuses:  e.g., ``\fC\-l\-t\fR'' or ``\fC\-\-tl\fR'',
-+option with one or more minuses:  e.g., ``\-l\-t'' or ``\-\-tl'',
- in this example.  The first hyphen is the regular switch character, but the
- one before the `t' is a minus sign.  The dual use of hyphens may seem a
- little awkward, but it's reasonably intuitive nonetheless:  simply ignore
-@@ -507,11 +507,11 @@
- .SH URL
- The Info-ZIP home page is currently at
- .EX
--\fChttp://www.info-zip.org/pub/infozip/\fR
-+http://www.info-zip.org/pub/infozip/
- .EE
- or
- .EX
--\fCftp://ftp.info-zip.org/pub/infozip/\fR .
-+ftp://ftp.info-zip.org/pub/infozip/ .
- .EE
- .PD
- .\" =========================================================================
-
-
---- INSTALL
-+++ INSTALL
-@@ -480,7 +480,7 @@ To compile UnZip, UnZipSFX and/or fUnZip
-       NO_WORKING_ISPRINT
-         The symbol HAVE_WORKING_ISPRINT enables enhanced non-printable chars
-         filtering for filenames in the fnfilter() function.  On some systems
--        (Unix, VMS, some Win32 compilers), this setting is enabled by default.
-+        (VMS, some Win32 compilers), this setting is enabled by default.
-         In cases where isprint() flags printable extended characters as
-         unprintable, defining NO_WORKING_ISPRINT allows to disable the enhanced
-         filtering capability in fnfilter().  (The ASCII control codes 0x01 to
---- fileio.c
-+++ fileio.c
-@@ -2144,9 +2144,15 @@ int do_string(__G__ length, option)   /*
-                 /* translate the text coded in the entry's host-dependent
-                    "extended ASCII" charset into the compiler's (system's)
-                    internal text code page */
--                Ext_ASCII_TO_Native((char *)G.outbuf, G.pInfo->hostnum,
--                                    G.pInfo->hostver, G.pInfo->HasUxAtt,
--                                    FALSE);
-+#if (defined(UNICODE_SUPPORT) && defined(UTF8_MAYBE_NATIVE))
-+                if (!G.pInfo->GPFIsUTF8 || !G.native_is_utf8) {
-+#endif
-+                        Ext_ASCII_TO_Native((char *)G.outbuf, G.pInfo->hostnum,
-+                                            G.pInfo->hostver, G.pInfo->HasUxAtt,
-+                                            FALSE);
-+#if (defined(UNICODE_SUPPORT) && defined(UTF8_MAYBE_NATIVE))
-+                }
-+#endif
- #ifdef WINDLL
-                 /* translate to ANSI (RTL internal codepage may be OEM) */
-                 INTERN_TO_ISO((char *)G.outbuf, (char *)G.outbuf);
-@@ -2258,8 +2264,14 @@ int do_string(__G__ length, option)   /*
+diff --git a/extract.c b/extract.c
+index 878817d..b1c74df 100644
+--- a/extract.c
++++ b/extract.c
+@@ -2173,30 +2173,130 @@ static int extract_or_test_member(__G)    /* return PK-type error code */
+     undefer_input(__G);
  
-         /* translate the Zip entry filename coded in host-dependent "extended
-            ASCII" into the compiler's (system's) internal text code page */
--        Ext_ASCII_TO_Native(G.filename, G.pInfo->hostnum, G.pInfo->hostver,
--                            G.pInfo->HasUxAtt, (option == DS_FN_L));
-+#if (defined(UNICODE_SUPPORT) && defined(UTF8_MAYBE_NATIVE))
-+        if (!G.pInfo->GPFIsUTF8 || !G.native_is_utf8) {
+     if ((G.lrec.general_purpose_bit_flag & 8) != 0) {
+-        /* skip over data descriptor (harder than it sounds, due to signature
+-         * ambiguity)
+-         */
+-#       define SIG 0x08074b50
+-#       define LOW 0xffffffff
+-        uch buf[12];
+-        unsigned shy = 12 - readbuf((char *)buf, 12);
+-        ulg crc = shy ? 0 : makelong(buf);
+-        ulg clen = shy ? 0 : makelong(buf + 4);
+-        ulg ulen = shy ? 0 : makelong(buf + 8); /* or high clen if ZIP64 */
+-        if (crc == SIG &&                       /* if not SIG, no signature */
+-            (G.lrec.crc32 != SIG ||             /* if not SIG, have signature */
+-             (clen == SIG &&                    /* if not SIG, no signature */
+-              ((G.lrec.csize & LOW) != SIG ||   /* if not SIG, have signature */
+-               (ulen == SIG &&                  /* if not SIG, no signature */
+-                (G.pInfo->zip64 ? G.lrec.csize >> 32 : G.lrec.ucsize) != SIG
+-                                                /* if not SIG, have signature */
+-                )))))
+-                   /* skip four more bytes to account for signature */
+-                   shy += 4 - readbuf((char *)buf, 4);
+-        if (G.pInfo->zip64)
+-            shy += 8 - readbuf((char *)buf, 8); /* skip eight more for ZIP64 */
+-        if (shy)
++        // Skip over the data descriptor. We need to correctly position the
++        // read pointer after the data descriptor for the proper detection of
++        // overlapped zip file components.
++        //
++        // We need to resolve an ambiguity over four possible data descriptor
++        // formats. We check for all four, and pick the longest match. The data
++        // descriptor can have a signature or not, and it can use four or
++        // eight-byte lengths. The zip format requires resolving the ambiguity
++        // of a signature or not, but it uses the zip64 flag to determine
++        // whether the lengths are four or eight bytes. However there is a bug
++        // in the Java zip library that applies the wrong value of that flag.
++        // This works around that bug by always trying both length formats.
++        //
++        // So why the longest match? And does this resolve the ambiguity? No,
++        // it doesn't definitively resolve the ambiguity. However choosing the
++        // longest match at least resolves it for a normal zip file, where the
++        // bytes following the data descriptor must be another zip signature
++        // that is not a data descriptor signature. There are a few specific
++        // cases for which more than one of the formats will match the given
++        // CRC and lengths. The most plausible is between four and eight-byte
++        // lengths, either with or without a signature. That only occurs for an
++        // entry with an uncompressed size of zero. We consider the data
++        // descriptor to be a vector of four-byte values. Then the possible
++        // data descriptors are [(s) 0 c 0] and [(s) 0 c 0 0 0], where (s) is
++        // the optional signature, and c is the compressed length. c would be
++        // two for the Deflate compressed data format. These look the same, so
++        // if the file contains [(s) 0 c 0 0 0], then we cannot discriminate
++        // them. However if the data descriptor was intended to be [(s) 0 c 0],
++        // then it has been followed by eight zero bytes in the zip file for
++        // some reason. For a normal zip file this cannot be the case. The data
++        // descriptor would always be immediately followed by another zip file
++        // signature, which is four bytes that are not zeros. The other cases
++        // where more than one format matches are vanishingly unlikely, but the
++        // longest match strategy resolves those as well in a normal zip file.
++        // Those pairs are [s s s] vs. [s s s s], [s s s] vs. [s s s 0 s 0],
++        // and [s s s s s] vs. [s s s s s s]. For all, s is the signature for a
++        // data descriptor. For the first two we have an entry whose CRC,
++        // compressed length, and uncompressed length are all equal (!), and
++        // are all equal to the signature (!!). If this occurs, clearly someone
++        // is messing with us. However the strategy works nonetheless. We see
++        // that if the shorter descriptor, [s s s] were what was intended, then
++        // it has been followed by either four zero bytes or a data descriptor
++        // signature. Neither can occur for a normal zip file, where it must be
++        // followed by a signature that is not a data descriptor signature. So
++        // the longest match is the correct choice. The final case is outright
++        // insane, since the compressed and uncompressed lengths are the data
++        // descriptor signature repeated twice to make a 64-bit length, which
++        // is about 6e17. The largest drive available as I write this is 100TB,
++        // which is one six thousandth of that length. If I apply Moore's law
++        // to drive capacity, we might get to 6e17 about 25 years from now. If
++        // this code is still in use then (I've seen other code I've written in
++        // use for over 30 years), then we're still in luck. A data descriptor
++        // cannot be followed by a data descriptor signature in a normal zip
++        // file. The longest match strategy continues to work.
++        //
++        // So what is a not normal zip file, where these assumptions might fall
++        // apart? zip files have been used in a non-standard way as a poor
++        // substitute for a file system, with entries deleted and perhaps
++        // others replacing them partially, with fragmented zip files being the
++        // result. Then all bets are off as to what might or might not follow a
++        // data descriptor. Though if this sort of data descriptor ambiguity
++        // falls in one of those gaps, then there should be no adverse
++        // consequences for picking the unintended one.
++        int len = 0;
++#       define SIG 0x08074b50           // optional data descriptor signature
++#ifdef LARGE_FILE_SUPPORT
++        uch buf[24];
++        int got = readbuf((char *)buf, sizeof(buf));
++        if (got >= 24 && makelong(buf) == SIG &&
++                         makelong(buf + 4) == G.lrec.crc32 &&
++                         makeint64(buf + 8) == G.lrec.csize &&
++                         makeint64(buf + 16) == G.lrec.ucsize)
++            // Have a data descriptor with a signature and 64-bit lengths.
++            len = 24;
++        else if (got >= 20 && makelong(buf) == G.lrec.crc32 &&
++                              makeint64(buf + 4) == G.lrec.csize &&
++                              makeint64(buf + 12) == G.lrec.ucsize)
++            // Have a data descriptor with no signature and 64-bit lengths.
++            len = 20;
++        else if ((G.lrec.csize >> 32) == 0 && (G.lrec.ucsize >> 32) == 0)
++            // Both lengths are short enough to fit in 32 bits.
++#else
++        uch buf[16];
++        int got = readbuf((char *)buf, sizeof(buf));
 +#endif
-+            Ext_ASCII_TO_Native(G.filename, G.pInfo->hostnum, G.pInfo->hostver,
-+                                G.pInfo->HasUxAtt, (option == DS_FN_L));
-+#if (defined(UNICODE_SUPPORT) && defined(UTF8_MAYBE_NATIVE))
++        {
++            if (got >= 16 && makelong(buf) == SIG &&
++                             makelong(buf + 4) == G.lrec.crc32 &&
++                             makelong(buf + 8) == G.lrec.csize &&
++                             makelong(buf + 12) == G.lrec.ucsize)
++                // Have a data descriptor with a signature and 32-bit lengths.
++                len = 16;
++            else if (got >= 12 && makelong(buf) == G.lrec.crc32 &&
++                                  makelong(buf + 4) == G.lrec.csize &&
++                                  makelong(buf + 8) == G.lrec.ucsize)
++                // Have a data descriptor with no signature and 32-bit lengths.
++                len = 12;
 +        }
-+#endif
- 
-         if (G.pInfo->lcflag)      /* replace with lowercase filename */
-             STRLOWER(G.filename, G.filename);
---- unix/unix.c
-+++ unix/unix.c
-@@ -32,6 +32,7 @@
- 
- #include <iconv.h>
- #include <langinfo.h>
-+#include <stdbool.h>
- 
- #ifdef SCO_XENIX
- #  define SYSNDIR
-@@ -1890,7 +1891,6 @@ static CHARSET_MAP dos_charset_map[] = {
-     { "ANSI_X3.4-1968", "CP850" },
-     { "ISO-8859-1", "CP850" },
-     { "CP1252", "CP850" },
--    { "UTF-8", "CP866" },
-     { "KOI8-R", "CP866" },
-     { "KOI8-U", "CP866" },
-     { "ISO-8859-5", "CP866" }
-@@ -1898,6 +1898,8 @@ static CHARSET_MAP dos_charset_map[] = {
- 
- char OEM_CP[MAX_CP_NAME] = "";
- char ISO_CP[MAX_CP_NAME] = "";
-+char ANSI_CP[MAX_CP_NAME] = "";
-+int forcedCP = 0;
- 
- /* Try to guess the default value of OEM_CP based on the current locale.
-  * ISO_CP is left alone for now. */
-@@ -1916,6 +1918,104 @@ void init_conversion_charsets()
-     			break;
-     		}
++        if (len == 0)
++            // There is no data descriptor that matches the entry CRC and
++            // length values.
+             error = PK_ERR;
++
++        // Back up got-len bytes, to position the read pointer after the data
++        // descriptor. Or to where the data descriptor was supposed to be, in
++        // the event none was found.
++        int back = got - len;
++        if (G.incnt + back > INBUFSIZ) {
++            // Need to load the preceding buffer. We've been here before.
++            G.cur_zipfile_bufstart -= INBUFSIZ;
++#ifdef USE_STRM_INPUT
++            zfseeko(G.zipfd, G.cur_zipfile_bufstart, SEEK_SET);
++#else /* !USE_STRM_INPUT */
++            zlseek(G.zipfd, G.cur_zipfile_bufstart, SEEK_SET);
++#endif /* ?USE_STRM_INPUT */
++            read(G.zipfd, (char *)G.inbuf, INBUFSIZ);
++            G.incnt -= INBUFSIZ - back;
++            G.inptr += INBUFSIZ - back;
++        }
++        else {
++            // Back up within current buffer.
++            G.incnt += back;
++            G.inptr -= back;
++        }
      }
-+
-+    // Still not detected? Try to detect by system locale
-+    if(*OEM_CP == '\0') {
-+
-+      const char *lcToOemTable[] = {
-+        "af_ZA", "CP850", "ar_SA", "CP720", "ar_LB", "CP720", "ar_EG", "CP720",
-+        "ar_DZ", "CP720", "ar_BH", "CP720", "ar_IQ", "CP720", "ar_JO", "CP720",
-+        "ar_KW", "CP720", "ar_LY", "CP720", "ar_MA", "CP720", "ar_OM", "CP720",
-+        "ar_QA", "CP720", "ar_SY", "CP720", "ar_TN", "CP720", "ar_AE", "CP720",
-+        "ar_YE", "CP720", "ast_ES", "CP850", "az_AZ@cyrillic", "CP866", "az_AZ", "CP857",
-+        "be_BY", "CP866", "bg_BG", "CP866", "br_FR", "CP850", "ca_ES", "CP850",
-+        "zh_CN", "CP936", "zh_TW", "CP950", "kw_GB", "CP850", "cs_CZ", "CP852",
-+        "cy_GB", "CP850", "da_DK", "CP850", "de_AT", "CP850", "de_LI", "CP850",
-+        "de_LU", "CP850", "de_CH", "CP850", "de_DE", "CP850", "el_GR", "CP737",
-+        "en_AU", "CP850", "en_CA", "CP850", "en_GB", "CP850", "en_IE", "CP850",
-+        "en_JM", "CP850", "en_BZ", "CP850", "en_PH", "CP437", "en_ZA", "CP437",
-+        "en_TT", "CP850", "en_US", "CP437", "en_ZW", "CP437", "en_NZ", "CP850",
-+        "es_PA", "CP850", "es_BO", "CP850", "es_CR", "CP850", "es_DO", "CP850",
-+        "es_SV", "CP850", "es_EC", "CP850", "es_GT", "CP850", "es_HN", "CP850",
-+        "es_NI", "CP850", "es_CL", "CP850", "es_MX", "CP850", "es_ES", "CP850",
-+        "es_CO", "CP850", "es_ES", "CP850", "es_PE", "CP850", "es_AR", "CP850",
-+        "es_PR", "CP850", "es_VE", "CP850", "es_UY", "CP850", "es_PY", "CP850",
-+        "et_EE", "CP775", "eu_ES", "CP850", "fa_IR", "CP720", "fi_FI", "CP850",
-+        "fo_FO", "CP850", "fr_FR", "CP850", "fr_BE", "CP850", "fr_CA", "CP850",
-+        "fr_LU", "CP850", "fr_MC", "CP850", "fr_CH", "CP850", "ga_IE", "CP437",
-+        "gd_GB", "CP850", "gv_IM", "CP850", "gl_ES", "CP850", "he_IL", "CP862",
-+        "hr_HR", "CP852", "hu_HU", "CP852", "id_ID", "CP850", "is_IS", "CP850",
-+        "it_IT", "CP850", "it_CH", "CP850", "iv_IV", "CP437", "ja_JP", "CP932",
-+        "kk_KZ", "CP866", "ko_KR", "CP949", "ky_KG", "CP866", "lt_LT", "CP775",
-+        "lv_LV", "CP775", "mk_MK", "CP866", "mn_MN", "CP866", "ms_BN", "CP850",
-+        "ms_MY", "CP850", "nl_BE", "CP850", "nl_NL", "CP850", "nl_SR", "CP850",
-+        "nn_NO", "CP850", "nb_NO", "CP850", "pl_PL", "CP852", "pt_BR", "CP850",
-+        "pt_PT", "CP850", "rm_CH", "CP850", "ro_RO", "CP852", "ru_RU", "CP866",
-+        "sk_SK", "CP852", "sl_SI", "CP852", "sq_AL", "CP852", "sr_RS@latin", "CP852",
-+        "sr_RS", "CP855", "sv_SE", "CP850", "sv_FI", "CP850", "sw_KE", "CP437",
-+        "th_TH", "CP874", "tr_TR", "CP857", "tt_RU", "CP866", "uk_UA", "CP866",
-+        "ur_PK", "CP720", "uz_UZ@cyrillic", "CP866", "uz_UZ", "CP857", "vi_VN", "CP1258",
-+        "wa_BE", "CP850", "zh_HK", "CP950", "zh_SG", "CP936"};
-+
-+      const char *lcToAnsiTable[] = {
-+        "af_ZA", "CP1252", "ar_SA", "CP1256", "ar_LB", "CP1256", "ar_EG", "CP1256",
-+        "ar_DZ", "CP1256", "ar_BH", "CP1256", "ar_IQ", "CP1256", "ar_JO", "CP1256",
-+        "ar_KW", "CP1256", "ar_LY", "CP1256", "ar_MA", "CP1256", "ar_OM", "CP1256",
-+        "ar_QA", "CP1256", "ar_SY", "CP1256", "ar_TN", "CP1256", "ar_AE", "CP1256",
-+        "ar_YE", "CP1256","ast_ES", "CP1252", "az_AZ@cyrillic", "CP1251", "az_AZ", "CP1254",
-+        "be_BY", "CP1251", "bg_BG", "CP1251", "br_FR", "CP1252", "ca_ES", "CP1252",
-+        "zh_CN", "CP936",  "zh_TW", "CP950",  "kw_GB", "CP1252", "cs_CZ", "CP1250",
-+        "cy_GB", "CP1252", "da_DK", "CP1252", "de_AT", "CP1252", "de_LI", "CP1252",
-+        "de_LU", "CP1252", "de_CH", "CP1252", "de_DE", "CP1252", "el_GR", "CP1253",
-+        "en_AU", "CP1252", "en_CA", "CP1252", "en_GB", "CP1252", "en_IE", "CP1252",
-+        "en_JM", "CP1252", "en_BZ", "CP1252", "en_PH", "CP1252", "en_ZA", "CP1252",
-+        "en_TT", "CP1252", "en_US", "CP1252", "en_ZW", "CP1252", "en_NZ", "CP1252",
-+        "es_PA", "CP1252", "es_BO", "CP1252", "es_CR", "CP1252", "es_DO", "CP1252",
-+        "es_SV", "CP1252", "es_EC", "CP1252", "es_GT", "CP1252", "es_HN", "CP1252",
-+        "es_NI", "CP1252", "es_CL", "CP1252", "es_MX", "CP1252", "es_ES", "CP1252",
-+        "es_CO", "CP1252", "es_ES", "CP1252", "es_PE", "CP1252", "es_AR", "CP1252",
-+        "es_PR", "CP1252", "es_VE", "CP1252", "es_UY", "CP1252", "es_PY", "CP1252",
-+        "et_EE", "CP1257", "eu_ES", "CP1252", "fa_IR", "CP1256", "fi_FI", "CP1252",
-+        "fo_FO", "CP1252", "fr_FR", "CP1252", "fr_BE", "CP1252", "fr_CA", "CP1252",
-+        "fr_LU", "CP1252", "fr_MC", "CP1252", "fr_CH", "CP1252", "ga_IE", "CP1252",
-+        "gd_GB", "CP1252", "gv_IM", "CP1252", "gl_ES", "CP1252", "he_IL", "CP1255",
-+        "hr_HR", "CP1250", "hu_HU", "CP1250", "id_ID", "CP1252", "is_IS", "CP1252",
-+        "it_IT", "CP1252", "it_CH", "CP1252", "iv_IV", "CP1252", "ja_JP", "CP932",
-+        "kk_KZ", "CP1251", "ko_KR", "CP949", "ky_KG", "CP1251", "lt_LT", "CP1257",
-+        "lv_LV", "CP1257", "mk_MK", "CP1251", "mn_MN", "CP1251", "ms_BN", "CP1252",
-+        "ms_MY", "CP1252", "nl_BE", "CP1252", "nl_NL", "CP1252", "nl_SR", "CP1252",
-+        "nn_NO", "CP1252", "nb_NO", "CP1252", "pl_PL", "CP1250", "pt_BR", "CP1252",
-+        "pt_PT", "CP1252", "rm_CH", "CP1252", "ro_RO", "CP1250", "ru_RU", "CP1251",
-+        "sk_SK", "CP1250", "sl_SI", "CP1250", "sq_AL", "CP1250", "sr_RS@latin", "CP1250",
-+        "sr_RS", "CP1251", "sv_SE", "CP1252", "sv_FI", "CP1252", "sw_KE", "CP1252",
-+        "th_TH", "CP874", "tr_TR", "CP1254", "tt_RU", "CP1251", "uk_UA", "CP1251",
-+        "ur_PK", "CP1256", "uz_UZ@cyrillic", "CP1251", "uz_UZ", "CP1254", "vi_VN", "CP1258",
-+        "wa_BE", "CP1252", "zh_HK", "CP950", "zh_SG", "CP936"};
-+
-+      int tableLen = sizeof(lcToOemTable) / sizeof(lcToOemTable[0]);
-+      int lcLen = 0, i;
-+
-+      // Detect required code page name from current locale
-+      char *lc = setlocale(LC_CTYPE, "");
-+
-+      if (lc && lc[0]) {
-+        // Compare up to the dot, if it exists, e.g. en_US.UTF-8
-+        for (lcLen = 0; lc[lcLen] != '.' && lc[lcLen] != ':' && lc[lcLen] != '\0'; ++lcLen);
-+
-+        for (i = 0; i < tableLen; i += 2)
-+
-+          if (strncmp(lc, (lcToOemTable[i]), lcLen) == 0) {
-+
-+            strncpy(OEM_CP, lcToOemTable[i + 1],
-+              sizeof(OEM_CP));
-+
-+            strncpy(ANSI_CP, lcToAnsiTable[i + 1],
-+              sizeof(ANSI_CP));
-+
-+            break;
+ 
+     return error;
+From 5b44c818b96193b3e240f38f61985fa2bc780eb7 Mon Sep 17 00:00:00 2001
+From: Jakub Martisko <jamartis@redhat.com>
+Date: Tue, 30 Nov 2021 15:42:17 +0100
+Subject: [PATCH] Add an option to disable the zipbomb detection
+
+This can be done by settting a newly introduced environment variable
+UNZIP_DISABLE_ZIPBOMB_DETECTION to {TRUE,True,true}. If the variable is unset, or
+set to any other value the zipbomb detection is left enabled.
+
+Example:
+	UNZIP_DISABLE_ZIPBOMB_DETECTION=True unzip ./zbsm.zip -d ./test
+---
+ extract.c | 85 ++++++++++++++++++++++++++++++-------------------------
+ unzip.c   | 15 ++++++++--
+ unzip.h   |  1 +
+ 3 files changed, 60 insertions(+), 41 deletions(-)
+
+diff --git a/extract.c b/extract.c
+index 878817d..3e58071 100644
+--- a/extract.c
++++ b/extract.c
+@@ -322,7 +322,8 @@ static ZCONST char Far BadExtraFieldCRC[] =
+ static ZCONST char Far NotEnoughMemCover[] =
+   "error: not enough memory for bomb detection\n";
+ static ZCONST char Far OverlappedComponents[] =
+-  "error: invalid zip file with overlapped components (possible zip bomb)\n";
++  "error: invalid zip file with overlapped components (possible zip bomb)\n \
++To unzip the file anyway, rerun the command with UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE environmnent variable\n";
+ 
+ 
+ 
+@@ -502,35 +503,37 @@ int extract_or_test_files(__G)    /* return PK-type error code */
+        the end of central directory record (including the Zip64 end of central
+        directory locator, if present), and the Zip64 end of central directory
+        record, if present. */
+-    if (G.cover == NULL) {
++    if (uO.zipbomb == TRUE) {
++      if (G.cover == NULL) {
+         G.cover = malloc(sizeof(cover_t));
+         if (G.cover == NULL) {
+-            Info(slide, 0x401, ((char *)slide,
+-              LoadFarString(NotEnoughMemCover)));
+-            return PK_MEM;
++            Info(slide, 0x401, ((char *)slide,
++              LoadFarString(NotEnoughMemCover)));
++            return PK_MEM;
+         }
+         ((cover_t *)G.cover)->span = NULL;
+         ((cover_t *)G.cover)->max = 0;
+-    }
+-    ((cover_t *)G.cover)->num = 0;
+-    if (cover_add((cover_t *)G.cover,
+-                  G.extra_bytes + G.ecrec.offset_start_central_directory,
+-                  G.extra_bytes + G.ecrec.offset_start_central_directory +
+-                  G.ecrec.size_central_directory) != 0) {
++    }
++    ((cover_t *)G.cover)->num = 0;
++    if (cover_add((cover_t *)G.cover,
++                  G.extra_bytes + G.ecrec.offset_start_central_directory,
++                  G.extra_bytes + G.ecrec.offset_start_central_directory +
++                  G.ecrec.size_central_directory) != 0) {
+         Info(slide, 0x401, ((char *)slide,
+-          LoadFarString(NotEnoughMemCover)));
++          LoadFarString(NotEnoughMemCover)));
+         return PK_MEM;
+-    }
+-    if ((G.extra_bytes != 0 &&
+-         cover_add((cover_t *)G.cover, 0, G.extra_bytes) != 0) ||
+-        (G.ecrec.have_ecr64 &&
+-         cover_add((cover_t *)G.cover, G.ecrec.ec64_start,
+-                   G.ecrec.ec64_end) != 0) ||
+-        cover_add((cover_t *)G.cover, G.ecrec.ec_start,
+-                  G.ecrec.ec_end) != 0) {
++    }
++    if ((G.extra_bytes != 0 &&
++         cover_add((cover_t *)G.cover, 0, G.extra_bytes) != 0) ||
++        (G.ecrec.have_ecr64 &&
++         cover_add((cover_t *)G.cover, G.ecrec.ec64_start,
++                   G.ecrec.ec64_end) != 0) ||
++        cover_add((cover_t *)G.cover, G.ecrec.ec_start,
++                  G.ecrec.ec_end) != 0) {
+         Info(slide, 0x401, ((char *)slide,
+-          LoadFarString(OverlappedComponents)));
++          LoadFarString(OverlappedComponents)));
+         return PK_BOMB;
++      }
+     }
+ 
+ /*---------------------------------------------------------------------------
+@@ -1222,10 +1225,12 @@ static int extract_or_test_entrylist(__G__ numchunk,
+ 
+         /* seek_zipf(__G__ pInfo->offset);  */
+         request = G.pInfo->offset + G.extra_bytes;
+-        if (cover_within((cover_t *)G.cover, request)) {
++        if (uO.zipbomb == TRUE) {
++          if (cover_within((cover_t *)G.cover, request)) {
+             Info(slide, 0x401, ((char *)slide,
+-              LoadFarString(OverlappedComponents)));
++              LoadFarString(OverlappedComponents)));
+             return PK_BOMB;
 +          }
+         }
+         inbuf_offset = request % INBUFSIZ;
+         bufstart = request - inbuf_offset;
+@@ -1758,17 +1763,19 @@ reprompt:
+             return IZ_CTRLC;        /* cancel operation by user request */
+         }
+ #endif
+-        error = cover_add((cover_t *)G.cover, request,
+-                          G.cur_zipfile_bufstart + (G.inptr - G.inbuf));
+-        if (error < 0) {
++        if (uO.zipbomb == TRUE) {
++          error = cover_add((cover_t *)G.cover, request,
++                            G.cur_zipfile_bufstart + (G.inptr - G.inbuf));
++          if (error < 0) {
+             Info(slide, 0x401, ((char *)slide,
+-              LoadFarString(NotEnoughMemCover)));
++                                LoadFarString(NotEnoughMemCover)));
+             return PK_MEM;
+-        }
+-        if (error != 0) {
++          }
++          if (error != 0) {
+             Info(slide, 0x401, ((char *)slide,
+-              LoadFarString(OverlappedComponents)));
++                                LoadFarString(OverlappedComponents)));
+             return PK_BOMB;
++          }
+         }
+ #ifdef MACOS  /* MacOS is no preemptive OS, thus call event-handling by hand */
+         UserStop();
+@@ -2171,8 +2178,8 @@ static int extract_or_test_member(__G)    /* return PK-type error code */
+     }
+ 
+     undefer_input(__G);
+-
+-    if ((G.lrec.general_purpose_bit_flag & 8) != 0) {
++    if (uO.zipbomb == TRUE) {
++      if ((G.lrec.general_purpose_bit_flag & 8) != 0) {
+         // Skip over the data descriptor. We need to correctly position the
+         // read pointer after the data descriptor for the proper detection of
+         // overlapped zip file components.
+@@ -2189,8 +2196,8 @@ static int extract_or_test_member(__G)    /* return PK-type error code */
+             G.incnt += back;
+             G.inptr -= back;
+         }
++      }
+     }
+-
+     return error;
+ 
+ } /* end function extract_or_test_member() */
+diff --git a/unzip.c b/unzip.c
+index 8dbfc95..abb3644 100644
+--- a/unzip.c
++++ b/unzip.c
+@@ -1329,10 +1329,9 @@ int uz_opts(__G__ pargc, pargv)
+     int *pargc;
+     char ***pargv;
+ {
+-    char **argv, *s;
++    char **argv, *s, *zipbomb_envar;
+     int argc, c, error=FALSE, negative=0, showhelp=0;
+ 
+-
+     argc = *pargc;
+     argv = *pargv;
+ 
+@@ -1923,6 +1922,18 @@ opts_done:  /* yes, very ugly...but only used by UnZipSFX with -x xlist */
+     else
+         G.extract_flag = TRUE;
+ 
++    /* Disable the zipbomb detection, this is the only option set only via the shell variables but it should at least not clash with something in the future. */
++    zipbomb_envar = getenv("UNZIP_DISABLE_ZIPBOMB_DETECTION");
++    uO.zipbomb = TRUE;
++    if (zipbomb_envar != NULL) {
++      /* strcasecmp might be a better approach here but it is POSIX-only */
++      if ((strcmp ("TRUE", zipbomb_envar) == 0)
++       || (strcmp ("True", zipbomb_envar) == 0)
++       || (strcmp ("true",zipbomb_envar) == 0)) {
++        uO.zipbomb = FALSE;
 +      }
 +    }
- }
- 
- /* Convert a string from one encoding to the current locale using iconv().
-@@ -1976,3 +2076,9 @@ inline void iso_intern(char *string)
- {
-     charset_to_intern(string, ISO_CP);
- }
 +
-+/* Convert a string from ANSI_CP to the current locale charset. */
-+inline void ansi_intern(char *string)
-+{
-+    charset_to_intern(string, ANSI_CP);
-+}
---- unix/unxcfg.h
-+++ unix/unxcfg.h
-@@ -174,8 +174,8 @@ typedef struct stat z_stat;
- #endif
- #ifndef NO_SETLOCALE
- # if (!defined(NO_WORKING_ISPRINT) && !defined(HAVE_WORKING_ISPRINT))
--   /* enable "enhanced" unprintable chars detection in fnfilter() */
--#  define HAVE_WORKING_ISPRINT
-+   /* disable "enhanced" unprintable chars detection in fnfilter() */
-+#  define NO_WORKING_ISPRINT
- # endif
- #endif
- 
-@@ -250,8 +250,14 @@ typedef struct stat z_stat;
- #endif
- #define _OEM_INTERN(str1) oem_intern(str1)
- 
-+#ifdef _ANSI_INTERN
-+#  undef _ANSI_INTERN
-+#endif
-+#define _ANSI_INTERN(str1) ansi_intern(str1)
-+
- void iso_intern(char *);
- void oem_intern(char *);
-+void ansi_intern(char *);
- void init_conversion_charsets(void);
- 
- #endif /* !__unxcfg_h */
---- unzip.c
-+++ unzip.c
-@@ -1362,7 +1362,7 @@ int uz_opts(__G__ pargc, pargv)
- 
+     *pargc = argc;
+     *pargv = argv;
+     return PK_OK;
+diff --git a/unzip.h b/unzip.h
+index ed24a5b..e7665e8 100644
+--- a/unzip.h
++++ b/unzip.h
+@@ -559,6 +559,7 @@ typedef struct _UzpOpts {
  #ifdef UNIX
-     extern char OEM_CP[MAX_CP_NAME];
--    extern char ISO_CP[MAX_CP_NAME];
-+    extern int forcedCP;
+     int cflxflag;       /* -^: allow control chars in extracted filenames */
  #endif
++  int zipbomb;
+ #endif /* !FUNZIP */
+ } UzpOpts;
  
-     while (++argv, (--argc > 0 && *argv != NULL && **argv == '-')) {
-@@ -1560,7 +1560,8 @@ int uz_opts(__G__ pargc, pargv)
-         		                  "error:  a valid character encoding should follow the -I argument"));
-     	                        return(PK_PARAM);
-     						}
--    						strncpy(ISO_CP, s, sizeof(ISO_CP));
-+    						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					} else { /* -I charset */
-     						++argv;
-     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
-@@ -1569,7 +1570,8 @@ int uz_opts(__G__ pargc, pargv)
-     	                        return(PK_PARAM);
-     						}
-     						s = *argv;
--    						strncpy(ISO_CP, s, sizeof(ISO_CP));
-+    						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					}
-     					while(*(++s)); /* No params straight after charset name */
-     				}
-@@ -1665,6 +1667,7 @@ int uz_opts(__G__ pargc, pargv)
-     	                        return(PK_PARAM);
-     						}
-     						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					} else { /* -O charset */
-     						++argv;
-     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
-@@ -1674,6 +1677,7 @@ int uz_opts(__G__ pargc, pargv)
-     						}
-     						s = *argv;
-     						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					}
-     					while(*(++s)); /* No params straight after charset name */
-     				}
---- unzpriv.h
-+++ unzpriv.h
-@@ -3012,16 +3012,42 @@ char    *GetLoadPath     OF((__GPRO));
-  *
-  * All other ports are assumed to code zip entry filenames in ISO 8859-1.
-  */
-+
-+// 2024-05-25 Removed "|| (isuxatt)": actually we know nothing
-+// about local system's codepage of PKZIP 2.51 UNIX users.
-+// Also removed "_ISO_INTERN((string)); \":
-+// Windows ANSI is not always 1252, also standard defines default
-+// charset as CP437, not ISO 8859-1. But in fact most of packers
-+// just used local system's charset, so without any charset translation
-+// we will at least make such archives processed correctly
-+// on the same system - Ivan Sorokin <unxed@mail.ru>
-+
-+// Defined only on Unix for now
-+#ifndef _ANSI_INTERN
-+#define _ANSI_INTERN(str1) {}
-+#endif
-+#ifndef UNIX
-+int forcedCP = 0;
-+#else
-+extern int forcedCP;
-+#endif
-+
- #ifndef Ext_ASCII_TO_Native
- #  define Ext_ASCII_TO_Native(string, hostnum, hostver, isuxatt, islochdr) \
--    if (((hostnum) == FS_FAT_ && \
--         !(((islochdr) || (isuxatt)) && \
-+    if ((forcedCP) == 1) { \
-+        _OEM_INTERN((string)); \
-+    } else if ((hostnum) == FS_NTFS_ && (hostver) >= 20) { \
-+        _ANSI_INTERN((string)); \
-+    } else if (((hostnum) == FS_FAT_ && \
-+         !((islochdr) && \
-            ((hostver) == 25 || (hostver) == 26 || (hostver) == 40))) || \
-         (hostnum) == FS_HPFS_ || \
--        ((hostnum) == FS_NTFS_ /* && (hostver) == 50 */ )) { \
-+        (hostnum) == FS_NTFS_) { \
-         _OEM_INTERN((string)); \
--    } else { \
--        _ISO_INTERN((string)); \
-+    } else if (((hostnum) == FS_FAT_ && \
-+         ((islochdr) && \
-+          ((hostver) == 25 || (hostver) == 26 || (hostver) == 40)))) { \
-+        _ANSI_INTERN((string)); \
-     }
- #endif
- 
---- zipinfo.c
-+++ zipinfo.c
-@@ -459,7 +459,7 @@ int zi_opts(__G__ pargc, pargv)
- 
- #ifdef UNIX
-     extern char OEM_CP[MAX_CP_NAME];
--    extern char ISO_CP[MAX_CP_NAME];
-+    extern int forcedCP;
- #endif
- 
- #ifdef MACOS
-@@ -519,7 +519,8 @@ int zi_opts(__G__ pargc, pargv)
-         		                  "error:  a valid character encoding should follow the -I argument"));
-     	                        return(PK_PARAM);
-     						}
--    						strncpy(ISO_CP, s, sizeof(ISO_CP));
-+    						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					} else { /* -I charset */
-     						++argv;
-     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
-@@ -528,7 +529,8 @@ int zi_opts(__G__ pargc, pargv)
-     	                        return(PK_PARAM);
-     						}
-     						s = *argv;
--    						strncpy(ISO_CP, s, sizeof(ISO_CP));
-+    						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					}
-     					while(*(++s)); /* No params straight after charset name */
-     				}
-@@ -569,6 +571,7 @@ int zi_opts(__G__ pargc, pargv)
-     	                        return(PK_PARAM);
-     						}
-     						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					} else { /* -O charset */
-     						++argv;
-     						if(!(--argc > 0 && *argv != NULL && **argv != '-')) {
-@@ -578,6 +581,7 @@ int zi_opts(__G__ pargc, pargv)
-     						}
-     						s = *argv;
-     						strncpy(OEM_CP, s, sizeof(OEM_CP));
-+    						forcedCP = 1;
-     					}
-     					while(*(++s)); /* No params straight after charset name */
-     				}
+-- 
+2.33.0
 
+unzip uses C89-only features, so it needs to be built in C89 mode.
 
---- fileio.c
-+++ fileio.c
-@@ -2322,8 +2322,11 @@ int do_string(__G__ length, option)   /*
-             seek_zipf(__G__ G.cur_zipfile_bufstart - G.extra_bytes +
-                       (G.inptr-G.inbuf) + length);
-         } else {
--            if (readbuf(__G__ (char *)G.extra_field, length) == 0)
-+            unsigned bytes_read = readbuf(__G__ (char *)G.extra_field, length);
-+            if (bytes_read == 0)
-                 return PK_EOF;
-+            if (bytes_read != length)
-+                return PK_ERR;
-             /* Looks like here is where extra fields are read */
-             if (getZip64Data(__G__ G.extra_field, length) != PK_COOL)
-             {
---- process.c
-+++ process.c
-@@ -2067,10 +2067,14 @@ int getUnicodeData(__G__ ef_buf, ef_len)
-           G.unipath_checksum = makelong(offset + ef_buf);
-           offset += 4;
+diff --git a/unix/Makefile b/unix/Makefile
+index ab32270cf4b9b2cf..5eabbe13095e1f58 100644
+--- a/unix/Makefile
++++ b/unix/Makefile
+@@ -545,7 +545,7 @@ generic:	flags	   # now try autoconfigure first
+ #	make $(MAKEF) unzips CF="${CF} `cat flags`"
  
-+          if (!G.filename_full) {
-+            /* Check if we have a unicode extra section but no filename set */
-+            return PK_ERR;
-+          }
-+
-           /*
-            * Compute 32-bit crc
-            */
--
-           chksum = crc32(chksum, (uch *)(G.filename_full),
-                          strlen(G.filename_full));
+ generic_gcc:
+-	$(MAKE) $(MAKEF) generic CC=gcc IZ_BZIP2="$(IZ_BZIP2)"
++	$(MAKE) $(MAKEF) generic CC="gcc -std=gnu89" IZ_BZIP2="$(IZ_BZIP2)"
  
-
-
---- unix/unxcfg.h
-+++ unix/unxcfg.h
-@@ -118,7 +118,7 @@
- #  endif
- #else
- #  include <time.h>
--   struct tm *gmtime(), *localtime();
-+/*   struct tm *gmtime(), *localtime(); */
- #endif
+ # extensions to perform SVR4 package-creation after compilation
+ generic_pkg:	generic svr4package
+--- unzip60/extract.c	2023-01-25 07:05:58.742254870 -0500
++++ unzip60.new/extract.c	2023-01-25 07:04:48.073435349 -0500
+@@ -2889,7 +2889,7 @@ char *fnfilter(raw, space, size)   /* co
+             strcpy( (char *)space, raw);
+             return (char *)space;
+         }
+-        woslen = wcstombs( newraw, wostring, (woslen * MB_CUR_MAX) + 1);
++        woslen = wcstombs( newraw, wostring, woslen + 1);
  
- #if (defined(BSD4_4) || (defined(SYSV) && defined(MODERN)))
-
+         if (size > 0) {
+             slim = space + size - 4;
