@@ -5,8 +5,8 @@
 # This Wget is crippled, but allows bootstrapping a full Wget build.
 
 if [ -z $LD_LIBRARY_PATH ]; then
-LD_LIBRARY_PATH=$HOME/.local/lib
-export LD_LIBRARY_PATH=$HOME/.local/lib
+LD_LIBRARY_PATH=$HOME/.local/lib/
+export LD_LIBRARY_PATH=$HOME/.local/lib/
 echo 'LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
 echo 'export LD_LIBRARY_PATH=$HOME/.local/lib/' >> $HOME/.bashrc
 fi
