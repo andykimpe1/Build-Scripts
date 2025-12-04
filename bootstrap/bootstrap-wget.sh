@@ -355,4 +355,14 @@ if true; then
     rm -f wget.patch
 fi
 
+
+mv $HOME/.build-scripts/wget/bin/openssl $HOME/.build-scripts/wget/bin/openssl.old
+INSTX_PREFIX="$HOME/.local"
+export INSTX_PREFIX="$HOME/.local"
+echo 'INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
+echo 'export INSTX_PREFIX="$HOME/.local"' >> $HOME/.bashrc
+export PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/bin:$HOME/.local/sbin:$PATH"
+echo 'PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+echo 'export PATH="$HOME/.build-scripts/wget/bin/:$HOME/.local/sbin:$HOME/.local/bin:$PATH"' >> $HOME/.bashrc
+
 exit 0
