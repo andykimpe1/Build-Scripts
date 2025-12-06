@@ -10,7 +10,7 @@ if [[ ! -d "\${INSTX_TOPDIR}/programs" ]]; then
         [[ "\$0" == "\${BASH_SOURCE[0]}" ]] && exit 1 || return 1
 fi
 EOF
-cat $1 > build/$1
+cat $1 >> build/$1
 sed -i "s|./setup|\${INSTX_TOPDIR}/setup|" build/$1
 sed -i "s|./build|\${INSTX_TOPDIR}/patch|" build/$1
 sed -i "s|../patch|\${INSTX_TOPDIR}/build/build|" build/$1
@@ -166,7 +166,6 @@ bashedit build-qemacs.sh
 bashedit build-readline.sh
 bashedit build-rootkey.sh
 bashedit build-sed.sh
-build.sh
 bashedit build-sipwitch.sh
 bashedit build-sqlite3.sh
 bashedit build-sslscan.sh
