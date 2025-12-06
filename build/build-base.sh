@@ -71,7 +71,7 @@ export INSTX_DISABLE_GETTEXT_CHECK=1
 
 ###############################################################################
 
-if [[ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ] ]; then
+if [[ ! -f "${INSTX_PKG_CACHE}/cacert" ] ]; then
 
 if ! ${INSTX_TOPDIR}/build.sh cacert 2025.2.80_v9.0.304-2
 then
@@ -105,7 +105,7 @@ then
 fi
 VERSION=
 ###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+if [ ! -f "${INSTX_PKG_CACHE}/gmp" ]; then
 if ! VERSION=6.2.1 ${INSTX_TOPDIR}/build.sh gmp 6.2.1
 then
     echo "Failed to build GMP 6.2.1"
@@ -125,19 +125,21 @@ if [[ "$IS_SOLARIS" -eq 1 ]]; then
 fi
 
 ###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh libffi
+if [ ! -f "${INSTX_PKG_CACHE}/libffi" ]; then
+if ! VERSION=3.2.1 ${INSTX_TOPDIR}/build.sh libffi 3.2.1
 then
     echo "Failed to build libffi"
     exit 1
 fi
+fi
 
 ###############################################################################
-
+if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
 if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
 then
     echo "Failed to build guile2"
     exit 1
+fi
 fi
 
 VERSION=
