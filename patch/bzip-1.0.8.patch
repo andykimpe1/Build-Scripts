@@ -1,5 +1,5 @@
---- bzip2.1
-+++ bzip2.1
+--- a/bzip2.1
++++ b/bzip2.1
 @@ -1,4 +1,3 @@
 -.PU
  .TH bzip2 1
@@ -365,8 +365,8 @@
  Many people sent patches, helped
 
 
---- bzgrep
-+++ bzgrep
+--- a/bzgrep
++++ b/bzgrep
 @@ -1,27 +1,75 @@
  #!/bin/sh
  
@@ -539,8 +539,8 @@
  exit $res
 Index: bzip2/bzmore
 ===================================================================
---- bzmore
-+++ bzmore
+--- a/bzmore
++++ b/bzmore
 @@ -24,10 +24,10 @@ else
    # 'stty min 1' resets eof to ^a on both SunOS and SysV!
    cb='min 1 -icanon'; ncb='icanon eof ^d'
@@ -566,8 +566,8 @@ Index: bzip2/bzmore
  	fi
 Index: bzip2/bzip2.c
 ===================================================================
---- bzip2.c
-+++ bzip2.c
+--- a/bzip2.c
++++ b/bzip2.c
 @@ -1890,7 +1890,9 @@ IntNative main ( IntNative argc, Char *a
                 case '8': blockSize100k    = 8; break;
                 case '9': blockSize100k    = 9; break;
@@ -592,8 +592,8 @@ Index: bzip2/bzip2.c
        if (ISFLAG("--repetitive-fast"))   redundant(aa->name);        else
 
 
---- manual.xml
-+++ manual.xml
+--- a/manual.xml
++++ b/manual.xml
 @@ -1162,9 +1162,9 @@
    if the library has been mis-compiled
  BZ_PARAM_ERROR
@@ -749,8 +749,8 @@ Index: bzip2/bzip2.c
  BZ_OUTBUFF_FULL
 
 
---- manual.xml
-+++ manual.xml
+--- a/manual.xml
++++ b/manual.xml
 @@ -160,12 +160,21 @@
   <listitem><para><computeroutput>bzip2</computeroutput> [
    -cdfkqstvzVL123456789 ] [ filenames ...  ]</para></listitem>
@@ -784,8 +784,8 @@ Index: bzip2/bzip2.c
   <varlistentry>
   <term><computeroutput>-v --verbose</computeroutput></term>
   <listitem><para>Verbose mode -- show the compression ratio for
---- bzip2.1
-+++ bzip2.1
+--- a/bzip2.1
++++ b/bzip2.1
 @@ -13,6 +13,9 @@
  [
  .I "filenames \&..."
@@ -827,8 +827,8 @@ Index: bzip2/bzip2.c
  .TP
 
 
---- Makefile
-+++ Makefile
+--- a/Makefile
++++ b/Makefile
 @@ -12,6 +12,8 @@
  # in the file LICENSE.
  # ------------------------------------------------------------------
@@ -956,8 +956,8 @@ Index: bzip2/bzip2.c
  	rm -f manual.ps manual.html manual.pdf
 
 
---- bzip2recover.c
-+++ bzip2recover.c
+--- a/bzip2recover.c
++++ b/bzip2recover.c
 @@ -24,6 +24,8 @@
  #include <errno.h>
  #include <stdlib.h>
@@ -998,8 +998,8 @@ Index: bzip2/bzip2.c
                        progName, outFileName );
 
 
---- bzdiff
-+++ bzdiff
+--- a/bzdiff
++++ b/bzdiff
 @@ -24,7 +24,11 @@ FILES=
  for ARG
  do
