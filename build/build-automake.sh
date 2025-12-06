@@ -10,9 +10,9 @@ fi
 # This script builds Automake from sources. A separate
 # script is available for Autotools for brave souls.
 
-AUTOMAKE_VER=1.15.1
-AUTOMAKE_TAR="automake-${AUTOMAKE_VER}.tar.gz"
-AUTOMAKE_DIR="automake-${AUTOMAKE_VER}"
+VERSION=1.15.1
+AUTOMAKE_TAR="automake-$VERSION.tar.gz"
+AUTOMAKE_DIR="automake-$VERSION"
 PKG_NAME=automake
 
 ###############################################################################
@@ -66,7 +66,7 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "Automake ${AUTOMAKE_VER}..."
+echo "Automake $VERSION..."
 
 if ! "${WGET}" -q -O "$AUTOMAKE_TAR" \
      "https://ftp.gnu.org/gnu/automake/$AUTOMAKE_TAR"
