@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+INSTX_TOPDIR=$(find $HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
+
+if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
+        printf "INSTX_TOPDIR is not valid."
+        [[ "$0" == "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
+fi
+
 # Written and placed in public domain by Jeffrey Walton
 # This script builds libacl from sources.
 
@@ -12,7 +19,7 @@ PKG_NAME=acl
 
 # Get the environment as needed.
 if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
-    if ! source ./setup-environ.sh
+    if ! source ${INSTX_TOPDIR}/setup-environ.sh
     then
         echo "Failed to set environment"
         exit 1
@@ -27,7 +34,7 @@ fi
 
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
-    if ! source ./setup-password.sh
+    if ! source ${INSTX_TOPDIR}/setup-password.sh
     then
         echo "Failed to process password"
         exit 1
@@ -36,7 +43,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-cacert.sh
+if ! ${INSTX_TOPDIR}/build/build-cacert.sh
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -44,7 +51,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-base.sh
+if ! ${INSTX_TOPDIR}/build/build-base.sh
 then
     echo "Failed to build GNU base packages"
     exit 1
@@ -52,7 +59,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-attr.sh
+if ! ${INSTX_TOPDIR}/build/build-attr.sh
 then
     echo "Failed to build libattr"
     exit 1
@@ -85,7 +92,7 @@ gzip -d < "$ACL_TAR" | tar xf -
 cd "$ACL_DIR" || exit 1
 
 # Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ../patch/acl.patch ]]; then
+if [[ -e ${INSTX_TOPDIR}/patch/acl.patch ]]; then
     echo ""
     echo "**************************"
     echo "Patching package"
