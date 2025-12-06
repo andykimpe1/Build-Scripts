@@ -20,15 +20,18 @@ fi
 downloader Build-Scripts-master.tar.gz https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master
 cat > /tmp/rest.sh <<EOF
 #!/bin/bash
-rm -rf Build-Scripts-master
+cd
+rm -rf Build-Scripts-master .local
 tar -xvf Build-Scripts-master.tar.gz
 rm -rf Build-Scripts-master.tar.gz
 cd Build-Scripts-master
 find . -name '*.sh' -exec chmod +x {} \;
 ./set-variable.sh
 source $HOME/.bashrc
-./setup-cacerts.sh
-./setup-wget.sh
+if [ ! -f $HOME/.build-scripts/wget/bin/wget ]; then
+    ./setup-cacerts.sh
+    ./setup-wget.sh
+fi
 EOF
 chmod +x /tmp/rest.sh
 /tmp/rest.sh
