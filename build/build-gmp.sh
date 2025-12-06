@@ -9,8 +9,8 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds GMP from sources.
 if [ -z $1 ]; then VERSION=6.2.1; else VERSION=$1; fi
-GMP_TAR="gmp-${GMP_VER}.tar.bz2"
-GMP_DIR="gmp-${GMP_VER}"
+GMP_TAR="gmp-${VERSION}.tar.bz2"
+GMP_DIR="gmp-${VERSION}"
 PKG_NAME=gmp
 
 ###############################################################################
@@ -50,7 +50,7 @@ echo "Downloading package"
 echo "***********************"
 
 echo ""
-echo "GMP ${GMP_VER}..."
+echo "GMP ${VERSION}..."
 
 if ! "${WGET}" -q -O "$GMP_TAR"  \
      "https://ftp.gnu.org/gnu/gmp/$GMP_TAR"
