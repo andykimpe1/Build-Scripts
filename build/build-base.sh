@@ -86,9 +86,17 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh automake
+if ! VERSION=1.15.1 ${INSTX_TOPDIR}/build.sh automake
 then
-    echo "Failed to build automake"
+    echo "Failed to build automake 1.15.1"
+    exit 1
+fi
+
+###############################################################################
+
+if ! VERSION=1.16.5 ${INSTX_TOPDIR}/build.sh automake
+then
+    echo "Failed to build automake 1.16.5"
     exit 1
 fi
 
