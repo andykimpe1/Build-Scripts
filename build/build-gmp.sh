@@ -8,8 +8,7 @@ fi
 
 # Written and placed in public domain by Jeffrey Walton
 # This script builds GMP from sources.
-
-GMP_VER=6.2.1
+if [ -z $1 ]; then VERSION=6.2.1; else VERSION=$1; fi
 GMP_TAR="gmp-${GMP_VER}.tar.bz2"
 GMP_DIR="gmp-${GMP_VER}"
 PKG_NAME=gmp
