@@ -166,7 +166,6 @@ bashedit build-qemacs.sh
 bashedit build-readline.sh
 bashedit build-rootkey.sh
 bashedit build-sed.sh
-build.sh
 bashedit build-sipwitch.sh
 bashedit build-sqlite3.sh
 bashedit build-sslscan.sh
