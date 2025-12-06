@@ -1,5 +1,5 @@
---- doc/html/index.html
-+++ doc/html/index.html
+--- a/doc/html/index.html
++++ b/doc/html/index.html
 @@ -55,8 +55,9 @@
      <li>A <a href="hackguide.html">hackers guide</a> to
      ncurses.</li>
@@ -14,8 +14,8 @@
      tutorial</a>, by Pradeep Padala.</li>
 
 
---- misc/terminfo.src
-+++ misc/terminfo.src
+--- a/misc/terminfo.src
++++ b/misc/terminfo.src
 @@ -6746,7 +6746,7 @@ rxvt-basic|rxvt terminal base (X Window
  	cup=\E[%i%p1%d;%p2%dH, ed=\E[J, el=\E[K, el1=\E[1K,
  	flash=\E[?5h$<100/>\E[?5l, ich=\E[%p1%d@,
@@ -36,8 +36,8 @@
  	rmso=\E[27m, rmul=\E[24m,
 
 
---- misc/ncurses-config.in
-+++ misc/ncurses-config.in
+--- a/misc/ncurses-config.in
++++ b/misc/ncurses-config.in
 @@ -41,7 +41,6 @@ exec_prefix="@exec_prefix@"
  
  bindir="@bindir@"
