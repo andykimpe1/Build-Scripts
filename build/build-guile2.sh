@@ -14,10 +14,10 @@ fi
 # something more recent is needed.
 #
 # Requires libtool-ltdl-devel on Fedora.
-
-GUILE_VER=2.2.7
-GUILE_TAR=guile-${GUILE_VER}.tar.gz
-GUILE_DIR=guile-${GUILE_VER}
+if [ -z $1 ]; then VERSION=2.2.7; else VERSION=$1; fi
+VERSION=2.2.7
+GUILE_TAR=guile-${VERSION}.tar.gz
+GUILE_DIR=guile-${VERSION}
 PKG_NAME=guile2
 
 ###############################################################################
@@ -59,49 +59,6 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     fi
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh cacert
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-if ! ${INSTX_TOPDIR}/build.sh build-unistr
-then
-    echo "Failed to build Unistring"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh gmp
-then
-    echo "Failed to build GMP"
-    exit 1
-fi
-
-###############################################################################
-
-# Solaris is missing the Boehm GC. We have to build it. Ugh...
-if [[ "$IS_SOLARIS" -eq 1 ]]; then
-    if ! ${INSTX_TOPDIR}/build.sh boehm-gc
-    then
-        echo "Failed to build Boehm GC"
-        exit 1
-    fi
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh libffi
-then
-    echo "Failed to build libffi"
-    exit 1
-fi
-
-###############################################################################
-
 echo ""
 echo "========================================"
 echo "================ Guile ================="
@@ -113,7 +70,7 @@ echo "Downloading package"
 echo "*************************"
 
 echo ""
-echo "Guile ${GUILE_VER}..."
+echo "Guile ${VERSION}..."
 
 if ! "${WGET}" -q -O "$GUILE_TAR" \
      "https://ftp.gnu.org/gnu/guile/$GUILE_TAR"
