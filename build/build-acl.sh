@@ -10,9 +10,9 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds libacl from sources.
 
-ACL_VER=2.3.2
-ACL_TAR=acl-${ACL_VER}.tar.gz
-ACL_DIR=acl-${ACL_VER}
+VERSION=2.3.2
+ACL_TAR=acl-$VERSION.tar.gz
+ACL_DIR=acl-$VERSION
 PKG_NAME=acl
 
 ###############################################################################
@@ -78,7 +78,7 @@ echo "Downloading package"
 echo "**************************"
 
 echo ""
-echo "libacl ${ACL_VER}..."
+echo "libacl ${VERSION}..."
 
 if ! "${WGET}" -q -O "$ACL_TAR"\
      "https://download.savannah.nongnu.org/releases/acl/$ACL_TAR"
@@ -91,15 +91,7 @@ rm -rf "$ACL_DIR" &>/dev/null
 gzip -d < "$ACL_TAR" | tar xf -
 cd "$ACL_DIR" || exit 1
 
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ${INSTX_TOPDIR}/patch/acl.patch ]]; then
-    echo ""
-    echo "**************************"
-    echo "Patching package"
-    echo "**************************"
-
-    patch -u -p0 < ../patch/acl.patch
-fi
+$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -u -p0
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
