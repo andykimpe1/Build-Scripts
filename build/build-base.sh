@@ -71,7 +71,7 @@ export INSTX_DISABLE_GETTEXT_CHECK=1
 
 ###############################################################################
 
-if [ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+if [[ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ] ]; then
 
 if ! ${INSTX_TOPDIR}/build.sh cacert 2025.2.80_v9.0.304-2
 then
