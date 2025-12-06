@@ -37,3 +37,5 @@ then
     echo "Failed to install $1"
     exit 1
 fi
+echo "install $1 finish"
+sleep 10
