@@ -3,7 +3,7 @@ bashedit() {
 sed -i '1d' $1
 cat > build/$1 <<EOF
 #!/usr/bin/env bash
-INSTX_TOPDIR=\$(find $HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
+INSTX_TOPDIR=\$(find \$HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
 
 if [[ ! -d "\${INSTX_TOPDIR}/programs" ]]; then
         printf "INSTX_TOPDIR is not valid."
