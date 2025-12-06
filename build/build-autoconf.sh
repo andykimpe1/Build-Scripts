@@ -37,7 +37,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
