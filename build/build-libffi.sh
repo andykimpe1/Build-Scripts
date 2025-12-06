@@ -8,10 +8,10 @@ fi
 
 # Written and placed in public domain by Jeffrey Walton
 # This script builds Libffi from sources.
-
-LIBFFI_VER=3.2.1
-LIBFFI_TAR=libffi-${LIBFFI_VER}.tar.gz
-LIBFFI_DIR=libffi-${LIBFFI_VER}
+if [ -z $1 ]; then VERSION=3.2.1; else VERSION=$1; fi
+VERSION=3.2.1
+LIBFFI_TAR=libffi-${VERSION}.tar.gz
+LIBFFI_DIR=libffi-${VERSION}
 PKG_NAME=libffi
 
 ###############################################################################
@@ -39,16 +39,6 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         exit 1
     fi
 fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
 
 echo ""
 echo "========================================"
