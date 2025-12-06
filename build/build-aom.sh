@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+INSTX_TOPDIR=$(find $HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
+
+if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
+        printf "INSTX_TOPDIR is not valid."
+        [[ "$0" == "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
+fi
+
 # Written and placed in public domain by Jeffrey Walton
 # This script builds FFMPEG and its dependencies from sources.
 
@@ -11,7 +18,7 @@ AOM_DIR=${PKG_NAME}-${AOM_VER}
 
 # Get the environment as needed.
 if [[ "${SETUP_ENVIRON_DONE}" != "yes" ]]; then
-    if ! source ./setup-environ.sh
+    if ! source ${INSTX_TOPDIR}/setup-environ.sh
     then
         echo "Failed to set environment"
         exit 1
@@ -20,7 +27,7 @@ fi
 
 # The password should die when this subshell goes out of scope
 if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
-    if ! source ./setup-password.sh
+    if ! source ${INSTX_TOPDIR}/setup-password.sh
     then
         echo "Failed to process password"
         exit 1
@@ -34,8 +41,8 @@ fi
 
 ###############################################################################
 
-chmod +x ./*.sh
-if ! ./build-nasm.sh
+chmod +x ${INSTX_TOPDIR}/build/*.sh
+if ! ${INSTX_TOPDIR}/build/build-nasm.sh
 then
     echo "Failed to build nasm"
     exit 1
@@ -43,7 +50,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-yasm.sh
+if ! ${INSTX_TOPDIR}/build/build-yasm.sh
 then
     echo "Failed to build yasm"
     exit 1
@@ -51,7 +58,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-git.sh
+if ! ${INSTX_TOPDIR}/build/build-git.sh
 then
     echo "Failed to build GNU base packages"
     exit 1
@@ -59,7 +66,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-libtasn1.sh
+if ! ${INSTX_TOPDIR}/build/build-libtasn1.sh
 then
     echo "Failed to build libtasn1"
     exit 1
@@ -67,7 +74,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-idn2.sh
+if ! ${INSTX_TOPDIR}/build/build-idn2.sh
 then
     echo "Failed to build IDN2"
     exit 1
@@ -75,7 +82,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-libexpat.sh
+if ! ${INSTX_TOPDIR}/build/build-libexpat.sh
 then
     echo "Failed to build Expat"
     exit 1
@@ -83,7 +90,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-nettle.sh
+if ! ${INSTX_TOPDIR}/build/build-nettle.sh
 then
     echo "Failed to build Nettle"
     exit 1
@@ -91,7 +98,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-unbound.sh
+if ! ${INSTX_TOPDIR}/build/build-unbound.sh
 then
     echo "Failed to build Unbound"
     exit 1
@@ -99,7 +106,7 @@ fi
 
 ###############################################################################
 
-if ! ./build-p11kit.sh
+if ! ${INSTX_TOPDIR}/build/build-p11kit.sh
 then
     echo "Failed to build P11-Kit"
     exit 1
@@ -109,7 +116,7 @@ fi
 
 if [[ ! -f "${INSTX_PREFIX}/bin/xz" ]]
 then
-    if ! ./build-xz.sh
+    if ! ${INSTX_TOPDIR}/build/build-xz.sh
     then
         echo "Failed to build XZ"
         exit 1
@@ -120,7 +127,7 @@ fi
 
 if [[ "${IS_LINUX}" -eq 1 ]]
 then
-    if ! ./build-datefudge.sh
+    if ! ${INSTX_TOPDIR}/build/build-datefudge.sh
     then
         echo "Failed to build datefudge"
         exit 1
