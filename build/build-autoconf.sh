@@ -9,8 +9,7 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds autoconf from sources. A separate
 # script is available for Autotools for brave souls.
-
-VERSION=2.71
+if [ -z $1 ]; then VERSION=2.71; else VERSION=$1; fi
 AUTOCONF_TAR=autoconf-${VERSION}.tar.gz
 AUTOCONF_DIR=autoconf-${VERSION}
 PKG_NAME=autoconf
