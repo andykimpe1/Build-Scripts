@@ -30,5 +30,9 @@ downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/a
 sleep 30
 chmod +x ${INSTX_TOPDIR}/*.sh
 chmod +x ${INSTX_TOPDIR}/build/*.sh
-${INSTX_TOPDIR}/build/build-$1.sh
+if ! ${INSTX_TOPDIR}/build/build-$1.sh
+then
+    echo "Failed to install $1"
+    exit 1
+fi
 sleep 30
