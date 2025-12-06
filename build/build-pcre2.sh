@@ -9,9 +9,9 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds PCRE from sources.
 
-PCRE2_VER=10.46
-PCRE2_TAR="pcre2-${PCRE2_VER}.tar.gz"
-PCRE2_DIR="pcre2-${PCRE2_VER}"
+VERSION=10.46
+PCRE2_TAR="pcre2-$VERSION.tar.gz"
+PCRE2_DIR="pcre2-$VERSION"
 PKG_NAME=pcre2
 
 ###############################################################################
@@ -34,14 +34,14 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     fi
 fi
    
-if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$PCRE2_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -49,7 +49,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-bzip.sh
+if ! ${INSTX_TOPDIR}/build.sh bzip
 then
     echo "Failed to build Bzip2"
     exit 1
@@ -68,10 +68,10 @@ echo "Downloading package"
 echo "*************************"
 
 echo ""
-echo "PCRE2 ${PCRE2_VER}..."
+echo "PCRE2 $VERSION..."
 
 if ! "wget" -q -O "$PCRE2_TAR" \
-     "https://github.com/PhilipHazel/pcre2/releases/download/pcre2-$PCRE2_VER/$PCRE2_TAR"
+     "https://github.com/PhilipHazel/pcre2/releases/download/pcre2-$VERSION/$PCRE2_TAR"
 then
     echo "Failed to download PCRE2"
     exit 1
@@ -81,15 +81,7 @@ rm -rf "$PCRE2_DIR" &>/dev/null
 gzip -d < "$PCRE2_TAR" | tar xf -
 cd "$PCRE2_DIR"
 
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ${INSTX_TOPDIR}/patch/pcre2.patch ]]; then
-    echo ""
-    echo "***************************"
-    echo "Patching package"
-    echo "***************************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/pcre2.patch
-fi
+$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
@@ -191,7 +183,7 @@ fi
 
 ###############################################################################
 
-echo "$PCRE2_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
