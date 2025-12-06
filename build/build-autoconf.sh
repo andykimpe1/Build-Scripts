@@ -10,8 +10,8 @@ fi
 # This script builds autoconf from sources. A separate
 # script is available for Autotools for brave souls.
 if [ -z $1 ]; then VERSION=2.71; else VERSION=$1; fi
-AUTOCONF_TAR=autoconf-${VERSION}.tar.gz
-AUTOCONF_DIR=autoconf-${VERSION}
+AUTOCONF_TAR=autoconf-2.71.tar.gz
+AUTOCONF_DIR=autoconf-2.71
 PKG_NAME=autoconf
 
 ###############################################################################
@@ -32,13 +32,6 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
-fi
-
-
-if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
-    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
-    sleep 10
-    exit 0
 fi
 
 echo ""
