@@ -34,24 +34,6 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     fi
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh cacert
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh automake
-then
-    echo "Failed to build GNU base packages"
-    exit 1
-fi
-
-###############################################################################
-
 echo ""
 echo "========================================"
 echo "================= Make ================="
@@ -100,9 +82,9 @@ echo "**********************"
 ./configure \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
-    --libdir="${INSTX_LIBDIR}" \
-    --with-libiconv-prefix="${INSTX_PREFIX}" \
-    --with-libintl-prefix="${INSTX_PREFIX}"
+    --libdir="${INSTX_LIBDIR}"
+#    --with-libiconv-prefix="${INSTX_PREFIX}" \
+ #   --with-libintl-prefix="${INSTX_PREFIX}"
 
 if [[ "$?" -ne 0 ]]; then
     echo ""
