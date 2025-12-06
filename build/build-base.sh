@@ -69,7 +69,7 @@ export INSTX_DISABLE_GETTEXT_CHECK=1
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -77,7 +77,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-ncurses-readline.sh
+if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
 then
     echo "Failed to build Ncurses and Readline"
     exit 1
@@ -85,7 +85,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-iconv-gettext.sh
+if ! ${INSTX_TOPDIR}/build.sh iconv-gettext
 then
     echo "Failed to build iConv and GetText"
     exit 1
@@ -93,7 +93,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-unistr.sh
+if ! ${INSTX_TOPDIR}/build.sh unistr
 then
     echo "Failed to build Unistring"
     exit 1
@@ -101,7 +101,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-libxml2.sh
+if ! ${INSTX_TOPDIR}/build.sh libxml2
 then
     echo "Failed to build libxml2"
     exit 1
@@ -112,7 +112,7 @@ fi
 # GetText is checked in build-gettext-final.sh
 unset INSTX_DISABLE_GETTEXT_CHECK
 
-if ! ${INSTX_TOPDIR}/build/build-gettext-final.sh
+if ! ${INSTX_TOPDIR}/build.sh gettext-final
 then
     echo "Failed to build GetText final"
     exit 1
@@ -124,7 +124,7 @@ fi
 
 rm -f "${INSTX_PKG_CACHE}/pcre2"
 
-if ! ${INSTX_TOPDIR}/build/build-pcre2.sh
+if ! ${INSTX_TOPDIR}/build.sh pcre2
 then
     echo "Failed to build PCRE2"
     exit 1
@@ -136,7 +136,7 @@ fi
 
 rm -f "${INSTX_PKG_CACHE}/idn2"
 
-if ! ${INSTX_TOPDIR}/build/build-idn2.sh
+if ! ${INSTX_TOPDIR}/build.sh idn2
 then
     echo "Failed to build IDN2"
     exit 1
