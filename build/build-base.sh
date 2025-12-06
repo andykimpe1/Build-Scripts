@@ -71,10 +71,13 @@ export INSTX_DISABLE_GETTEXT_CHECK=1
 
 ###############################################################################
 
+if [ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
+
 if ! ${INSTX_TOPDIR}/build.sh cacert 2025.2.80_v9.0.304-2
 then
     echo "Failed to install CA Certs"
     exit 1
+fi
 fi
 VERSION=
 ###############################################################################
@@ -102,11 +105,12 @@ then
 fi
 VERSION=
 ###############################################################################
-
+if [ ! -f "${INSTX_PKG_CACHE}/${PKG_NAME}" ]; then
 if ! VERSION=6.2.1 ${INSTX_TOPDIR}/build.sh gmp 6.2.1
 then
     echo "Failed to build GMP 6.2.1"
     exit 1
+fi
 fi
 VERSION=
 ###############################################################################
