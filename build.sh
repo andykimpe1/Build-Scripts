@@ -24,6 +24,7 @@ if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
         printf "INSTX_TOPDIR is not valid."
         [[ "$0" == "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
 fi
+rm -rf ${INSTX_TOPDIR}/build
 mkdir -p ${INSTX_TOPDIR}/build
 downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/build/build-$1.sh
 chmod +x ${INSTX_TOPDIR}/*.sh
