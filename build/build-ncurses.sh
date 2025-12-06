@@ -22,9 +22,9 @@ fi
 # And for Ncurses 6.2:
 #   http://www.linuxfromscratch.org/lfs/view/development/chapter06/ncurses.html
 
-NCURSES_VER=6.5
-NCURSES_TAR="ncurses-${NCURSES_VER}.tar.gz"
-NCURSES_DIR="ncurses-${NCURSES_VER}"
+VERSION=6.5
+NCURSES_TAR="ncurses-${VERSION}.tar.gz"
+NCURSES_DIR="ncurses-${VERSION}"
 PKG_NAME=ncurses
 
 ###############################################################################
@@ -48,7 +48,7 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
 fi
 
 
-if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$NCURSES_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
@@ -66,7 +66,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -74,7 +74,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-pcre2.sh
+if ! ${INSTX_TOPDIR}/build.sh pcre2
 then
     echo "Failed to build PCRE2"
     exit 1
@@ -106,15 +106,7 @@ rm -rf "$NCURSES_DIR" &>/dev/null
 gzip -d < "$NCURSES_TAR" | tar xf -
 cd "$NCURSES_DIR" || exit 1
 
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ${INSTX_TOPDIR}/patch/ncurses.patch ]]; then
-    echo ""
-    echo "**************************"
-    echo "Patching package"
-    echo "**************************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/ncurses.patch
-fi
+$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
@@ -343,7 +335,7 @@ fi
 
 ###############################################################################
 
-echo "$NCURSES_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
