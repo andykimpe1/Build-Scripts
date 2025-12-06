@@ -78,7 +78,7 @@ then
 fi
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh autoconf
+if ! ${INSTX_TOPDIR}/build.sh autoconf 2.71
 then
     echo "Failed to build autoconf"
     exit 1
@@ -86,7 +86,7 @@ fi
 
 ###############################################################################
 
-if ! VERSION=1.15.1 ${INSTX_TOPDIR}/build.sh automake
+if ! VERSION=1.15.1 ${INSTX_TOPDIR}/build.sh automake 1.15.1
 then
     echo "Failed to build automake 1.15.1"
     exit 1
