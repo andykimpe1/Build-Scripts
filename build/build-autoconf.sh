@@ -54,7 +54,7 @@ echo "**********************"
 echo ""
 echo "Autoconf ${VERSION}..."
 
-if ! "${WGET}" -q -O "$AUTOCONF_TAR" \
+if ! "${WGET}" -O "$AUTOCONF_TAR" \
      "https://ftp.gnu.org/gnu/autoconf/$AUTOCONF_TAR"
 then
     echo "Failed to download Autoconf"
