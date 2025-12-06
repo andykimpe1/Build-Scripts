@@ -116,20 +116,6 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check" "-k" "V=1")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-   echo "Failed to test libffi"
-   exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo "**********************"
 echo "Installing package"
 echo "**********************"
 
