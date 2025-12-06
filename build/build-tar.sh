@@ -44,7 +44,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}build.sh base
+if ! ${INSTX_TOPDIR}/build.sh base
 then
     echo "Failed to build GNU base packages"
     exit 1
@@ -52,7 +52,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-pcre2.sh
+if ! ${INSTX_TOPDIR}/build.sh pcre2
 then
     echo "Failed to build PCRE2"
     exit 1
