@@ -61,23 +61,13 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-base.sh
-then
-    echo "Failed to build GNU base packages"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-unistr.sh
+if ! ${INSTX_TOPDIR}/build.sh build-unistr
 then
     echo "Failed to build Unistring"
     exit 1
@@ -85,7 +75,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-gmp.sh
+if ! ${INSTX_TOPDIR}/build.sh gmp
 then
     echo "Failed to build GMP"
     exit 1
@@ -95,7 +85,7 @@ fi
 
 # Solaris is missing the Boehm GC. We have to build it. Ugh...
 if [[ "$IS_SOLARIS" -eq 1 ]]; then
-    if ! ${INSTX_TOPDIR}/build/build-boehm-gc.sh
+    if ! ${INSTX_TOPDIR}/build.sh boehm-gc
     then
         echo "Failed to build Boehm GC"
         exit 1
@@ -104,7 +94,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-libffi.sh
+if ! ${INSTX_TOPDIR}/build.sh libffi
 then
     echo "Failed to build libffi"
     exit 1
