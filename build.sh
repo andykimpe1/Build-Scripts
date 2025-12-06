@@ -1,6 +1,5 @@
 #!/bin/bash
-VERSION=$VERSION
-downloader() {
+if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$1; fidownloader() {
 if [ -f /usr/bin/wget ]; then
    wget -O $1 $2
 elif [ -f $HOME/.build-scripts/wget/bin/wget ]; then
@@ -33,7 +32,7 @@ echo "install $1 $VERSION started please wait"
 sleep 10
 chmod +x ${INSTX_TOPDIR}/*.sh
 chmod +x ${INSTX_TOPDIR}/build/*.sh
-if ! VERSION=$VERSION ${INSTX_TOPDIR}/build/build-$1.sh
+if ! VERSION=$VERSION ${INSTX_TOPDIR}/build/build-$1.sh $VERSION
 then
     echo "Failed to install $1"
     exit 1
