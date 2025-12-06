@@ -52,7 +52,7 @@ echo "***********************"
 echo ""
 echo "GMP ${VERSION}..."
 
-if ! "${WGET}" -q -O "$GMP_TAR"  \
+if ! "${WGET}" -O "$GMP_TAR"  \
      "https://ftp.gnu.org/gnu/gmp/$GMP_TAR"
 then
     echo ""
