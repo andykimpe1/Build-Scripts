@@ -102,6 +102,14 @@ fi
 
 ###############################################################################
 
+if ! ${INSTX_TOPDIR}/build.sh guile2
+then
+    echo "Failed to build guile2"
+    exit 1
+fi
+
+###############################################################################
+
 if ! ${INSTX_TOPDIR}/build.sh make
 then
     echo "Failed to build make"
