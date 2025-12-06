@@ -27,6 +27,8 @@ fi
 rm -rf ${INSTX_TOPDIR}/build
 mkdir -p ${INSTX_TOPDIR}/build
 downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/build/build-$1.sh
+sleep 30
 chmod +x ${INSTX_TOPDIR}/*.sh
 chmod +x ${INSTX_TOPDIR}/build/*.sh
 ${INSTX_TOPDIR}/build/build-$1.sh
+sleep 30
