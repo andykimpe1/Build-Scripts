@@ -1,5 +1,6 @@
 #!/bin/bash
-if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$1; fidownloader() {
+if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$1; fi
+downloader() {
 if [ -f /usr/bin/wget ]; then
    wget -O $1 $2
 elif [ -f $HOME/.build-scripts/wget/bin/wget ]; then
