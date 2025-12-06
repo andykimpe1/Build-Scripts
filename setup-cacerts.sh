@@ -9,8 +9,18 @@ chmod +x *.sh
 
 # setup-cacerts.sh does not source the environment, so we can't use the variables
 mkdir -p "$HOME/.build-scripts/cacert"
-cp ./bootstrap/cacert.pem "$HOME/.build-scripts/cacert"
+cat ./bootstrap/cacert2.pem > "$HOME/.build-scripts/cacert/cacert.pem"
 cd "$HOME/.build-scripts/cacert/"
+
+###############################################################################
+
+# Remove old CACERT directory
+rm -rf "$HOME/.cacert"
+
+echo ""
+
+exit 0
+
 
 ###############################################################################
 

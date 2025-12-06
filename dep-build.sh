@@ -1,1 +1,1 @@
-#!/bin/bahs
+#!/bin/bash
