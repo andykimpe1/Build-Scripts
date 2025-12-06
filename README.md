@@ -1,6 +1,6 @@
 # Build-Scripts
 
-This GitHub is a collection of build scripts useful for building and testing programs and libraries on downlevel clients and clients where program updates are not freely available. It should result in working SSH, Wget, cURL and Git clients on systems like PowerMac G5, Fedora 1, Ubuntu 4, CentOS 5 and Solaris 11.
+This GitHub is a collection of build scripts useful for building and testing programs and libraries on downlevel clients and clients where program updates are not freely available. It should result in working SSH, Wget, cURL and Git clients on systems like PowerMac G5, Fedora 30, Ubuntu 12.04, Debian 6, CentOS 6 and Solaris 11.
 
 The general idea of the scripts are, you run `./build-wget.sh`, `./build-ssh.sh`, `./build-git.sh` or some other script to get a fresh tool. The script for the program will download and build the dependent libraries for the program. When the script completes you have a working tool in `/usr/local` or `/opt/local` on the BSDs.
 
@@ -281,6 +281,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
