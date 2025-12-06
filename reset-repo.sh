@@ -25,6 +25,10 @@ tar -xvf Build-Scripts-master.tar.gz
 rm -rf Build-Scripts-master.tar.gz
 cd Build-Scripts-master
 find . -name '*.sh' -exec chmod +x {} \;
+./set-variable.sh
+source $HOME/.bashrc
+./setup-cacerts.sh
+./setup-wget.sh
 EOF
 chmod +x /tmp/rest.sh
 /tmp/rest.sh
