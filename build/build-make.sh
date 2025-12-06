@@ -36,7 +36,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -44,7 +44,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-base.sh
+if ! ${INSTX_TOPDIR}/build.sh base
 then
     echo "Failed to build GNU base packages"
     exit 1
