@@ -10,6 +10,7 @@ fi
 # This script writes several Root CA certifcates needed
 # for other scripts and wget downloads over HTTPS.
 
+VERSION=2025.2.80_v9.0.304-2
 PKG_NAME=cacert
 
 ###############################################################################
@@ -30,6 +31,12 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    sleep 10
+    exit 0
 fi
 
 ###############################################################################
@@ -93,7 +100,7 @@ fi
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 ###############################################################################
 
