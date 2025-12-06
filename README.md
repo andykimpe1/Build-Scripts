@@ -14,7 +14,7 @@ Once you clone the repo you should perform a one-time setup. The setup installs 
 cd
 downloader() {
 if [ -f /usr/bin/wget ]; then
-   wget --no-check-certificate -O $1 $2
+   wget -O $1 $2
 elif [ -f /usr/bin/curl ]; then
    curl -o $1 $2
 elif [ -f /usr/bin/python3 ]; then
@@ -44,7 +44,7 @@ You can verify Wget bootstrap with the following commands.
 
 ```
 $ $HOME/.build-scripts/wget/bin/wget --version
-GNU Wget 1.25.0 built on linux-gnu.
+GNU Wget 1.20.3 built on solaris2.11.
 ```
 
 The bootstrap version of Wget uses OpenSSL 1.0.2. OpenSSL 1.0.2 is now end-of-life and will accumulate unfixed bugs. We cannot upgrade to OpenSSL 1.1.x because of a Perl dependency. OpenSSL 1.1.x requires Perl 5.24, and Perl 5.24 is too new for some of the older systems.
@@ -53,7 +53,7 @@ On ancient systems, like Fedora 1 and Ubuntu 4, you will need to build Bash imme
 
 ## Output Artifacts
 
-Artifacts are placed in `$HOME/.local` by default with runtime paths and dtags set to the proper library location. The library location on 32-bit machines is `/usr/local/lib`. 64-bit systems use `/usr/local/lib` (Debian and derivatives) or `/usr/local/lib64` (Red Hat and derivatives). The BSDs use `$HOME/.local` by default to avoid mixing libraries with system libraries in `/usr/local`.
+Artifacts are placed in `/usr/local` by default with runtime paths and dtags set to the proper library location. The library location on 32-bit machines is `/usr/local/lib`. 64-bit systems use `/usr/local/lib` (Debian and derivatives) or `/usr/local/lib64` (Red Hat and derivatives). The BSDs use `/opt/local` by default to avoid mixing libraries with system libraries in `/usr/local`.
 
 You can override the install locations with `INSTX_PREFIX` and `INSTX_LIBDIR`. `INSTX_PREFIX` is passed as `--prefix` to Autotools projects, and `INSTX_LIBDIR` is passed as `--libdir` to Autotools projects. Non-Autotools projects get patched after unpacking (see `build-bzip.sh` for an example).
 
@@ -61,12 +61,10 @@ Examples of running the scripts and changing variables are shown below:
 
 ```
 # Build and install using the directories described above
-./build.sh wget
+./build-wget.sh
 
 # Build and install in a temp directory
-INSTX_PREFIX="$HOME/tmp" ./build.sh wget
-#next available
-INSTX_PREFIX="$HOME/tmp" VERSION=1.20.0 ./build.sh wget
+INSTX_PREFIX="$HOME/tmp" ./build-wget.sh
 ```
 
 ## Runtime Paths
@@ -303,6 +301,5 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
-
 
 
