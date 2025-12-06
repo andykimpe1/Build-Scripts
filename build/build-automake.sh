@@ -42,26 +42,6 @@ if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_C
     exit 0
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh cacert
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh autoconf
-then
-    echo "Failed to build autoconf"
-    exit 1
-fi
-
-###############################################################################
-
 echo ""
 echo "========================================"
 echo "=============== Automake ==============="
