@@ -12,8 +12,8 @@ fi
 EOF
 cat $1 >> build/$1
 sed -i "s|./setup|\${INSTX_TOPDIR}/setup|" build/$1
-sed -i "s|./build|\${INSTX_TOPDIR}/patch|" build/$1
-sed -i "s|../patch|\${INSTX_TOPDIR}/build/build|" build/$1
+sed -i "s|./build|\${INSTX_TOPDIR}/build|" build/$1
+sed -i "s|../patch|\${INSTX_TOPDIR}/build/patch|" build/$1
 sed -i "s| --ca-certificate=\"\${LETS_ENCRYPT_ROOT}\"||" build/$1
 sed -i "s| --ca-certificate=\"\${GITHUB_CA_ZOO}\"||" build/$1
 sed -i "s| --ca-certificate=\"\${THE_CA_ZOO}\"||" build/$1
