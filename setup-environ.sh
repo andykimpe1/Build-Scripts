@@ -50,9 +50,11 @@ trap finish EXIT INT
 ###############################################################################
 
 # We need to stash the top level directory for some scripts
-if [[ -z ${INSTX_TOPDIR} ]]; then
-    INSTX_TOPDIR=$(pwd)
-fi
+#if [[ -z ${INSTX_TOPDIR} ]]; then
+#    INSTX_TOPDIR=$(pwd)
+#fi
+
+INSTX_TOPDIR=$(find $HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
 
 if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
         printf "INSTX_TOPDIR is not valid."
