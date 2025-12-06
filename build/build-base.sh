@@ -88,6 +88,7 @@ then
     exit 1
 fi
 VERSION=
+hash -r
 ###############################################################################
 
 if ! VERSION=1.15.1 ${INSTX_TOPDIR}/build.sh automake 1.15.1
@@ -96,6 +97,7 @@ then
     exit 1
 fi
 VERSION=
+hash -r
 ###############################################################################
 
 if ! VERSION=1.16.5 ${INSTX_TOPDIR}/build.sh automake 1.16.5
@@ -104,6 +106,7 @@ then
     exit 1
 fi
 VERSION=
+hash -r
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/gmp" ]; then
 if ! VERSION=6.2.1 ${INSTX_TOPDIR}/build.sh gmp 6.2.1
@@ -113,6 +116,7 @@ then
 fi
 fi
 VERSION=
+hash -r
 ###############################################################################
 
 # Solaris is missing the Boehm GC. We have to build it. Ugh...
@@ -123,7 +127,7 @@ if [[ "$IS_SOLARIS" -eq 1 ]]; then
         exit 1
     fi
 fi
-
+hash -r
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/libffi" ]; then
 if ! VERSION=3.2.1 ${INSTX_TOPDIR}/build.sh libffi 3.2.1
@@ -132,7 +136,7 @@ then
     exit 1
 fi
 fi
-
+hash -r
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
 if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
@@ -141,7 +145,7 @@ then
     exit 1
 fi
 fi
-
+hash -r
 VERSION=
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
@@ -152,7 +156,7 @@ then
     exit 1
 fi
 fi
-
+hash -r
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/ncurses-readline" ]; then
 if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
@@ -161,7 +165,7 @@ then
     exit 1
 fi
 fi
-
+hash -r
 ###############################################################################
 
 if ! ${INSTX_TOPDIR}/build.sh iconv-gettext
@@ -169,7 +173,7 @@ then
     echo "Failed to build iConv and GetText"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 if ! ${INSTX_TOPDIR}/build.sh unistr
@@ -177,7 +181,7 @@ then
     echo "Failed to build Unistring"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 if ! ${INSTX_TOPDIR}/build.sh libxml2
@@ -185,7 +189,7 @@ then
     echo "Failed to build libxml2"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 # GetText is checked in build-gettext-final.sh
@@ -196,7 +200,7 @@ then
     echo "Failed to build GetText final"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 # Trigger a rebuild of PCRE2
@@ -208,7 +212,7 @@ then
     echo "Failed to build PCRE2"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 # Trigger a rebuild of IDN2
@@ -220,7 +224,7 @@ then
     echo "Failed to build IDN2"
     exit 1
 fi
-
+hash -r
 ###############################################################################
 
 touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
