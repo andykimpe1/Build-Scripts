@@ -99,6 +99,13 @@ then
     echo "Failed to build automake 1.16.5"
     exit 1
 fi
+###############################################################################
+
+if ! ${INSTX_TOPDIR}/build.sh gmp
+then
+    echo "Failed to build GMP"
+    exit 1
+fi
 
 ###############################################################################
 
