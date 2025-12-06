@@ -44,7 +44,7 @@ You can verify Wget bootstrap with the following commands.
 
 ```
 $ $HOME/.build-scripts/wget/bin/wget --version
-GNU Wget 1.20.3 built on solaris2.11.
+GNU Wget 1.25.0 built on linux-gnu.
 ```
 
 The bootstrap version of Wget uses OpenSSL 1.0.2. OpenSSL 1.0.2 is now end-of-life and will accumulate unfixed bugs. We cannot upgrade to OpenSSL 1.1.x because of a Perl dependency. OpenSSL 1.1.x requires Perl 5.24, and Perl 5.24 is too new for some of the older systems.
@@ -61,10 +61,10 @@ Examples of running the scripts and changing variables are shown below:
 
 ```
 # Build and install using the directories described above
-./build-wget.sh
+./build.sh wget
 
 # Build and install in a temp directory
-INSTX_PREFIX="$HOME/tmp" ./build-wget.sh
+INSTX_PREFIX="$HOME/tmp" ./build.sh wget
 ```
 
 ## Runtime Paths
