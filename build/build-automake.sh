@@ -10,7 +10,8 @@ fi
 # This script builds Automake from sources. A separate
 # script is available for Autotools for brave souls.
 
-VERSION=1.15.1
+if [ -z $1 ]; then VERSION=1.15.1; else VERSION=$1; fi
+
 AUTOMAKE_TAR="automake-$VERSION.tar.gz"
 AUTOMAKE_DIR="automake-$VERSION"
 PKG_NAME=automake
