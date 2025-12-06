@@ -46,7 +46,7 @@ rm -f "${INSTX_PKG_CACHE}/readline"
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-ncurses.sh
+if ! ${INSTX_TOPDIR}/build.sh ncurses
 then
     echo "Failed to build Ncurses"
     exit 1
@@ -54,7 +54,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-readline.sh
+if ! ${INSTX_TOPDIR}/build.sh readline
 then
     echo "Failed to build Readline"
     exit 1
