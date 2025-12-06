@@ -1,7 +1,7 @@
 # Written and placed in public domain by Jeffrey Walton.
 # This patch fixes some issues with libffi.
---- src/x86/ffi64.c
-+++ src/x86/ffi64.c
+--- a/src/x86/ffi64.c
++++ b/src/x86/ffi64.c
 @@ -537,6 +537,8 @@
  		      void *codeloc)
  {
