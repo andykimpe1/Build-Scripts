@@ -9,9 +9,9 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds Wget and its dependencies from sources.
 
-WGET_VER=1.25.0
-WGET_TAR=wget-${WGET_VER}.tar.gz
-WGET_DIR=wget-${WGET_VER}
+VERSION=1.25.0
+WGET_TAR=wget-${VERSION}.tar.gz
+WGET_DIR=wget-${VERSION}
 PKG_NAME=wget
 
 ###############################################################################
@@ -35,7 +35,7 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
 fi
 
 
-if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$WGET_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
@@ -369,7 +369,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-echo "$WGET_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
