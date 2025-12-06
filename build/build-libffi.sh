@@ -50,7 +50,7 @@ echo "**********************"
 echo "Downloading package"
 echo "**********************"
 
-if ! "${WGET}" -q -O "$LIBFFI_TAR" \
+if ! "${WGET}" -O "$LIBFFI_TAR" \
      "ftp://sourceware.org/pub/libffi/$LIBFFI_TAR"
 then
     echo "Failed to download libffi"
