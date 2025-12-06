@@ -14,9 +14,9 @@ fi
 # Bzip lost its website. It is now located on Sourceware.
 # https://sourceware.org/bzip2/downloads.html
 
-BZIP2_VER=1.0.8
-BZIP2_TAR=bzip2-${BZIP2_VER}.tar.gz
-BZIP2_DIR=bzip2-${BZIP2_VER}
+VERSION=1.0.8
+BZIP2_TAR=bzip2-$VERSION.tar.gz
+BZIP2_DIR=bzip2-$VERSION
 PKG_NAME=bzip2
 
 ###############################################################################
@@ -40,14 +40,14 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
 fi
 
 
-if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$BZIP2_VER" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
+if ! ${INSTX_TOPDIR}/build.sh cacert
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -58,7 +58,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-unzip.sh
+if ! ${INSTX_TOPDIR}/build.sh unzip
 then
     echo "Failed to install unzip"
     exit 1
@@ -77,7 +77,7 @@ echo "Downloading package"
 echo "****************************"
 
 echo ""
-echo "Bzip2 ${BZIP2_VER}..."
+echo "Bzip2 $VERSION..."
 
 if ! "${WGET}" -q -O "$BZIP2_TAR" \
      "ftp://sourceware.org/pub/bzip2/$BZIP2_TAR"
@@ -101,15 +101,7 @@ cd "$BZIP2_DIR" || exit 1
 #    unzip -oq bzip-makefiles.zip
 #fi
 
-# Now, patch them for this script.
-if [[ -e ${INSTX_TOPDIR}/patch/bzip.patch ]]; then
-    echo ""
-    echo "****************************"
-    echo "Patching package"
-    echo "****************************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/bzip.patch
-fi
+$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
 
 # Escape dollar sign for $ORIGIN in makefiles. Required so
 # $ORIGIN works in both configure tests and makefiles.
@@ -260,7 +252,7 @@ fi
     echo ""
     echo "Name: Bzip2"
     echo "Description: Bzip2 compression library"
-    echo "Version: $BZIP2_VER"
+    echo "Version: $VERSION"
     echo ""
     echo "Requires:"
     echo "Libs: -L\${libdir} -lbz2"
@@ -292,7 +284,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-echo "$BZIP2_VER" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
