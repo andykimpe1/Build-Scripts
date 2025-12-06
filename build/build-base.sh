@@ -144,19 +144,22 @@ fi
 
 VERSION=
 ###############################################################################
+if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
 if ! ${INSTX_TOPDIR}/build.sh make
 then
     echo "Failed to build make"
     exit 1
 fi
+fi
 
 ###############################################################################
-
+if [ ! -f "${INSTX_PKG_CACHE}/ncurses-readline" ]; then
 if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
 then
     echo "Failed to build Ncurses and Readline"
     exit 1
+fi
 fi
 
 ###############################################################################
