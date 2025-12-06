@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION=$VERSION
 downloader() {
 if [ -f /usr/bin/wget ]; then
    wget -O $1 $2
@@ -28,14 +29,14 @@ rm -rf ${INSTX_TOPDIR}/build
 mkdir -p ${INSTX_TOPDIR}/build
 clear
 downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/build/build-$1.sh
-echo "install $1 started please wait"
+echo "install $1 $VERSION started please wait"
 sleep 10
 chmod +x ${INSTX_TOPDIR}/*.sh
 chmod +x ${INSTX_TOPDIR}/build/*.sh
-if ! ${INSTX_TOPDIR}/build/build-$1.sh
+if ! VERSION=$VERSION ${INSTX_TOPDIR}/build/build-$1.sh
 then
     echo "Failed to install $1"
     exit 1
 fi
-echo "install $1 finish"
+echo "install $1 $VERSION finish"
 sleep 10
