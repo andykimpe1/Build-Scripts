@@ -10,9 +10,9 @@ fi
 # This script builds autoconf from sources. A separate
 # script is available for Autotools for brave souls.
 
-AUTOCONF_VER=2.71
-AUTOCONF_TAR=autoconf-${AUTOCONF_VER}.tar.gz
-AUTOCONF_DIR=autoconf-${AUTOCONF_VER}
+VERSION=2.71
+AUTOCONF_TAR=autoconf-${VERSION}.tar.gz
+AUTOCONF_DIR=autoconf-${VERSION}
 PKG_NAME=autoconf
 
 ###############################################################################
@@ -33,6 +33,13 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
         echo "Failed to process password"
         exit 1
     fi
+fi
+
+
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    sleep 10
+    exit 0
 fi
 
 ###############################################################################
@@ -56,7 +63,7 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "Autoconf ${AUTOCONF_VER}..."
+echo "Autoconf ${VERSION}..."
 
 if ! "${WGET}" -q -O "$AUTOCONF_TAR" \
      "https://ftp.gnu.org/gnu/autoconf/$AUTOCONF_TAR"
@@ -156,7 +163,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
