@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$1; fi
+if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$2; fi
 downloader() {
 if [ -f /usr/bin/wget ]; then
    wget -O $1 $2
