@@ -101,9 +101,9 @@ then
 fi
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh gmp
+if ! ${INSTX_TOPDIR}/build.sh gmp 6.2.1
 then
-    echo "Failed to build GMP"
+    echo "Failed to build GMP 6.2.1"
     exit 1
 fi
 
