@@ -71,7 +71,7 @@ export INSTX_DISABLE_GETTEXT_CHECK=1
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh cacert
+if ! ${INSTX_TOPDIR}/build.sh cacert 2025.2.80_v9.0.304-2
 then
     echo "Failed to install CA Certs"
     exit 1
@@ -94,7 +94,7 @@ fi
 
 ###############################################################################
 
-if ! VERSION=1.16.5 ${INSTX_TOPDIR}/build.sh automake
+if ! VERSION=1.16.5 ${INSTX_TOPDIR}/build.sh automake 1.16.5
 then
     echo "Failed to build automake 1.16.5"
     exit 1
