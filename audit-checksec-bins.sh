@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+INSTX_TOPDIR=$(find $HOME -name Build-Scripts.racine | sed "s|/Build-Scripts.racine||")
+
+if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
+        printf "INSTX_TOPDIR is not valid."
+        [[ "$0" == "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
+fi
+
+export INSTX_TOPDIR
+
 # Download and install checksec:
 #   wget https://raw.githubusercontent.com/slimm609/checksec.sh/master/checksec
 #   xattr -r -d com.apple.quarantine checksec
