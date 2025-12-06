@@ -44,7 +44,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh base
+if ! ${INSTX_TOPDIR}/build.sh automake
 then
     echo "Failed to build GNU base packages"
     exit 1
