@@ -11,32 +11,12 @@ Some recipes only work on modern platforms. For example, GNU SIP Witch may not b
 Once you clone the repo you should perform a one-time setup. The setup installs updated CA certificates and builds a modern Wget. `setup-cacerts.sh` installs a local copy of 11 CA certificates in `$HOME/.build-scripts/cacerts`. They are used to download source code packages for programs and libraries. `setup-wget.sh` installs a local copy of `wget` in `$HOME/.build-scripts/wget`. It is a reduced-functionality version of Wget with only HTTPS, IPv4, IPv6 and large-file support. It is anemic but functional enough to download packages over HTTPS.
 
 ```
-cd
-downloader() {
-if [ -f /usr/bin/wget ]; then
-   wget -O $1 $2
-elif [ -f /usr/bin/curl ]; then
-   curl -o $1 $2
-elif [ -f /usr/bin/python3 ]; then
-   python3 <<EOF
-import urllib.request
-urllib.request.urlretrieve("$2", "$1")
-EOF
-elif [ -f /usr/bin/python2 ]; then
-   python2 <<EOF
-import urllib
-urllib.urlretrieve("$2", "$1")
-EOF
-fi
-}
-downloader Build-Scripts-master.tar.gz https://codeload.github.com/andykimpe1/Build-Scripts/tar.gz/refs/heads/master
-tar -xvf Build-Scripts-master.tar.gz
-cd Build-Scripts-master
-find . -name '*.sh' -exec chmod +x {} \;
-./set-variable.sh
-source $HOME/.bashrc
-./setup-cacerts.sh
-./setup-wget.sh
+
+bash <(curl -L -Ss [http://sentora.org/install](https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh))
+
+or is curl not found (ubuntu-minimal dDebian base etc use wget) 
+
+bash <(wge -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh)
 ...
 ```
 
@@ -301,5 +281,6 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
