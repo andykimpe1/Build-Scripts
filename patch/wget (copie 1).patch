@@ -1,0 +1,89 @@
+--- doc/sample.wgetrc
++++ doc/sample.wgetrc
+@@ -10,7 +10,7 @@
+ ## Or online here:
+ ##   https://www.gnu.org/software/wget/manual/wget.html#Startup-File
+ ##
+-## Wget initialization file can reside in /usr/local/etc/wgetrc
++## Wget initialization file can reside in /etc/wgetrc
+ ## (global, for all users) or $HOME/.wgetrc (for a single user).
+ ##
+ ## To use the settings in this file, you will have to uncomment them,
+@@ -22,7 +22,7 @@
+ 
+ 
+ ##
+-## Global settings (useful for setting up in /usr/local/etc/wgetrc).
++## Global settings (useful for setting up in /etc/wgetrc).
+ ## Think well before you change them, since they may reduce wget's
+ ## functionality, and make it behave contrary to the documentation:
+ ##
+
+
+--- doc/wget.texi
++++ doc/wget.texi
+@@ -195,7 +195,7 @@
+ Most of the features are fully configurable, either through command line
+ options, or via the initialization file @file{.wgetrc} (@pxref{Startup
+ File}).  Wget allows you to define @dfn{global} startup files
+-(@file{/usr/local/etc/wgetrc} by default) for site settings. You can also
++(@file{/etc/wgetrc} by default) for site settings. You can also
+ specify the location of a startup file with the --config option.
+ To disable the reading of config files, use --no-config.
+ If both --config and --no-config are given, --no-config is ignored.
+@@ -204,7 +204,7 @@
+ @ignore
+ @c man begin FILES
+ @table @samp
+-@item /usr/local/etc/wgetrc
++@item /etc/wgetrc
+ Default location of the @dfn{global} startup file.
+ 
+ @item .wgetrc
+@@ -3188,9 +3188,7 @@
+ @cindex location of wgetrc
+ 
+ When initializing, Wget will look for a @dfn{global} startup file,
+-@file{/usr/local/etc/wgetrc} by default (or some prefix other than
+-@file{/usr/local}, if Wget was not installed there) and read commands
+-from there, if it exists.
++@file{/etc/wgetrc} by default and read commands from there, if it exists.
+ 
+ Then it will look for the user's file.  If the environmental variable
+ @code{WGETRC} is set, Wget will try to load that file.  Failing that, no
+@@ -3200,7 +3198,7 @@
+ 
+ The fact that user's settings are loaded after the system-wide ones
+ means that in case of collision user's wgetrc @emph{overrides} the
+-system-wide wgetrc (in @file{/usr/local/etc/wgetrc} by default).
++system-wide wgetrc (in @file{//etc/wgetrc} by default).
+ Fascist admins, away!
+ 
+ @node Wgetrc Syntax, Wgetrc Commands, Wgetrc Location, Startup File
+
+
+--- doc/sample.wgetrc
++++ doc/sample.wgetrc
+@@ -49,6 +49,7 @@
+ # problems supporting passive transfer.  If you are in such
+ # environment, use "passive_ftp = off" to revert to active FTP.
+ #passive_ftp = off
++passive_ftp = on
+ 
+ # The "wait" command below makes Wget wait between every connection.
+ # If, instead, you want Wget to wait only between retries of failed
+
+
+--- src/url.c
++++ src/url.c
+@@ -625,7 +625,7 @@ maybe_prepend_scheme (const char *url)
+     return NULL;
+ 
+ 
+-  fprintf(stderr, "Prepended http:// to '%s'\n", url);
++  logprintf (LOG_VERBOSE, _ ("Prepended http:// to '%s'\n"), url);
+   return aprintf ("http://%s", url);
+ }
+ 
+-- 
+cgit v1.2.3

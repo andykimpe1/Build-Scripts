@@ -1,0 +1,45 @@
+# Written and placed in public domain by Jeffrey Walton.
+# This patch fixes some issues with Lzip.
+--- configure
++++ configure
+@@ -23,13 +23,11 @@
+ build=no
+ check=no
+ installdir=
+-CXX=g++
+-CPPFLAGS=
+-CXXFLAGS='-Wall -W -O2'
+-LDFLAGS=
+ 
+-# checking whether we are using GNU C++.
+-/bin/sh -c "${CXX} --version" > /dev/null 2>&1 || { CXX=c++ ; CXXFLAGS=-O2 ; }
++if [ -z "${CXX}" ]; then CXX=g++; fi
++if [ -z "${CPPFLAGS}" ]; then CPPFLAGS=''; fi
++if [ -z "${CXXFLAGS}" ]; then CXXFLAGS='-Wall -W -O2'; fi
++if [ -z "${LDFLAGS}" ]; then LDFLAGS=''; fi
+ 
+ # Loop over all args
+ args=
+--- Makefile.in
++++ Makefile.in
+@@ -1,10 +1,9 @@
+-
++SHELL = /bin/sh
+ DISTNAME = $(pkgname)-$(pkgversion)
+ INSTALL = install
+ INSTALL_PROGRAM = $(INSTALL) -m 755
+ INSTALL_DATA = $(INSTALL) -m 644
+ INSTALL_DIR = $(INSTALL) -d -m 755
+-SHELL = /bin/sh
+ CAN_RUN_INSTALLINFO = $(SHELL) -c "install-info --version" > /dev/null 2>&1
+ 
+ objs = arg_parser.o lzip_index.o list.o encoder_base.o encoder.o \
+@@ -20,7 +19,7 @@
+ all : $(progname)
+ 
+ $(progname) : $(objs)
+-	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ $(objs)
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(objs) $(LIBS) $(LDLIBS)
+ 
+ main.o : main.cc
+ 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -DPROGVERSION=\"$(pkgversion)\" -c -o $@ $<

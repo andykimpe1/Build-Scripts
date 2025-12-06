@@ -1,0 +1,157 @@
+--- Modules/FindPython/Support.cmake
++++ Modules/FindPython/Support.cmake
+@@ -1533,12 +1533,7 @@ unset (${_PYTHON_PREFIX}_SOSABI)
+ unset (${_PYTHON_PREFIX}_DEBUG_POSTFIX)
+ 
+ # Define lookup strategy
+-cmake_policy (GET CMP0094 _${_PYTHON_PREFIX}_LOOKUP_POLICY)
+-if (_${_PYTHON_PREFIX}_LOOKUP_POLICY STREQUAL "NEW")
+-  set (_${_PYTHON_PREFIX}_FIND_STRATEGY "LOCATION")
+-else()
+-  set (_${_PYTHON_PREFIX}_FIND_STRATEGY "VERSION")
+-endif()
++set (_${_PYTHON_PREFIX}_FIND_STRATEGY "LOCATION")
+ if (DEFINED ${_PYTHON_PREFIX}_FIND_STRATEGY)
+   if (NOT ${_PYTHON_PREFIX}_FIND_STRATEGY MATCHES "^(VERSION|LOCATION)$")
+     message (AUTHOR_WARNING "Find${_PYTHON_PREFIX}: ${${_PYTHON_PREFIX}_FIND_STRATEGY}: invalid value for '${_PYTHON_PREFIX}_FIND_STRATEGY'. 'VERSION' or 'LOCATION' expected.")
+@@ -1738,7 +1733,7 @@ if (DEFINED ${_PYTHON_PREFIX}_FIND_UNVERSIONED_NAMES)
+     set (_${_PYTHON_PREFIX}_FIND_UNVERSIONED_NAMES ${${_PYTHON_PREFIX}_FIND_UNVERSIONED_NAMES})
+   endif()
+ else()
+-  set (_${_PYTHON_PREFIX}_FIND_UNVERSIONED_NAMES LAST)
++  set (_${_PYTHON_PREFIX}_FIND_UNVERSIONED_NAMES FIRST)
+ endif()
+ 
+
+--- Modules/FindPythonInterp.cmake
++++ Modules/FindPythonInterp.cmake
+@@ -107,6 +107,7 @@ if(DEFINED PYTHONLIBS_VERSION_STRING)
+ endif()
+ # Search for the current active python version first
+ list(APPEND _Python_VERSIONS ";")
++list(APPEND _Python_VERSIONS "3")
+ list(APPEND _Python_VERSIONS ${_PYTHON_FIND_OTHER_VERSIONS})
+ 
+ unset(_PYTHON_FIND_OTHER_VERSIONS)
+
+ --- Source/cmCurl.cxx
++++ Source/cmCurl.cxx
+@@ -170,7 +170,7 @@ std::string cmCurlSetNETRCOption(::CURL* curl, const std::string& netrc_level,
+                                  const std::string& netrc_file)
+ {
+   std::string e;
+-  CURL_NETRC_OPTION curl_netrc_level = CURL_NETRC_LAST;
++  long curl_netrc_level = CURL_NETRC_LAST;
+   ::CURLcode res;
+ 
+   if (!netrc_level.empty()) {
+
+
+--- Source/CTest/cmCTestCurl.h
++++ Source/CTest/cmCTestCurl.h
+@@ -52,7 +52,7 @@ private:
+   std::vector<std::string> HttpHeaders;
+   std::string HTTPProxyAuth;
+   std::string HTTPProxy;
+-  curl_proxytype HTTPProxyType;
++  long HTTPProxyType;
+   bool UseHttp10 = false;
+   bool Quiet = false;
+   int TimeOutSeconds = 0;
+
+--- Tests/RunCMake/BuildDepends/GNU-AS-stdout.txt
++++ Tests/RunCMake/BuildDepends/GNU-AS-stdout.txt
+@@ -1,4 +1,4 @@
+ -- The ASM compiler identification is GNU
+ -- Found assembler: [^
+-]*/as(\.exe)?
++]*[/-]as(\.exe)?
+ -- CMAKE_ASM_COMPILER_ID_VENDOR_MATCH='GNU assembler'
+
+
+--- Tests/RunCMake/GenEx-TARGET_PROPERTY/INCLUDE_DIRECTORIES-check.cmake
++++ Tests/RunCMake/GenEx-TARGET_PROPERTY/INCLUDE_DIRECTORIES-check.cmake
+@@ -2,7 +2,9 @@ file(READ "${RunCMake_TEST_BINARY_DIR}/out.txt" content)
+ 
+ unset(RunCMake_TEST_FAILED)
+ 
+-if (NOT content MATCHES "(INCLUDES1:${RunCMake_TEST_SOURCE_DIR}/include)")
++string(REGEX REPLACE "([][()+*^.$?|\\\\])" "\\\\\\1" regex_safe_dir "${RunCMake_TEST_SOURCE_DIR}")
++
++if (NOT content MATCHES "(INCLUDES1:${regex_safe_dir}/include)")
+   string(APPEND RunCMake_TEST_FAILED "wrong content for INCLUDES1: \"${CMAKE_MATCH_1}\"\n")
+ endif()
+ 
+--- Tests/RunCMake/install/TARGETS-FILE_RPATH_CHANGE-old_rpath-check.cmake
++++ Tests/RunCMake/install/TARGETS-FILE_RPATH_CHANGE-old_rpath-check.cmake
+@@ -3,8 +3,9 @@ skip_without_rpath_change_rule()
+ string(APPEND prefix "${wsnl}" [[FILE "[^"]*/]])
+ 
+ set(target "exe1")
++string(REGEX REPLACE "([][()+*^.$?|\\\\])" "\\\\\\1" regex_safe_dir "${RunCMake_BINARY_DIR}")
+ string(CONCAT regex "${prefix}${target}\"${wsnl}"
+-              [[OLD_RPATH "]] "${RunCMake_BINARY_DIR}")
++              [[OLD_RPATH "]] "${regex_safe_dir}")
+ check()
+ 
+--- Tests/RunCMake/target_include_directories/include_after.cmake
++++ Tests/RunCMake/target_include_directories/include_after.cmake
+@@ -12,7 +12,8 @@ target_include_directories(main AFTER PRIVATE "${after_include_dir}")
+ 
+ get_target_property(actual_include_dirs main INCLUDE_DIRECTORIES)
+ set(desired_include_dirs "${include_dir}" "${after_include_dir}")
++string(REGEX REPLACE "([][()+*^.$?|\\\\])" "\\\\\\1" desired_include_dirs_regex_safe "${desired_include_dirs}")
+ 
+-if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs}")
++if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs_regex_safe}")
+     message(SEND_ERROR "include after does not work")
+ endif()
+--- Tests/RunCMake/target_include_directories/include_before.cmake
++++ Tests/RunCMake/target_include_directories/include_before.cmake
+@@ -12,7 +12,8 @@ target_include_directories(main BEFORE PRIVATE "${before_include_dir}")
+ 
+ get_target_property(actual_include_dirs main INCLUDE_DIRECTORIES)
+ set(desired_include_dirs "${before_include_dir}" "${include_dir}")
++string(REGEX REPLACE "([][()+*^.$?|\\\\])" "\\\\\\1" desired_include_dirs_regex_safe "${desired_include_dirs}")
+ 
+-if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs}")
++if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs_regex_safe}")
+     message(SEND_ERROR "include before does not work")
+ endif()
+--- Tests/RunCMake/target_include_directories/include_default.cmake
++++ Tests/RunCMake/target_include_directories/include_default.cmake
+@@ -12,7 +12,8 @@ target_include_directories(main AFTER PRIVATE "${default_include_dir}")
+ 
+ get_target_property(actual_include_dirs main INCLUDE_DIRECTORIES)
+ set(desired_include_dirs "${include_dir}" "${default_include_dir}")
++string(REGEX REPLACE "([][()+*^.$?|\\\\])" "\\\\\\1" desired_include_dirs_regex_safe "${desired_include_dirs}")
+ 
+-if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs}")
++if (NOT "${actual_include_dirs}" MATCHES "${desired_include_dirs_regex_safe}")
+     message(SEND_ERROR "include default does not work")
+ endif()
+
+ --- Modules/FindBoost.cmake
++++ Modules/FindBoost.cmake
+@@ -1699,7 +1699,7 @@ else()
+   # _Boost_COMPONENT_HEADERS.  See the instructions at the top of
+   # _Boost_COMPONENT_DEPENDENCIES.
+   set(_Boost_KNOWN_VERSIONS ${Boost_ADDITIONAL_VERSIONS}
+-    "1.87.0" "1.87" "1.86.0" "1.86" "1.85.0" "1.85" "1.84.0" "1.84"
++    "1.88.0" "1.88" "1.87.0" "1.87" "1.86.0" "1.86" "1.85.0" "1.85" "1.84.0" "1.84"
+     "1.83.0" "1.83" "1.82.0" "1.82" "1.81.0" "1.81" "1.80.0" "1.80" "1.79.0" "1.79"
+     "1.78.0" "1.78" "1.77.0" "1.77" "1.76.0" "1.76" "1.75.0" "1.75" "1.74.0" "1.74"
+     "1.73.0" "1.73" "1.72.0" "1.72" "1.71.0" "1.71" "1.70.0" "1.70" "1.69.0" "1.69"
+
+
+--- Modules/FindBoost.cmake
++++ Modules/FindBoost.cmake
+@@ -1699,6 +1699,7 @@ else()
+   # _Boost_COMPONENT_HEADERS.  See the instructions at the top of
+   # _Boost_COMPONENT_DEPENDENCIES.
+   set(_Boost_KNOWN_VERSIONS ${Boost_ADDITIONAL_VERSIONS}
++    "1.89.0" "1.89"
+     "1.88.0" "1.88" "1.87.0" "1.87" "1.86.0" "1.86" "1.85.0" "1.85" "1.84.0" "1.84"
+     "1.83.0" "1.83" "1.82.0" "1.82" "1.81.0" "1.81" "1.80.0" "1.80" "1.79.0" "1.79"
+     "1.78.0" "1.78" "1.77.0" "1.77" "1.76.0" "1.76" "1.75.0" "1.75" "1.74.0" "1.74"
+

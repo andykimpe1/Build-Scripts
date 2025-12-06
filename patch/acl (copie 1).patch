@@ -1,0 +1,37 @@
+--- test/runwrapper
++++ test/runwrapper
+@@ -1,7 +1,8 @@
+ #!/bin/bash
+ 
+ if [ -e "$PWD/.libs/libtestlookup.so" ]; then
+-	export LD_PRELOAD="$PWD/.libs/libtestlookup.so"
++	export LD_LIBRARY_PATH="$PWD/.libs:$LD_LIBRARY_PATH"
++	export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
+ fi
+ 
+ "${srcdir:-${PWD}}"/test/run "$@"
+
+--- libmisc/uid_gid_lookup.c
++++ libmisc/uid_gid_lookup.c
+@@ -91,6 +91,7 @@ __acl_get_uid(const char *token, uid_t *uid_p)
+ 		if (err == ERANGE)
+ 			continue;
+ 		errno = err ? err : EINVAL;
++		break;
+ 	}
+ 	free(buffer);
+ 	return result ? 0 : -1;
+-- 
+2.43.0
+
+--- tools/getfacl.c
++++ tools/getfacl.c
+@@ -381,6 +381,8 @@ int do_show(FILE *stream, const char *pa
+ 			show_line(stream, NULL, NULL, NULL, NULL,
+ 			          &dacl_names, dacl, &dacl_ent, dacl_mask);
+ 			continue;
++		} else if (!dacl && !acl) {
++			return -1;
+ 		} else {
+ 			if (acl_tag == ACL_USER || acl_tag == ACL_GROUP) {
+ 				int id_cmp = 0;
