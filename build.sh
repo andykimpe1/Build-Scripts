@@ -1,9 +1,11 @@
 #!/bin/bash
 downloader() {
-if [ -f /usr/bin/curl ]; then
-   curl -o $1 $2
-elif [ -f /usr/bin/wget ]; then
+if [ -f /usr/bin/wget ]; then
    wget -O $1 $2
+elif [ -f $HOME/.build-scripts/wget/bin/wget ]; then
+   $HOME/.build-scripts/wget/bin/wget -O $1 $2
+elif [ -f /usr/bin/curl ]; then
+   curl -o $1 $2
 elif [ -f /usr/bin/python3 ]; then
    python3 <<EOF
 import urllib.request
