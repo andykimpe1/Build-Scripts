@@ -76,14 +76,15 @@ then
     echo "Failed to install CA Certs"
     exit 1
 fi
+VERSION=
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh autoconf 2.71
+if ! VERSION=2.71 ${INSTX_TOPDIR}/build.sh autoconf 2.71
 then
     echo "Failed to build autoconf"
     exit 1
 fi
-
+VERSION=
 ###############################################################################
 
 if ! VERSION=1.15.1 ${INSTX_TOPDIR}/build.sh automake 1.15.1
@@ -91,7 +92,7 @@ then
     echo "Failed to build automake 1.15.1"
     exit 1
 fi
-
+VERSION=
 ###############################################################################
 
 if ! VERSION=1.16.5 ${INSTX_TOPDIR}/build.sh automake 1.16.5
@@ -99,22 +100,24 @@ then
     echo "Failed to build automake 1.16.5"
     exit 1
 fi
+VERSION=
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh gmp 6.2.1
+if ! VERSION=6.2.1 ${INSTX_TOPDIR}/build.sh gmp 6.2.1
 then
     echo "Failed to build GMP 6.2.1"
     exit 1
 fi
-
+VERSION=
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh guile2
+if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
 then
     echo "Failed to build guile2"
     exit 1
 fi
 
+VERSION=
 ###############################################################################
 
 if ! ${INSTX_TOPDIR}/build.sh make
