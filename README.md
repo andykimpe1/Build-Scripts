@@ -14,7 +14,7 @@ Once you clone the repo you should perform a one-time setup. The setup installs 
 cd
 downloader() {
 if [ -f /usr/bin/wget ]; then
-   wget -O $1 $2
+   wget --no-check-certificate -O $1 $2
 elif [ -f /usr/bin/curl ]; then
    curl -o $1 $2
 elif [ -f /usr/bin/python3 ]; then
