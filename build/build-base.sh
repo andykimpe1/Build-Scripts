@@ -111,6 +111,25 @@ fi
 VERSION=
 ###############################################################################
 
+# Solaris is missing the Boehm GC. We have to build it. Ugh...
+if [[ "$IS_SOLARIS" -eq 1 ]]; then
+    if ! ${INSTX_TOPDIR}/build.sh boehm-gc
+    then
+        echo "Failed to build Boehm GC"
+        exit 1
+    fi
+fi
+
+###############################################################################
+
+if ! ${INSTX_TOPDIR}/build.sh libffi
+then
+    echo "Failed to build libffi"
+    exit 1
+fi
+
+###############################################################################
+
 if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
 then
     echo "Failed to build guile2"
