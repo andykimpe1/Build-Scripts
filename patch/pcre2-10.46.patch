@@ -1,5 +1,5 @@
---- pcre2-config.in
-+++ pcre2-config.in
+--- a/pcre2-config.in
++++ b/pcre2-config.in
 @@ -28,19 +28,8 @@
  fi
  
