@@ -60,13 +60,13 @@ export INSTX_DISABLE_ICONV_TEST=1
 
 if [[ "$IS_DARWIN" -ne 0 ]]
 then
-    if ! ${INSTX_TOPDIR}/build/build-iconv-utf8mac.sh
+    if ! ${INSTX_TOPDIR}/build.sh iconv-utf8mac
     then
         echo "Failed to build iConv and GetText (1st time)"
         exit 1
     fi
 else
-    if ! ${INSTX_TOPDIR}/build/build-iconv.sh
+    if ! ${INSTX_TOPDIR}/build.sh iconv
     then
         echo "Failed to build iConv and GetText (1st time)"
         exit 1
@@ -77,7 +77,7 @@ unset INSTX_DISABLE_ICONV_TEST
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-gettext.sh
+if ! ${INSTX_TOPDIR}/build.sh gettext
 then
     echo "Failed to build GetText"
     exit 1
@@ -91,13 +91,13 @@ rm "${INSTX_PKG_CACHE}/iconv"
 
 if [[ "$IS_DARWIN" -ne 0 ]]
 then
-    if ! ${INSTX_TOPDIR}/build/build-iconv-utf8mac.sh
+    if ! ${INSTX_TOPDIR}/build.sh iconv-utf8mac
     then
         echo "Failed to build iConv and GetText (2nd time)"
         exit 1
     fi
 else
-    if ! ${INSTX_TOPDIR}/build/build-iconv.sh
+    if ! ${INSTX_TOPDIR}/build.sh iconv
     then
         echo "Failed to build iConv and GetText (2nd time)"
         exit 1
