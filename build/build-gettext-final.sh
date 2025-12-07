@@ -61,48 +61,6 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     fi
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-zlib.sh
-then
-    echo "Failed to build zLib"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-ncurses-readline.sh
-then
-    echo "Failed to build Ncurses and Readline"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-unistr.sh
-then
-    echo "Failed to build Unistring"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-libxml2.sh
-then
-    echo "Failed to build libxml2"
-    exit 1
-fi
-
-###############################################################################
-
 echo ""
 echo "========================================"
 echo "=============== GetText ================"
