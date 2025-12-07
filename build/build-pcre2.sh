@@ -100,13 +100,13 @@ else
 fi
 
     #CFLAGS="${pcre2_cflags}" \
-    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
-    CPPFLAGS="${INSTX_CPPFLAGS}" \
-    ASFLAGS="${INSTX_ASFLAGS}" \
+    #CPPFLAGS="${INSTX_CPPFLAGS}" \
+    #ASFLAGS="${INSTX_ASFLAGS}" \
     CFLAGS="" \
-    CXXFLAGS="${pcre2_cxxflags}" \
-    LDFLAGS="${INSTX_LDFLAGS}" \
+    #CXXFLAGS="${pcre2_cxxflags}" \
+    #LDFLAGS="${INSTX_LDFLAGS}" \
     LIBS="${INSTX_LDLIBS}" \
+    PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
 ./configure \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
