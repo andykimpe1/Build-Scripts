@@ -142,7 +142,7 @@ VERSION=
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
-if ! VERSION=3.81 ${INSTX_TOPDIR}/build.sh gmake381 3.81
+if ! VERSION=3.81 ${INSTX_TOPDIR}/build.sh make381 3.81
 then
     echo "Failed to build make 4.2.1"
     exit 1
