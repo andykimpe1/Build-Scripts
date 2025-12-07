@@ -60,18 +60,10 @@ if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$GETTEXT_VER" = "$(cat ${INSTX_P
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
-
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-zlib.sh
+if ! ${INSTX_TOPDIR}/build.sh zlib
 then
     echo "Failed to build zLib"
     exit 1
@@ -79,7 +71,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-ncurses-readline.sh
+if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
 then
     echo "Failed to build Ncurses and Readline"
     exit 1
