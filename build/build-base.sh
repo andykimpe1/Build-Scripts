@@ -242,6 +242,30 @@ fi
 hash -r
 ###############################################################################
 
+# Trigger a rebuild of tar
+
+rm -f "${INSTX_PKG_CACHE}/tar"
+
+if ! ${INSTX_TOPDIR}/build.sh tar
+then
+    echo "Failed to build tar"
+    exit 1
+fi
+hash -r
+###############################################################################
+
+# Trigger a rebuild of mpfr
+
+rm -f "${INSTX_PKG_CACHE}/mpfr"
+
+if ! ${INSTX_TOPDIR}/build.sh mpfr
+then
+    echo "Failed to build mpfr"
+    exit 1
+fi
+hash -r
+###############################################################################
+
 touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 exit 0
