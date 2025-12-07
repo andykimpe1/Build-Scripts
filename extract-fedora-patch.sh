@@ -1,30 +1,34 @@
 #!/bin/bash
-OPTS=$(getopts -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' opt -- "$@")
 
-#while getopts d:i:t --long spec:,patch:,help opt; do
+## Parse command-line options
+OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'file_processor.sh' -- "$@")
 
 if [ $? -ne 0 ]; then
-  echo "Option analysis failed" >&2
+  echo "Failed to parse options" >&2
   exit 1
 fi
+
+## Reset the positional parameters to the parsed options
 eval set -- "$OPTS"
+
+## Initialize variables
 spec=""
 patch=""
-help=false
+HELP=false
 
-## Traite les options
+## Process the options
 while true; do
   case "$1" in
     -s | --spec)
-      spec="$OPTS"
+      spec="$2"
       shift 2
       ;;
     -p | --patch)
-      patch="$OPTS"
+      patch="$2"
       shift 2
       ;;
     -h | --help)
-      $help=true
+      HELP=true
       shift
       ;;
     --)
@@ -38,18 +42,19 @@ while true; do
   esac
 done
 
-if [ "$help" = true ]; then
-  echo "Usage : $0 [-f|--spec spec] [-p|--patch patch] [-h|--help]"
+## Display the results
+if [ "$HELP" = true ]; then
+  echo "Usage: $0 [-s|--spec specfile] [-p|--patch patchdirectory] [-h|--help]"
   echo ""
-  echo "Options :"
-  echo "  -s, --spec spec  traiter"
-  echo "  -p, -- "
-  echo "  -h, --help           Affiche ce message d'aide"
+  echo "Exemple:"
+  echo "  -f, --file FILE      Specify a file to process"
   exit 0
 fi
-echo $spec
-echo "spec"
-sleep 30
+
+if [ -z "$spec" ] && [ -z "$patch" ] && [ "$HELP" = false ]; then
+  echo "No option specified. Use -h or --help for usage information."
+fi
+
 rm -f patch/$patch.patch
 git clone https://src.fedoraproject.org/rpms/$spec.git /tmp/$spec
 number=1
@@ -62,4 +67,3 @@ do
     fi
     ((number++))
 done
-#done
