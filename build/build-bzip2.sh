@@ -39,10 +39,10 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
 fi
 
 
-#if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
-#    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
-#    exit 0
-#fi
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    exit 0
+fi
 
 echo ""
 echo "========================================"
@@ -80,11 +80,7 @@ cd "$BZIP2_DIR" || exit 1
 #    cp ${INSTX_TOPDIR}/patch/bzip-makefiles.zip .
 #    unzip -oq bzip-makefiles.zip
 #fi
-echo "pacth"
-sleep 10
 "${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
-echo "end patch"
-sleep 10
 
 # Escape dollar sign for $ORIGIN in makefiles. Required so
 # $ORIGIN works in both configure tests and makefiles.
@@ -106,13 +102,6 @@ CXXFLAGS=$(echo "${INSTX_CXXFLAGS}" | sed 's/\$/\$\$/g')
 LDFLAGS=$(echo "${INSTX_LDFLAGS}" | sed 's/\$/\$\$/g')
 LDLIBS="${INSTX_PREFIX}/lib"
 
-
-echo CFLAGS
-sleep 10
-echo $CFLAGS
-sleep 10
-echo "end CFLAGS"
-
 MAKE_FLAGS=()
 MAKE_FLAGS+=("-f" "Makefile")
 MAKE_FLAGS+=("-f" "Makefile")
@@ -125,14 +114,8 @@ MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
 MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
 MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
-echo "make 1"
-sleep 10
 make -f Makefile-libbz2_so all
-echo "end make1"
-sleep 10
 
-echo "make 2"
-sleep 10
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
@@ -143,8 +126,6 @@ then
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     exit 1
 fi
-echo "end make 2"
-sleep 10
 
 # Fix flags in *.pc files
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
