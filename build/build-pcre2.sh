@@ -74,6 +74,9 @@ echo "*************************"
 echo "Configuring package"
 echo "*************************"
 
+libtoolize --copy --force
+autoreconf -vif
+
 CONFIG_OPTS=()
 CONFIG_OPTS+=("--enable-pcre2-8")
 CONFIG_OPTS+=("--enable-pcre2-16")
@@ -96,10 +99,11 @@ else
     pcre2_cxxflags="${INSTX_CXXFLAGS}"
 fi
 
+    #CFLAGS="${pcre2_cflags}" \
     PKG_CONFIG_PATH="${INSTX_PKGCONFIG}" \
     CPPFLAGS="${INSTX_CPPFLAGS}" \
     ASFLAGS="${INSTX_ASFLAGS}" \
-    CFLAGS="${pcre2_cflags}" \
+    CFLAGS="" \
     CXXFLAGS="${pcre2_cxxflags}" \
     LDFLAGS="${INSTX_LDFLAGS}" \
     LIBS="${INSTX_LDLIBS}" \
