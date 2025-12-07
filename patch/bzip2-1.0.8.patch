@@ -35,7 +35,6 @@
  
  # Where you want it installed when you do 'make install'
  PREFIX=/usr/local
-diff -up bzip2-1.0.6/Makefile-libbz2_so.jx bzip2-1.0.6/Makefile-libbz2_so
 --- bzip2-1.0.6/Makefile-libbz2_so.jx	2015-08-14 13:04:33.885503955 -0400
 +++ bzip2-1.0.6/Makefile-libbz2_so	2015-08-14 13:06:52.554581179 -0400
 @@ -24,7 +24,6 @@
@@ -57,8 +56,8 @@ diff -up bzip2-1.0.6/Makefile-libbz2_so.jx bzip2-1.0.6/Makefile-libbz2_so
  	rm -f libbz2.so.1.0
  	ln -s libbz2.so.1.0.8 libbz2.so.1.0
  
---- ./bzip2-1.0.8/bzip2.1	2019-07-13 19:50:05.000000000 +0200
-+++ ./bzip2-1.0.8/bzip2.1.new	2021-01-29 11:51:04.091430407 +0100
+--- bzip2-1.0.8/bzip2.1	2019-07-13 19:50:05.000000000 +0200
++++ bzip2-1.0.8/bzip2.1.new	2021-01-29 11:51:04.091430407 +0100
 @@ -170,6 +170,17 @@
  to try to recover data from
  damaged files.
