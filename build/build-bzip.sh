@@ -58,7 +58,7 @@ echo "****************************"
 echo ""
 echo "Bzip2 $VERSION..."
 
-if ! "${WGET}" -q -O "$BZIP2_TAR" \
+if ! "${WGET}" -O "$BZIP2_TAR" \
      "ftp://sourceware.org/pub/bzip2/$BZIP2_TAR"
 then
     echo "Failed to download Bzip"
@@ -71,16 +71,18 @@ cd "$BZIP2_DIR" || exit 1
 
 # The Makefiles needed so much work it was easier to rewrite them.
 #if [[ -e ${INSTX_TOPDIR}/patch/bzip-makefiles.zip ]]; then
-#    echo ""
-#    echo "****************************"
-#    echo "Updating makefiles"
-#    echo "****************************"
+"${WGET}" -O "${INSTX_TOPDIR}/patch/bzip-makefiles.zip" \
+     "https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/bzip-makefiles.zip"
+    echo ""
+    echo "****************************"
+    echo "Updating makefiles"
+    echo "****************************"
 #
-#    cp ${INSTX_TOPDIR}/patch/bzip-makefiles.zip .
-#    unzip -oq bzip-makefiles.zip
+    cp ${INSTX_TOPDIR}/patch/bzip-makefiles.zip .
+    unzip -oq bzip-makefiles.zip
 #fi
 
-$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
+#$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
 
 # Escape dollar sign for $ORIGIN in makefiles. Required so
 # $ORIGIN works in both configure tests and makefiles.
