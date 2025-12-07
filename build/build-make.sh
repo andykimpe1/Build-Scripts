@@ -8,10 +8,10 @@ fi
 
 # Written and placed in public domain by Jeffrey Walton
 # This script builds Make from sources.
-
-MAKE_VER=4.2.1
-MAKE_TAR=make-${MAKE_VER}.tar.gz
-MAKE_DIR=make-${MAKE_VER}
+if [ -z $1 ]; then VERSION=4.2.1; else VERSION=$1; fi
+VERSION=4.2.1
+MAKE_TAR=make-${VERSION}.tar.gz
+MAKE_DIR=make-${VERSION}
 PKG_NAME=make
 
 ###############################################################################
