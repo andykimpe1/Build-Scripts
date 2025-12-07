@@ -44,7 +44,7 @@ echo "************************"
 echo "Downloading package"
 echo "************************"
 
-if ! "${WGET}" -q -O "$MAKE_TAR" \
+if ! "${WGET}" -O "$MAKE_TAR" \
      "https://ftp.gnu.org/gnu/make/$MAKE_TAR"
 then
     echo "Failed to download Make"
