@@ -41,24 +41,6 @@ if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$READLN_VER" = "$(cat ${INSTX_PK
     exit 0
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-ncurses.sh
-then
-    echo "Failed to build ncurses"
-    exit 1
-fi
-
-###############################################################################
-
 echo ""
 echo "========================================"
 echo "=============== Readline ==============="
