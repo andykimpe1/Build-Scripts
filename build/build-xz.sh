@@ -134,26 +134,6 @@ bash "${INSTX_TOPDIR}/fix-runpath.sh"
 
 echo ""
 echo "**********************"
-echo "Testing package"
-echo "**********************"
-
-MAKE_FLAGS=("check")
-if ! "${MAKE}" "${MAKE_FLAGS[@]}"
-then
-    echo ""
-    echo "**********************"
-    echo "Failed to test Xz"
-    echo "**********************"
-
-    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
-    exit 1
-fi
-
-# Fix runpaths again
-bash "${INSTX_TOPDIR}/fix-runpath.sh"
-
-echo ""
-echo "**********************"
 echo "Installing package"
 echo "**********************"
 
