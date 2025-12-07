@@ -140,6 +140,16 @@ fi
 hash -r
 VERSION=
 ###############################################################################
+if [ ! -f "${INSTX_PKG_CACHE}/zlib" ]; then
+if ! ${INSTX_TOPDIR}/build.sh zlib
+then
+    echo "Failed to install zlib"
+    exit 1
+fi
+fi
+hash -r
+VERSION=
+###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/unzip" ]; then
 if ! ${INSTX_TOPDIR}/build.sh unzip
 then
