@@ -128,6 +128,7 @@ if [[ "$IS_SOLARIS" -eq 1 ]]; then
     fi
 fi
 hash -r
+VERSION=
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/libffi" ]; then
 if ! VERSION=3.2.1 ${INSTX_TOPDIR}/build.sh libffi 3.2.1
@@ -137,7 +138,7 @@ then
 fi
 fi
 hash -r
-
+VERSION=
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
@@ -148,6 +149,7 @@ then
 fi
 fi
 hash -r
+VERSION=
 ###############################################################################
 #if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
 #if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
@@ -156,6 +158,17 @@ hash -r
 #    exit 1
 #fi
 #fi
+VERSION=
+###############################################################################
+if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
+if ! ${INSTX_TOPDIR}/build.sh unzip
+then
+    echo "Failed to install unzip"
+    exit 1
+fi
+fi
+hash -r
+VERSION=
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/bzip" ]; then
 if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh bzip
@@ -165,6 +178,7 @@ then
 fi
 fi
 hash -r
+VERSION=
 ###############################################################################
 hash -r
 VERSION=
