@@ -50,23 +50,6 @@ else
     ENABLE_CARES=1
 fi
 
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-zlib.sh
-then
-    echo "Failed to build zLib"
-    exit 1
-fi
-
-
 echo ""
 echo "========================================"
 echo "================= Unzip ================="
