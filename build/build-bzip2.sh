@@ -118,7 +118,7 @@ MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
 echo "make 1"
 sleep 10
-make -f Makefile-libbz2_so CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
+make -f Makefile-libbz2_so CFLAGS="-D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
 echo "end make1"
 sleep 10
 
