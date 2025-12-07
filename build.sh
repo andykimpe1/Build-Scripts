@@ -1,5 +1,5 @@
 #!/bin/bash
-commit=$(wget -qO- https://github.com/andykimpe1/Build-Scripts/commit/build |grep '"payload":{"commit"'| cut -d : -f 4|sed 's|"||g'||sed 's|,url||g')
+commit=$(wget -qO- https://github.com/andykimpe1/Build-Scripts/commit/build | grep '"payload":{"commit"' | cut -d : -f 4 | sed 's|"||g' | sed "s|,url||g")
 if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$2; fi
 downloader() {
 if [ -f /usr/bin/wget ]; then
