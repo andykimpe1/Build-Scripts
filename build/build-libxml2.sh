@@ -46,35 +46,9 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-zlib.sh
-then
-    echo "Failed to build zLib"
-    exit 1
-fi
-
-###############################################################################
-
-# libxml2 only uses iConvert
-
-if ! ${INSTX_TOPDIR}/build/build-iconv-gettext.sh
-then
-    echo "Failed to build iConv and GetText"
-    exit 1
-fi
-
-###############################################################################
-
 if [[ ! -f "${INSTX_PREFIX}/bin/xz" ]]
 then
-    if ! ${INSTX_TOPDIR}/build/build-xz.sh
+    if ! ${INSTX_TOPDIR}/build.sh xz
     then
         echo "Failed to build XZ"
         exit 1
