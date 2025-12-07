@@ -199,6 +199,18 @@ fi
 hash -r
 ###############################################################################
 
+# Trigger a rebuild of tar
+
+rm -f "${INSTX_PKG_CACHE}/tar"
+
+if ! ${INSTX_TOPDIR}/build.sh tar
+then
+    echo "Failed to build tar"
+    exit 1
+fi
+hash -r
+###############################################################################
+
 if ! ${INSTX_TOPDIR}/build.sh libxml2
 then
     echo "Failed to build libxml2"
@@ -237,18 +249,6 @@ rm -f "${INSTX_PKG_CACHE}/idn2"
 if ! ${INSTX_TOPDIR}/build.sh idn2
 then
     echo "Failed to build IDN2"
-    exit 1
-fi
-hash -r
-###############################################################################
-
-# Trigger a rebuild of tar
-
-rm -f "${INSTX_PKG_CACHE}/tar"
-
-if ! ${INSTX_TOPDIR}/build.sh tar
-then
-    echo "Failed to build tar"
     exit 1
 fi
 hash -r
