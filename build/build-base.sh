@@ -141,9 +141,9 @@ hash -r
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
-if ! ${INSTX_TOPDIR}/build.sh make
+if ! ${INSTX_TOPDIR}/build.sh build-gmake381.sh
 then
-    echo "Failed to build make"
+    echo "Failed to build make 3.81"
     exit 1
 fi
 fi
