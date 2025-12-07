@@ -188,15 +188,7 @@ rm -rf "$WGET_DIR" &>/dev/null
 gzip -d < "$WGET_TAR" | tar xf -
 cd "$WGET_DIR" || exit 1
 
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ${INSTX_TOPDIR}/patch/wget.patch ]]; then
-    echo ""
-    echo "**************************"
-    echo "Patching package"
-    echo "**************************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/wget.patch
-fi
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # https://lists.gnu.org/archive/html/bug-gnulib/2019-07/msg00058.html
 if false; then
