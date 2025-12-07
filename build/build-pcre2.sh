@@ -8,8 +8,7 @@ fi
 
 # Written and placed in public domain by Jeffrey Walton
 # This script builds PCRE from sources.
-
-VERSION=10.46
+if [ -z $1 ]; then VERSION=10.46; else VERSION=$1; fi
 PCRE2_TAR="pcre2-$VERSION.tar.gz"
 PCRE2_DIR="pcre2-$VERSION"
 PKG_NAME=pcre2
