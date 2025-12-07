@@ -140,26 +140,6 @@ fi
 hash -r
 VERSION=
 ###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
-
-if ! VERSION=3.81 ${INSTX_TOPDIR}/build.sh make381 3.81
-then
-    echo "Failed to build make 3.81"
-    exit 1
-fi
-fi
-hash -r
-VERSION=
-###############################################################################
-#if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
-#if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
-#then
-#    echo "Failed to build guile2"
-#    exit 1
-#fi
-#fi
-VERSION=
-###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/unzip" ]; then
 if ! ${INSTX_TOPDIR}/build.sh unzip
 then
