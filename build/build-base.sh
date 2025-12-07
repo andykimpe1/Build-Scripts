@@ -266,6 +266,30 @@ fi
 hash -r
 ###############################################################################
 
+# Trigger a rebuild of make
+
+rm -f "${INSTX_PKG_CACHE}/make"
+
+if ! ${INSTX_TOPDIR}/build.sh make
+then
+    echo "Failed to build make"
+    exit 1
+fi
+hash -r
+###############################################################################
+
+# Trigger a rebuild of bintuils
+
+rm -f "${INSTX_PKG_CACHE}/bintuils"
+
+if ! ${INSTX_TOPDIR}/build.sh bintuils
+then
+    echo "Failed to build bintuils"
+    exit 1
+fi
+hash -r
+###############################################################################
+
 touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 exit 0
