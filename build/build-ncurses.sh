@@ -64,23 +64,7 @@ else
     find ${INSTX_PREFIX}/include -name 'termcap*' -exec rm -f {} \;
 fi
 
-###############################################################################
 
-if ! ${INSTX_TOPDIR}/build.sh cacert
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build.sh pcre2
-then
-    echo "Failed to build PCRE2"
-    exit 1
-fi
-
-###############################################################################
 
 echo ""
 echo "========================================"
@@ -106,7 +90,7 @@ rm -rf "$NCURSES_DIR" &>/dev/null
 gzip -d < "$NCURSES_TAR" | tar xf -
 cd "$NCURSES_DIR" || exit 1
 
-$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
