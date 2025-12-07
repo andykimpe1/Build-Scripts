@@ -100,7 +100,8 @@ PKG_CONFIG_PATH="${INSTX_PKGCONFIG}"
 CPPFLAGS=$(echo "${INSTX_CPPFLAGS}" | sed 's/\$/\$\$/g')
 ASFLAGS=$(echo "${INSTX_ASFLAGS}" | sed 's/\$/\$\$/g')
 #CFLAGS=$(echo "${INSTX_CFLAGS}" | sed 's/\$/\$\$/g')
-CFLAGS="-D_FILE_OFFSET_BITS=64 -fpic -fPIC"
+#CFLAGS="-D_FILE_OFFSET_BITS=64 -fpic -fPIC"
+CFLAGS=
 CXXFLAGS=$(echo "${INSTX_CXXFLAGS}" | sed 's/\$/\$\$/g')
 LDFLAGS=$(echo "${INSTX_LDFLAGS}" | sed 's/\$/\$\$/g')
 LDLIBS="${INSTX_PREFIX}/lib"
@@ -126,7 +127,7 @@ MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
 echo "make 1"
 sleep 10
-make -f Makefile-libbz2_so CFLAGS="-D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
+make -f Makefile-libbz2_so all
 echo "end make1"
 sleep 10
 
