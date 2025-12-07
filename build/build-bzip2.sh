@@ -81,11 +81,7 @@ cd "$BZIP2_DIR" || exit 1
 #    unzip -oq bzip-makefiles.zip
 #fi
 
-echo "patch"
-sleep 10
-$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -u -p1
-echo "end patch"
-sleep 30
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 
 # Escape dollar sign for $ORIGIN in makefiles. Required so
