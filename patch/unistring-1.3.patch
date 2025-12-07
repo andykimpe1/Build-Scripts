@@ -1,5 +1,5 @@
---- lib/Makefile.am
-+++ lib/Makefile.am
+--- a/lib/Makefile.am
++++ b/lib/Makefile.am
 @@ -103,30 +103,15 @@ unistring/stdint.h : $(STDINT_H) stdint.
  	  echo '#if __GLIBC__ >= 2'; \
  	  echo '#include <stdint.h>'; \
@@ -36,8 +36,8 @@
  	  echo '#endif'; \
 Index: trunk/configure.ac
 ===================================================================
---- configure.ac
-+++ configure.ac
+--- a/configure.ac
++++ b/configure.ac
 @@ -142,6 +142,8 @@ version_subminor=`echo "${VERSION}" | se
  HEXVERSION=0x`$AWK 'BEGIN { printf("%02X%02X%02X"',"$version_major","$version_minor","$version_subminor"') }'`
  AC_SUBST([HEXVERSION])
