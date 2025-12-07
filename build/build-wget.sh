@@ -53,30 +53,6 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-zlib.sh
-then
-    echo "Failed to build zLib"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-bzip.sh
-then
-    echo "Failed to build Bzip"
-    exit 1
-fi
-
-###############################################################################
-
 if ! ${INSTX_TOPDIR}/build/build-base.sh
 then
     echo "Failed to build GNU base packages"
@@ -85,31 +61,7 @@ fi
 
 ###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-unistr.sh
-then
-    echo "Failed to build Unistring"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-idn2.sh
-then
-    echo "Failed to build IDN2"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-pcre2.sh
-then
-    echo "Failed to build PCRE2"
-    exit 1
-fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-openssl.sh
+if ! ${INSTX_TOPDIR}/build.sh openssl
 then
     echo "Failed to build OpenSSL"
     exit 1
@@ -119,7 +71,7 @@ fi
 
 if [[ "$ENABLE_CARES" -eq 1 ]]
 then
-    if ! ${INSTX_TOPDIR}/build/build-cares.sh
+    if ! ${INSTX_TOPDIR}/build.sh cares
     then
         echo "Failed to build c-ares"
         exit 1
@@ -135,7 +87,7 @@ then
     ver=$(python -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
     if [ "$ver" -ge 27 ]
     then
-        if ! ${INSTX_TOPDIR}/build/build-libpsl.sh
+        if ! ${INSTX_TOPDIR}build.sh libpsl
         then
             echo "Failed to build Public Suffix List library"
             exit 1
