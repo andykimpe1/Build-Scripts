@@ -14,11 +14,11 @@ help=false
 while true; do
   case "$1" in
     -s | --spec)
-      spec="$2"
+      spec="$OPTARG"
       shift 2
       ;;
     -p | --patch)
-      patch="$2"
+      patch="$OPTARG"
       shift 2
       ;;
     -h | --help)
