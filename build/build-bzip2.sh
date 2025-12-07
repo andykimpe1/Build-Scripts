@@ -104,6 +104,7 @@ LDLIBS="${INSTX_PREFIX}/lib"
 
 MAKE_FLAGS=()
 MAKE_FLAGS+=("-f" "Makefile")
+MAKE_FLAGS+=("-f" "Makefile")
 MAKE_FLAGS+=("-j" "${INSTX_JOBS}")
 MAKE_FLAGS+=("CC=${CC}")
 MAKE_FLAGS+=("CPPFLAGS=${CPPFLAGS} -I.")
@@ -112,6 +113,18 @@ MAKE_FLAGS+=("CFLAGS=${CFLAGS}")
 MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
 MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
 MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
+
+if ! make -f Makefile-libbz2_so -D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
+then
+    echo ""
+    echo "****************************"
+    echo "Failed to build Bzip archive"
+    echo "****************************"
+
+    bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
+    exit 1
+fi
+
 
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
