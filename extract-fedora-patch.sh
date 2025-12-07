@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Parse command-line options
-OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'file_processor.sh' -- "$@")
+OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' -- "$@")
 
 if [ $? -ne 0 ]; then
   echo "Failed to parse options" >&2
