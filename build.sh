@@ -1,4 +1,5 @@
 #!/bin/bash
+commit=$(wget -qO- https://github.com/andykimpe1/Build-Scripts/commit/build |grep '"payload":{"commit"'| cut -d : -f 4|sed 's|"||g'||sed 's|,url||g')
 if [ -z $1 ]; then VERSION=$VERSION; else VERSION=$2; fi
 downloader() {
 if [ -f /usr/bin/wget ]; then
@@ -28,7 +29,7 @@ fi
 rm -rf ${INSTX_TOPDIR}/build
 mkdir -p ${INSTX_TOPDIR}/build
 clear
-downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/build/build-$1.sh
+downloader ${INSTX_TOPDIR}/build/build-$1.sh https://raw.githubusercontent.com/andykimpe1/Build-Scripts/$commit/build/build/build-$1.sh
 echo "install $1 $VERSION started please wait"
 sleep 10
 chmod +x ${INSTX_TOPDIR}/*.sh
