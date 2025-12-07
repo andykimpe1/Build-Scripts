@@ -234,7 +234,7 @@ hash -r
 
 rm -f "${INSTX_PKG_CACHE}/pcre2"
 
-if ! ${INSTX_TOPDIR}/build.sh pcre2
+if ! ${INSTX_TOPDIR}/build.sh pcre2 10.21
 then
     echo "Failed to build PCRE2"
     exit 1
