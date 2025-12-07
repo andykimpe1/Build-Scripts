@@ -149,14 +149,34 @@ fi
 fi
 hash -r
 ###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
-if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
+#if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
+#if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
+#then
+#    echo "Failed to build guile2"
+#    exit 1
+#fi
+#fi
+###############################################################################
+if [ ! -f "${INSTX_PKG_CACHE}/bzip" ]; then
+if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh bzip
 then
-    echo "Failed to build guile2"
+    echo "Failed to build bzip"
     exit 1
 fi
 fi
 hash -r
+###############################################################################
+hash -r
+VERSION=
+if [ ! -f "${INSTX_PKG_CACHE}/ncurses-readline" ]; then
+if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
+then
+    echo "Failed to build Ncurses and Readline"
+    exit 1
+fi
+fi
+hash -r
+###############################################################################
 VERSION=
 if [ ! -f "${INSTX_PKG_CACHE}/ncurses-readline" ]; then
 if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
