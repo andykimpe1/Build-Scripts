@@ -63,7 +63,7 @@ cd "$LIBFFI_DIR"
 
 # cp src/x86/ffi64.c src/x86/ffi64.c.old
 
-$("${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch) | patch -p1
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
