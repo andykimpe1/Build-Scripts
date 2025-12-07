@@ -137,16 +137,7 @@ then
 fi
 fi
 hash -r
-###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
-if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
-then
-    echo "Failed to build guile2"
-    exit 1
-fi
-fi
-hash -r
-VERSION=
+
 ###############################################################################
 if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
@@ -158,6 +149,15 @@ fi
 fi
 hash -r
 ###############################################################################
+if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
+if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh guile2 2.2.7
+then
+    echo "Failed to build guile2"
+    exit 1
+fi
+fi
+hash -r
+VERSION=
 if [ ! -f "${INSTX_PKG_CACHE}/ncurses-readline" ]; then
 if ! ${INSTX_TOPDIR}/build.sh ncurses-readline
 then
