@@ -104,6 +104,13 @@ CXXFLAGS=$(echo "${INSTX_CXXFLAGS}" | sed 's/\$/\$\$/g')
 LDFLAGS=$(echo "${INSTX_LDFLAGS}" | sed 's/\$/\$\$/g')
 LDLIBS="${INSTX_PREFIX}/lib"
 
+
+echo CFLAGS
+sleep 10
+echo $CFLAGS
+sleep 10
+echo "end CFLAGS"
+
 MAKE_FLAGS=()
 MAKE_FLAGS+=("-f" "Makefile")
 MAKE_FLAGS+=("-f" "Makefile")
