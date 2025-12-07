@@ -1,5 +1,5 @@
 #!/bin/bash
-OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' opt -- "$@")
+OPTS=$(getopts -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' opt -- "$@")
 
 #while getopts d:i:t --long spec:,patch:,help opt; do
 
