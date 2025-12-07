@@ -82,7 +82,7 @@ echo "**********************"
     LDLIBS="${INSTX_LDLIBS}" \
     LIBS="${INSTX_LDLIBS}" \
 ./configure \
-    --program-suffix=$SUFFIX \
+    --program-suffix=-$SUFFIX \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
     --libdir="${INSTX_LIBDIR}"
