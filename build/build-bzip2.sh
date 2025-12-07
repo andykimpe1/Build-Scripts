@@ -80,9 +80,11 @@ cd "$BZIP2_DIR" || exit 1
 #    cp ${INSTX_TOPDIR}/patch/bzip-makefiles.zip .
 #    unzip -oq bzip-makefiles.zip
 #fi
-
+echo "pacth"
+sleep 10
 "${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
-
+echo "end patch"
+sleep 10
 
 # Escape dollar sign for $ORIGIN in makefiles. Required so
 # $ORIGIN works in both configure tests and makefiles.
@@ -114,6 +116,8 @@ MAKE_FLAGS+=("CXXFLAGS=${CXXFLAGS}")
 MAKE_FLAGS+=("LDFLAGS=${LDFLAGS}")
 MAKE_FLAGS+=("LIBS=${INSTX_PREFIX}/lib")
 
+echo "make 1"
+sleep 10
 if ! make -f Makefile-libbz2_so -D_FILE_OFFSET_BITS=64 -fpic -fPIC" all
 then
     echo ""
@@ -124,8 +128,11 @@ then
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     exit 1
 fi
+echo "end make1"
+sleep 10
 
-
+echo "make 2"
+sleep 10
 if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
@@ -136,6 +143,8 @@ then
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
     exit 1
 fi
+echo "end make 2"
+sleep 10
 
 # Fix flags in *.pc files
 bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
