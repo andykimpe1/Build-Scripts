@@ -59,7 +59,7 @@ fi
 
 # require aclocal-1.17
 
-if ! ${INSTX_TOPDIR}/build/build.sh automake.sh 1.17
+if ! ${INSTX_TOPDIR}/build.sh automake.sh 1.17
 then
     echo "Failed to build iConv and GetText"
     exit 1
