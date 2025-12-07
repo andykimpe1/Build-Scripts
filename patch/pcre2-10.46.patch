@@ -1,6 +1,6 @@
 --- a/pcre2-config.in
 +++ b/pcre2-config.in
-@@ -28,19 +28,8 @@
+@@ -28,19 +28,7 @@ if test $# -eq 0; then
  fi
  
  libR=
@@ -12,7 +12,7 @@
 -  libR=" -Wl,-R@libdir@"
 -  ;;
 -esac
- 
+-
  libS=
 -if test @libdir@ != /usr/lib ; then
 -  libS=-L@libdir@
@@ -20,3 +20,4 @@
  
  while test $# -gt 0; do
    case "$1" in
+-- 
