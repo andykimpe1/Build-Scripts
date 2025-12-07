@@ -80,15 +80,7 @@ rm -rf "$READLN_DIR" &>/dev/null
 gzip -d < "$READLN_TAR" | tar xf -
 cd "$READLN_DIR" || exit 1
 
-# Patches are created with 'diff -u' from the pkg root directory.
-if [[ -e ${INSTX_TOPDIR}/patch/readline.patch ]]; then
-    echo ""
-    echo "****************************"
-    echo "Patching package"
-    echo "****************************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/readline.patch
-fi
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
