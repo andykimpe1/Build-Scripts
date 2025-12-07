@@ -144,7 +144,7 @@ if [ ! -f "${INSTX_PKG_CACHE}/make" ]; then
 
 if ! VERSION=3.81 ${INSTX_TOPDIR}/build.sh make381 3.81
 then
-    echo "Failed to build make 4.2.1"
+    echo "Failed to build make 3.81"
     exit 1
 fi
 fi
@@ -160,7 +160,7 @@ VERSION=
 #fi
 VERSION=
 ###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/guile2" ]; then
+if [ ! -f "${INSTX_PKG_CACHE}/unzip" ]; then
 if ! ${INSTX_TOPDIR}/build.sh unzip
 then
     echo "Failed to install unzip"
@@ -170,8 +170,8 @@ fi
 hash -r
 VERSION=
 ###############################################################################
-if [ ! -f "${INSTX_PKG_CACHE}/bzip" ]; then
-if ! VERSION=2.2.7 ${INSTX_TOPDIR}/build.sh bzip
+if [ ! -f "${INSTX_PKG_CACHE}/bzip2" ]; then
+if ! VERSION=1.0.8 ${INSTX_TOPDIR}/build.sh bzip2 1.0.8
 then
     echo "Failed to build bzip"
     exit 1
