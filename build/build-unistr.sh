@@ -45,20 +45,11 @@ if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$UNISTR_VER" = "$(cat ${INSTX_PK
     echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
     exit 0
 fi
-
-###############################################################################
-
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
-fi
-
 ###############################################################################
 
 # libunistring only needs iConvert
 
-if ! ${INSTX_TOPDIR}/build/build-iconv-gettext.sh
+if ! ${INSTX_TOPDIR}/build.sh iconv-gettext
 then
     echo "Failed to build iConv and GetText"
     exit 1
@@ -66,11 +57,9 @@ fi
 
 ###############################################################################
 
-###############################################################################
-
 # require aclocal-1.17
 
-if ! ${INSTX_TOPDIR}/build/build-automake1.17.sh
+if ! ${INSTX_TOPDIR}/build/build.sh automake.sh 1.17
 then
     echo "Failed to build iConv and GetText"
     exit 1
@@ -99,14 +88,7 @@ rm -rf "$UNISTR_DIR" &>/dev/null
 gzip -d < "$UNISTR_TAR" | tar xf -
 cd "$UNISTR_DIR"
 
-if [[ -e ${INSTX_TOPDIR}/patch/unistring.patch ]]; then
-    echo ""
-    echo "**********************"
-    echo "Patching package"
-    echo "**********************"
-
-    patch -u -p0 < ${INSTX_TOPDIR}/patch/unistring.patch
-fi
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
