@@ -1,5 +1,7 @@
 #!/bin/bash
-OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' -- "$@")
+OPTS=$(getopt -o s:p:h --long spec:,patch:,help -n 'extract-fedora-patch.sh' opt -- "$@")
+
+#while getopts d:i:t --long spec:,patch:,help opt; do
 
 if [ $? -ne 0 ]; then
   echo "Option analysis failed" >&2
@@ -14,11 +16,11 @@ help=false
 while true; do
   case "$1" in
     -s | --spec)
-      spec="$OPTARG"
+      spec="$OPTS"
       shift 2
       ;;
     -p | --patch)
-      patch="$OPTARG"
+      patch="$OPTS"
       shift 2
       ;;
     -h | --help)
@@ -45,13 +47,11 @@ if [ "$help" = true ]; then
   echo "  -h, --help           Affiche ce message d'aide"
   exit 0
 fi
-
-spec=$1
-patch=$2
+echo $spec
+echo "spec"
+sleep 30
 rm -f patch/$patch.patch
 git clone https://src.fedoraproject.org/rpms/$spec.git /tmp/$spec
-
-$HOME/.build-scripts/wget/bin/wget https://src.fedoraproject.org/rpms/$spec/raw/rawhide/f/$spec.spec -O $spec.spec
 number=1
 while [ $number -le 10000 ]
 do
@@ -62,3 +62,4 @@ do
     fi
     ((number++))
 done
+#done
