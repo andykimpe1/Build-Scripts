@@ -188,7 +188,11 @@ rm -rf "$WGET_DIR" &>/dev/null
 gzip -d < "$WGET_TAR" | tar xf -
 cd "$WGET_DIR" || exit 1
 
+echo "patch"
+sleep 10
 "${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
+echo "end patch"
+sleep 10
 
 # https://lists.gnu.org/archive/html/bug-gnulib/2019-07/msg00058.html
 if false; then
