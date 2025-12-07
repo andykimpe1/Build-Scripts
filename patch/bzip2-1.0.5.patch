@@ -1,0 +1,69 @@
+--- bzip2-1.0.4/Makefile-libbz2_so.cflags	2007-01-08 09:47:27.000000000 +0100
++++ bzip2-1.0.4/Makefile-libbz2_so	2007-01-08 09:48:47.000000000 +0100
+@@ -35,7 +35,7 @@
+       bzlib.o
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.4 $(OBJS)
++	$(CC) $(CFLAGS) -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.4 $(OBJS)
+ 	$(CC) $(CFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.4
+ 	rm -f libbz2.so.1.0
+ 	ln -s libbz2.so.1.0.4 libbz2.so.1.0
+--- bzip2-1.0.4/bzip2recover.c.pom	2007-01-03 03:00:55.000000000 +0100
++++ bzip2-1.0.4/bzip2recover.c	2007-02-05 11:55:17.000000000 +0100
+@@ -309,7 +309,8 @@
+    UInt32      buffHi, buffLo, blockCRC;
+    Char*       p;
+ 
+-   strcpy ( progName, argv[0] );
++   strncpy ( progName, argv[0], BZ_MAX_FILENAME-1);
++   progName[BZ_MAX_FILENAME-1]='\0';
+    inFileName[0] = outFileName[0] = 0;
+ 
+    fprintf ( stderr, 
+diff -up bzip2-1.0.3/decompress.c.pom bzip2-1.0.3/decompress.c
+--- bzip2-1.0.3/decompress.c.pom	2005-02-15 17:23:27.000000000 +0100
++++ bzip2-1.0.3/decompress.c	2010-09-20 20:12:31.000000000 +0200
+@@ -421,6 +421,13 @@ Int32 BZ2_decompress ( DState* s )
+             es = -1;
+             N = 1;
+             do {
++               /* Check that N doesn't get too big, so that es doesn't
++                  go negative.  The maximum value that can be
++                  RUNA/RUNB encoded is equal to the block size (post
++                  the initial RLE), viz, 900k, so bounding N at 2
++                  million should guard against overflow without
++                  rejecting any legitimate inputs. */
++               if (N >= 2*1024*1024) RETURN(BZ_DATA_ERROR);
+                if (nextSym == BZ_RUNA) es = es + (0+1) * N; else
+                if (nextSym == BZ_RUNB) es = es + (1+1) * N;
+                N = N * 2;
+@@ -525,15 +532,28 @@ Int32 BZ2_decompress ( DState* s )
+          RETURN(BZ_DATA_ERROR);
+ 
+       /*-- Set up cftab to facilitate generation of T^(-1) --*/
++      /* Check: unzftab entries in range. */
++      for (i = 0; i <= 255; i++) {
++         if (s->unzftab[i] < 0 || s->unzftab[i] > nblock)
++            RETURN(BZ_DATA_ERROR);
++      }
++      /* Actually generate cftab. */
+       s->cftab[0] = 0;
+       for (i = 1; i <= 256; i++) s->cftab[i] = s->unzftab[i-1];
+       for (i = 1; i <= 256; i++) s->cftab[i] += s->cftab[i-1];
++      /* Check: cftab entries in range. */
+       for (i = 0; i <= 256; i++) {
+          if (s->cftab[i] < 0 || s->cftab[i] > nblock) {
+             /* s->cftab[i] can legitimately be == nblock */
+             RETURN(BZ_DATA_ERROR);
+          }
+       }
++      /* Che: cftab entries non-descending. */
++      for (i = 1; i <= 256; i++) {
++         if (s->cftab[i-1] > s->cftab[i]) {
++            RETURN(BZ_DATA_ERROR);
++         }
++      }
+ 
+       s->state_out_len = 0;
+       s->state_out_ch  = 0
