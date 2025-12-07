@@ -17,7 +17,7 @@ while true; do
       spec="$2"
       shift 2
       ;;
-    -d | --directory)
+    -p | --patch)
       patch="$2"
       shift 2
       ;;
