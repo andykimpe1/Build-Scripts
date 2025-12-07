@@ -13,8 +13,7 @@ fi
 
 # Bzip lost its website. It is now located on Sourceware.
 # https://sourceware.org/bzip2/downloads.html
-
-VERSION=1.0.8
+if [ -z $1 ]; then VERSION=1.0.8; else VERSION=$1; fi
 BZIP2_TAR=bzip2-$VERSION.tar.gz
 BZIP2_DIR=bzip2-$VERSION
 PKG_NAME=bzip2
