@@ -11,7 +11,7 @@ fi
 # script is available for Autotools for brave souls.
 
 if [ -z $1 ]; then VERSION=1.15.1; else VERSION=$1; fi
-
+SUFFIX=${VERSION:0:4}
 AUTOMAKE_TAR="automake-$VERSION.tar.gz"
 AUTOMAKE_DIR="automake-$VERSION"
 PKG_NAME=automake
@@ -55,7 +55,7 @@ echo "**********************"
 echo ""
 echo "Automake $VERSION..."
 
-if ! "${WGET}" -q -O "$AUTOMAKE_TAR" \
+if ! "${WGET}" -O "$AUTOMAKE_TAR" \
      "https://ftp.gnu.org/gnu/automake/$AUTOMAKE_TAR"
 then
     echo "Failed to download Automake"
@@ -82,6 +82,7 @@ echo "**********************"
     LDLIBS="${INSTX_LDLIBS}" \
     LIBS="${INSTX_LDLIBS}" \
 ./configure \
+    --program-suffix=$SUFFIX \
     --build="${AUTOCONF_BUILD}" \
     --prefix="${INSTX_PREFIX}" \
     --libdir="${INSTX_LIBDIR}"
