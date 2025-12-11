@@ -12,11 +12,11 @@ Once you clone the repo you should perform a one-time setup. The setup installs 
 
 ```
 
-bash <(curl -L -Ss [http://sentora.org/install](https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh)
+bash <(curl -L -Ss https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh)
 
 or is curl not found (ubuntu-minimal dDebian base etc use wget) 
 
-bash <(wge -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/master/reset-repo.sh)
 ...
 ```
 
@@ -281,6 +281,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
