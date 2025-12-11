@@ -9,9 +9,10 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds M4 from sources.
 
-M4_VER=1.4.19
-M4_TAR="m4-${M4_VER}.tar.gz"
-M4_DIR="m4-${M4_VER}"
+VERSION=1.4.20
+M4_TAR="m4-${VERSION}.tar.gz"
+M4_DIR="m4-${VERSION}"
+PKG_NAME=m4
 
 ###############################################################################
 
@@ -33,15 +34,12 @@ if [[ "${SUDO_PASSWORD_DONE}" != "yes" ]]; then
     fi
 fi
 
-###############################################################################
 
-if ! ${INSTX_TOPDIR}/build/build-cacert.sh
-then
-    echo "Failed to install CA Certs"
-    exit 1
+if [[ -f "${INSTX_PKG_CACHE}/${PKG_NAME}" && ( "$VERSION" = "$(cat ${INSTX_PKG_CACHE}/${PKG_NAME})" ) ]] ; then
+    echo "$PKG_NAME $(cat ${INSTX_PKG_CACHE}/${PKG_NAME}) is installed."
+    sleep 10
+    exit 0
 fi
-
-###############################################################################
 
 echo ""
 echo "========================================"
@@ -54,7 +52,7 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "M4 ${M4_VER}..."
+echo "M4 ${VERSION}..."
 
 if ! "${WGET}" -q -O "$M4_TAR" \
      "https://ftp.gnu.org/gnu/m4/$M4_TAR"
@@ -151,7 +149,7 @@ echo "**************************************************************************
 
 ###############################################################################
 
-touch "${INSTX_PKG_CACHE}/${PKG_NAME}"
+echo "$VERSION" > "${INSTX_PKG_CACHE}/${PKG_NAME}"
 
 cd "${CURR_DIR}" || exit 1
 
