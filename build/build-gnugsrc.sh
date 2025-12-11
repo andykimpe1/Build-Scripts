@@ -67,8 +67,12 @@ cd "$GSCR_DIR" || exit 1
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
 
+# mbio-serv2.mbioekol.lu.se website closed replaced file by ubuntu source
+#https://answers.launchpad.net/debian/+source/aragorn/1.2.38-3
+#https://answers.launchpad.net/debian/+archive/primary/+sourcefiles/aragorn/1.2.38-3/aragorn_1.2.38.orig.tar.gz
 sed -i 's|MASTER_SITES = http://mbio-serv2.mbioekol.lu.se/|https://github.com/andykimpe1/Build-Scripts/releases/|g' pkg/bio/aragorn/Makefile
 sed -i 's|ASTER_SUBDIR = \$(NAME)/Downloads/|ASTER_SUBDIR = download/download/|g' pkg/bio/aragorn/Makefile
+echo "4b84e3397755fb22cc931c0e7b9d50eaba2a680df854d7a35db46a13cecb2126  download/aragorn1.2.38.tgz" > pkg/bio/aragorn/sha256sums
 
 echo "**********************"
 echo "Configuring package"
