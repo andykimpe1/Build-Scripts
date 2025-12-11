@@ -6,12 +6,9 @@ if [[ ! -d "${INSTX_TOPDIR}/programs" ]]; then
         [[ "$0" == "${BASH_SOURCE[0]}" ]] && exit 1 || return 1
 fi
 
-# Written and placed in public domain by Jeffrey Walton
-# This script builds Automake from sources. A separate
-# script is available for Autotools for brave souls.
 
 if [ -z $1 ]; then VERSION=2021.11.19; else VERSION=$1; fi
-PKG_NAME=gscr
+PKG_NAME=gsrc
 GSCR_TAR="$PKG_NAME-$VERSION.tar.gz"
 GSCR_DIR="$PKG_NAME-$VERSION"
 
@@ -43,7 +40,7 @@ fi
 
 echo ""
 echo "========================================"
-echo "=============== Automake ==============="
+echo "=============== $PKG_NAME ==============="
 echo "========================================"
 
 echo ""
@@ -52,12 +49,12 @@ echo "Downloading package"
 echo "**********************"
 
 echo ""
-echo "Automake $VERSION..."
+echo "$PKG_NAME $VERSION..."
 
 if ! "${WGET}" -O "$GSCR_TAR" \
      "https://ftp.gnu.org/gnu/gsrc/$GSCR_TAR"
 then
-    echo "Failed to download Automake"
+    echo "Failed to download $PKG_NAME"
     exit 1
 fi
 
@@ -89,7 +86,7 @@ echo "**********************"
 if [[ "$?" -ne 0 ]]; then
     echo ""
     echo "****************************"
-    echo "Failed to configure Automake"
+    echo "Failed to configure $PKG_NAME"
     echo "****************************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
@@ -113,7 +110,7 @@ if ! "${MAKE}" "${MAKE_FLAGS[@]}"
 then
     echo ""
     echo "****************************"
-    echo "Failed to build Automake"
+    echo "Failed to build $PKG_NAME"
     echo "****************************"
 
     bash "${INSTX_TOPDIR}/collect-logs.sh" "${PKG_NAME}"
