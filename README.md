@@ -41,6 +41,7 @@ Examples of running the scripts and changing variables are shown below:
 
 ```
 # Build and install using the directories described above
+cd $HOME/Build-Scripts-master
 ./build.sh wget
 
 # Build and install in a temp directory
@@ -281,6 +282,7 @@ Note to future maintainers: honor the user's flags. Never build shit during `mak
 ## Bugs
 
 If you find a bug then submit a patch or raise a bug report.
+
 
 
 
