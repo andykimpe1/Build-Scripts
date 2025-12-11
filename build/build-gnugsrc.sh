@@ -67,6 +67,9 @@ cd "$GSCR_DIR" || exit 1
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
 
+sed -i 's|MASTER_SITES = http://mbio-serv2.mbioekol.lu.se/|https://github.com/andykimpe1/Build-Scripts/releases/|g' pkg/bio/aragorn/Makefile
+sed -i 's|ASTER_SUBDIR = \$(NAME)/Downloads/|ASTER_SUBDIR = download/download|g' pkg/bio/aragorn/Makefile
+
 echo "**********************"
 echo "Configuring package"
 echo "**********************"
