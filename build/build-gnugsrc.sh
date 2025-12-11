@@ -73,6 +73,9 @@ bash "${INSTX_TOPDIR}/fix-configure.sh"
 sed -i 's|MASTER_SITES = http://mbio-serv2.mbioekol.lu.se/|https://github.com/andykimpe1/Build-Scripts/releases/|g' pkg/bio/aragorn/Makefile
 sed -i 's|ASTER_SUBDIR = \$(NAME)/Downloads/|ASTER_SUBDIR = download/download/|g' pkg/bio/aragorn/Makefile
 echo "4b84e3397755fb22cc931c0e7b9d50eaba2a680df854d7a35db46a13cecb2126  download/aragorn1.2.38.tgz" > pkg/bio/aragorn/sha256sums
+mkdir -p pkg/bio/aragorn/download/
+wget https://github.com/andykimpe1/Build-Scripts/releases/download/download/aragorn1.2.38.tgz -O pkg/bio/aragorn/download/aragorn1.2.38.tgz
+chattr +i pkg/bio/aragorn/download/aragorn1.2.38.tgz
 
 echo "**********************"
 echo "Configuring package"
@@ -131,6 +134,8 @@ bash "${INSTX_TOPDIR}/fix-pkgconfig.sh"
 
 # Fix runpaths
 bash "${INSTX_TOPDIR}/fix-runpath.sh"
+
+chattr -i pkg/bio/aragorn/download/aragorn1.2.38.tgz
 
 echo ""
 echo "**********************"
