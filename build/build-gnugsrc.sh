@@ -10,7 +10,7 @@ fi
 if [ -z $1 ]; then VERSION=2021.11.19; else VERSION=$1; fi
 PKG_NAME=gsrc
 GSCR_TAR="$PKG_NAME-$VERSION.tar.gz"
-GSCR_DIR="$PKG_NAME-$VERSION"
+GSCR_DIR="$PKG_NAME"
 
 ###############################################################################
 
@@ -61,6 +61,8 @@ fi
 rm -rf "$GSCR_DIR" &>/dev/null
 gzip -d < "$GSCR_TAR" | tar xf -
 cd "$GSCR_DIR" || exit 1
+
+./bootstrap
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
