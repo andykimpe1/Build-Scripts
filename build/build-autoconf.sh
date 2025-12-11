@@ -9,9 +9,9 @@ fi
 # Written and placed in public domain by Jeffrey Walton
 # This script builds autoconf from sources. A separate
 # script is available for Autotools for brave souls.
-if [ -z $1 ]; then VERSION=2.71; else VERSION=$1; fi
-AUTOCONF_TAR=autoconf-2.71.tar.gz
-AUTOCONF_DIR=autoconf-2.71
+if [ -z $1 ]; then VERSION=2.72; else VERSION=$1; fi
+AUTOCONF_TAR=autoconf-$VERSION.tar.gz
+AUTOCONF_DIR=autoconf-$VERSION
 PKG_NAME=autoconf
 
 ###############################################################################
@@ -57,6 +57,8 @@ fi
 rm -rf "$AUTOCONF_DIR" &>/dev/null
 gzip -d < "$AUTOCONF_TAR" | tar xf -
 cd "$AUTOCONF_DIR" || exit 1
+
+"${WGET}" -qO- https://raw.githubusercontent.com/andykimpe1/Build-Scripts/refs/heads/build/patch/$PKG_NAME-$VERSION.patch | patch -p1
 
 # Fix sys_lib_dlsearch_path_spec
 bash "${INSTX_TOPDIR}/fix-configure.sh"
